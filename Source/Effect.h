@@ -17,7 +17,7 @@ public:
     void Stop(Effekseer::Handle handle);
 
     //座標設定
-    void SetPosition(Effekseer::Handle handle, const DirectX::XMFLOAT3& position);
+    void SetPosition(Effekseer::Handle handle, const DirectX::XMFLOAT3& posdition);
 
     //スケール設定
     void SetScale(Effekseer::Handle handle, const DirectX::XMFLOAT3& scale);
