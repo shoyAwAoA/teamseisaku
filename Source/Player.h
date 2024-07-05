@@ -139,7 +139,8 @@ private:
     enum Animation
     {
         Anim_Attack,
-        Anim_Death,
+        Anim_Migi,
+        Anim_Hidari,
         Anim_Falling,
         Anim_GetHit1,
         Anim_GetHit2,
@@ -149,12 +150,13 @@ private:
         Anim_Landing,
         Anim_Revive,
         Anim_Running,
+        Anim_Death,
         Anim_Walking
     };
 
     Model* model = nullptr;
 
-    float moveSpeed = 5.0f;
+    float moveSpeed = 15.0f;
 
     float        jumpSpeed = 20.0f;
    

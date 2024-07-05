@@ -446,11 +446,11 @@ bool Player::InputMove(float elapsedTime)
     DirectX::XMFLOAT3 moveVec = GetMoveVec();
 
     //移動処理
-    //Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
-    Move(moveVec.x, moveVec.z, moveSpeed);
+    Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
+    //Move(moveVec.x, moveVec.z, moveSpeed);
 
     //旋回処理
-    Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
+ //xx   Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
 
     //進行ベクトルがゼロベクトルではない場合は入力された
     return moveVec.x != 0|| moveVec.y != 0|| moveVec.z != 0;
@@ -531,7 +531,15 @@ void Player::TranstionMoveState()
     state = State::Move;
 
     //走りアニメーション再生
-    model->PlayAnimation(Anim_Running, true);
+    if (velocity.x >= 0)
+    {
+        model->PlayAnimation(Anim_Migi, true);
+    }
+    else if(velocity.x<=0)
+    {
+        model->PlayAnimation(Anim_Hidari, true);
+
+    }
 }
 
 //移動ステート更新処理

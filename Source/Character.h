@@ -101,8 +101,8 @@ protected:
 
 protected:
     //ˆÚ“®ˆ’u
-    //void Move(float elapsedTime, float vx, float vz, float speed);
-    void Move(float vx, float vz, float speed);
+    void Move(float elapsedTime, float vx, float vz, float speed);
+    //void Move(float vx, float vz, float speed);
     //ù‰ñˆ—
     void Turn(float elapsedTime, float vx, float vz, float speed);
 
