@@ -56,7 +56,7 @@ void SceneGame::Initialize()
 	{
 		
 			EnemySlime* slime = new EnemySlime();
-			slime->SetPosition(DirectX::XMFLOAT3(i * 2.0f, 0, 10));
+			slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
 			enemyManager.Register(slime);
 		
 	}

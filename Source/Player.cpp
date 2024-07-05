@@ -31,6 +31,7 @@ Player::Player()
     //モデルが大きいでスケーリング
     scale.x = scale.y = scale.z = 4.0f;
 
+    position.x = 24.0f;
     position.y = 0;
     position.z = -120;
     health = 1;

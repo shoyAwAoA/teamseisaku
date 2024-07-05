@@ -7,10 +7,10 @@ EnemySlime::EnemySlime()
     model = new Model("Data/Model/Slime/Slime.mdl");
 
     //モデルが大きいのでスケーリング
-    scale.x = scale.y = scale.z = 0.01f;
+    scale.x = scale.y = scale.z = 0.1f;
 
     position.y = 0;
-
+    
     //幅、高さ設定
     radius = 0.5f;
     height = 1.0f;

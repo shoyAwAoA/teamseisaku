@@ -18,7 +18,7 @@ StageMain::StageMain()
 //    instance = this;
     //ステージモデルを読み込み
     scale.x = scale.y = scale.z = 3.0f;
-     
+    
     angle.y = DirectX::XMConvertToRadians(180);
 
     model = new Model("Data/Model/Stage/stage.mdl");
