@@ -29,9 +29,10 @@ Player::Player()
     model = new Model("Data/Model/pkpk/pkpk.mdl");
    // model->PlayAnimation(0);
     //モデルが大きいでスケーリング
-    scale.x = scale.y = scale.z = 1.0f;
+    scale.x = scale.y = scale.z = 4.0f;
 
     position.y = 0;
+    position.z = -120;
     health = 1;
     //ヒットエフェクト読み込み
     hitEffect = new Effect("Data/Effect/Hit.efk");
@@ -429,7 +430,9 @@ DirectX::XMFLOAT3 Player::GetMoveVec() const
     //進行ベクトルを計算する
     DirectX::XMFLOAT3 vec;
     vec.x = (ax*cameraRightX)+(ay*cameraFrontX);
-    vec.z = (ax * cameraRightZ )+ (ay * cameraFrontZ);
+  //  vec.x = (ax*cameraRightX)+(ay*cameraFrontX);
+    //vec.z = (ax * cameraRightZ )+ (ay * cameraFrontZ);
+    vec.z = (0);
     //Y軸方向には移動しない
     vec.y = 0.0f;
 
@@ -607,7 +610,7 @@ void Player::TransitionAttackState()
 {
     state = State::Attack;
 
-    model->PlayAnimation(Anim_Attack, false);
+    model->PlayAnimation(Anim_GetHit1, false);
 }
 //攻撃ステート更新処理
 void Player::UpdateAttackState(float elapsedTime)

@@ -2,9 +2,9 @@
 
 #include"Graphics/Shader.h"
 #include"Collision.h"
-
+#include"Character.h"
 //ステージ
-class Stage
+class Stage 
 {
 public:
     Stage() {}

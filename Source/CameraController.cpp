@@ -8,19 +8,19 @@ void CameraController::Update(float elpsedTime)
     GamePad& gamePad = Input::Instance().GetGamePad();
     float ax = gamePad.GetAxisRX();//右スティック
     float ay = gamePad.GetAxisRY();
-    
+
     //カメラの回転速度
     float speed = rollSpeed * elpsedTime;
 
     //スティックの入力値に合わせてX軸とY軸を回転
     angle.y += ax * speed;
     angle.x += ay * speed;
-    
+
     //X軸のカメラ回転を制限
-    
+
     if (angle.x > maxAngleX)
     {
-       angle.x = maxAngleX;
+        angle.x = maxAngleX;
     }
     if (angle.x < minAngleX)
     {
@@ -51,11 +51,15 @@ void CameraController::Update(float elpsedTime)
 
     //注視点から後ろのベクトル方向に一定距離離れたカメラ視点を求める
     DirectX::XMFLOAT3 eye;
-    eye.x = target.x - front.x * range;
+    /*eye.x = target.x - front.x * range;
     eye.y = target.y - front.y * range;
-    eye.z = target.z - front.z * range;
+    eye.z = target.z - front.z * range;*/
+    eye.x = 0 - front.x * range;
+    eye.y = 40 - front.y * range;
+    eye.z = -180 - front.z * range;
 
     //カメラの視点と注視点を設定
-    Camera::Instance().SetLookAt(eye, target, DirectX::XMFLOAT3(0, 1, 0));
+    Camera::Instance().SetLookAt(eye,{ 0, 0, 0
+}, DirectX::XMFLOAT3(0, 1, 0));
 
 }

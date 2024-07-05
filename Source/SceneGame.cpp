@@ -9,6 +9,7 @@
 #include"StageMain.h"
 #include"StageMoveFloor.h"
 
+
 // 初期化
 void SceneGame::Initialize()
 {
@@ -37,8 +38,8 @@ void SceneGame::Initialize()
 	Camera& camera = Camera::Instance();
 
 	camera.SetLookAt(
-		DirectX::XMFLOAT3(0, 10, -10),
-		DirectX::XMFLOAT3(0, 0, 0),
+		DirectX::XMFLOAT3(0, 20, -10),
+		DirectX::XMFLOAT3(0, 10, 0),
 		DirectX::XMFLOAT3(0, 1, 0)
 	);
 	camera.SetPerspectiveFov(
@@ -212,6 +213,7 @@ void SceneGame::Render()
 	{
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
+		
 	}
 }
 
