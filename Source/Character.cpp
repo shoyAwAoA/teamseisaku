@@ -197,10 +197,12 @@ void Character::UpdateHorizontalVelocity(float elapsedFrame)
         if (moveVecLength > 0.0f)
         {
             //加速力
-            float acceleration = this->acceleratio * elapsedFrame;
+            //float acceleration = this->acceleratio * elapsedFrame;
             //移動ベクトルによる加速処理
-            velocity.x += moveVecX*acceleration;
-            velocity.z += moveVecZ*acceleration;
+            /*velocity.x += moveVecX*acceleration;
+            velocity.z += moveVecZ*acceleration;*/
+            velocity.x += moveVecX*elapsedFrame;
+            velocity.z += moveVecZ*elapsedFrame;
 
             //最大速度制限
             float length = sqrtf(velocity.x * velocity.x + velocity.z * velocity.z);
@@ -228,8 +230,8 @@ void Character::UpdateHorizontalVelocity(float elapsedFrame)
 void Character::UpdateHorizontalMove(float elapsedTime)
 {
     //移動処理
-    //position.x += velocity.x * elapsedTime;
-    //position.z += velocity.z * elapsedTime;
+    position.x += velocity.x * elapsedTime;
+    position.z += velocity.z * elapsedTime;
 
     //水平移動量計算
     float velocityLengthXZ = sqrtf(velocity.x * velocity.x + velocity.z * velocity.z);
@@ -287,6 +289,7 @@ void Character::UpdateHorizontalMove(float elapsedTime)
         }
     }
 }
+
 //旋回処理
 void Character::Turn(float elapsedTIme, float vx, float vz, float speed)
 {
@@ -373,16 +376,22 @@ void Character::AddImpulse(const DirectX::XMFLOAT3& impulse)
     velocity.z += impulse.z;
 }
 // 移動処理
-void Character::Move(float vx,float vz,float speed)
+//void Character::Move(float vx,float vz,float speed)
+//{
+//    /*speed *= elapsedTime;
+//    position.x += vx * speed;
+//    position.z += vz * speed;*/
+//
+//    //移動方向ベクトルを設定
+//    moveVecX = vx;
+//    moveVecZ = vz;
+//
+//    //最大速度設定
+//    maxMoveSpeed = speed;
+//}
+void Character::Move(float elapsedTime, float vx, float vz, float speed)
 {
-    /*speed *= elapsedTime;
-    position.x += vx * speed;
-    position.z += vz * speed;*/
-
-    //移動方向ベクトルを設定
-    moveVecX = vx;
-    moveVecZ = vz;
-
-    //最大速度設定
-    maxMoveSpeed = speed;
+    speed *= elapsedTime;
+   position.x += vx * speed;
+   position.z += vz * speed;
 }
