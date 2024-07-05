@@ -52,7 +52,7 @@ void SceneGame::Initialize()
 	cameraController = new CameraController();
 
 	EnemyManager& enemyManager = EnemyManager::Instance();
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 5; ++i)
 	{
 		
 			EnemySlime* slime = new EnemySlime();

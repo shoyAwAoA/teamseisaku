@@ -54,12 +54,12 @@ void CameraController::Update(float elpsedTime)
     /*eye.x = target.x - front.x * range;
     eye.y = target.y - front.y * range;
     eye.z = target.z - front.z * range;*/
-    eye.x = 0 - front.x * range;
+    eye.x = 24 - front.x * range;
     eye.y = 40 - front.y * range;
     eye.z = -180 - front.z * range;
 
     //ƒJƒƒ‰‚Ì‹“_‚Æ’‹“_‚ğİ’è
-    Camera::Instance().SetLookAt(eye,{ 0, 0, 0
+    Camera::Instance().SetLookAt(eye,{ 24, 0, 0
 }, DirectX::XMFLOAT3(0, 1, 0));
 
 }
