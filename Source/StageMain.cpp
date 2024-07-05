@@ -36,7 +36,7 @@ StageMain::~StageMain()
 //void Stage::Update(float elapsedTime)
 void StageMain::Update(float elapsedTime)
 {
-    //
+    UpdateTransform();
 }
 //•`‰æˆ—
 //void Stage::Render(ID3D11DeviceContext* dc, Shader* shader)
