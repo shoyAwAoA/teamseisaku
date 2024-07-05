@@ -26,10 +26,10 @@ Player::Player()
     instance = this;
 
    // model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
-    model = new Model("Data/Model/Jammo/Jammo.mdl");
+    model = new Model("Data/Model/pkpk/pkpk.mdl");
    // model->PlayAnimation(0);
     //モデルが大きいでスケーリング
-    scale.x = scale.y = scale.z = 0.01;
+    scale.x = scale.y = scale.z = 1.0f;
 
     position.y = 0;
     health = 1;
