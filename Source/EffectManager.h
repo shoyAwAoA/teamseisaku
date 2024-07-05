@@ -9,7 +9,7 @@ class EffectManager
 {
 private:
     EffectManager() {}
-    ~EffectManager() {}
+    ~EffectManager() {}//aaaa
 
 public:
     //唯一のインスタンス取得
