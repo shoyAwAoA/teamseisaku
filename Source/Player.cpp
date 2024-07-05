@@ -281,7 +281,7 @@ void Player::CollisionPlayerVsEnemies()
                 impulse.y = power * 0.25f;
                 impulse.z = vz * power;
 
-                SetPosition(impulse);
+               // SetPosition(impulse);
             };
             //health--;
             //‰Ÿ‚µo‚µŒã‚ÌˆÊ’uİ’è
