@@ -16,11 +16,12 @@
 StageMain::StageMain()
 {
 //    instance = this;
-
-
-    angle.y = DirectX::XMConvertToRadians(180);
     //ステージモデルを読み込み
-    model = new Model("Data/Model/Stage/Stage.mdl");
+    scale.x = scale.y = scale.z = 3.0f;
+    
+    angle.y = DirectX::XMConvertToRadians(180);
+
+    model = new Model("Data/Model/Stage/stage.mdl");
 }
 
 //デストラクタ
