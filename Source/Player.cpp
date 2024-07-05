@@ -442,18 +442,26 @@ DirectX::XMFLOAT3 Player::GetMoveVec() const
 
 bool Player::InputMove(float elapsedTime)
 {
-    //進行ベクトル所得
-    DirectX::XMFLOAT3 moveVec = GetMoveVec();
+    GamePad& gamePad = Input::Instance().GetGamePad();
+    if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT)
+    {
+        moveMigiFlag = true;
+        return true;
+    }
+    return false;
 
-    //移動処理
-    Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
-    //Move(moveVec.x, moveVec.z, moveSpeed);
+ //   //進行ベクトル所得
+ //   DirectX::XMFLOAT3 moveVec = GetMoveVec();
 
-    //旋回処理
- //xx   Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
+ //   //移動処理
+ //   Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
+ //   //Move(moveVec.x, moveVec.z, moveSpeed);
 
-    //進行ベクトルがゼロベクトルではない場合は入力された
-    return moveVec.x != 0|| moveVec.y != 0|| moveVec.z != 0;
+ //   //旋回処理
+ ////xx   Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
+
+ //   //進行ベクトルがゼロベクトルではない場合は入力された
+ //   return moveVec.x != 0|| moveVec.y != 0|| moveVec.z != 0;
 }
 
 bool Player::InputJump()
@@ -531,13 +539,13 @@ void Player::TranstionMoveState()
     state = State::Move;
 
     //走りアニメーション再生
-    if (velocity.x >= 0)
+    if (moveMigiFlag)
     {
-        model->PlayAnimation(Anim_Migi, true);
+        model->PlayAnimation(Anim_Migi, false);
     }
-    else if(velocity.x<=0)
+    else if(moveHidariFlag)
     {
-        model->PlayAnimation(Anim_Hidari, true);
+        model->PlayAnimation(Anim_Hidari, false);
 
     }
 }
@@ -546,7 +554,16 @@ void Player::TranstionMoveState()
 void Player::UpdateMoveState(float elapsedTime)
 {
     //移動入力処理
-    if (!InputMove(elapsedTime))
+    /*if (!InputMove(elapsedTime))
+    {
+        TransitionIdleState();
+    }*/
+    if (!model->IsPlayAimation())
+    {
+        moveMigiFlag = false;
+        moveHidariFlag = false;
+    }
+    if (!moveMigiFlag&&!moveHidariFlag)
     {
         TransitionIdleState();
     }
@@ -580,6 +597,7 @@ void Player::TransitionJumpState()
 void Player::UpdateJumpState(float elapsedTime)
 {
     //移動入力処理
+    
     InputMove(elapsedTime);
 
     if (InputJump())
@@ -619,7 +637,7 @@ void Player::TransitionAttackState()
 {
     state = State::Attack;
 
-    model->PlayAnimation(Anim_GetHit1, false);
+    model->PlayAnimation(Anim_Attack, false);
 }
 //攻撃ステート更新処理
 void Player::UpdateAttackState(float elapsedTime)

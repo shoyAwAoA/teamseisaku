@@ -138,10 +138,10 @@ private:
     //アニメーション
     enum Animation
     {
-        Anim_Attack,
+        Anim_Falling,
         Anim_Migi,
         Anim_Hidari,
-        Anim_Falling,
+        Anim_Attack,
         Anim_GetHit1,
         Anim_GetHit2,
         Anim_Idle,
@@ -170,6 +170,10 @@ private:
 
     //アニメーションの再生時間取得し、衝突判定を発生させる時間を制限
     bool         attackCollisitonFlag = false;
+
+    bool         moveMigiFlag = false;
+
+    bool         moveHidariFlag = false;
 
     ProjectileManager   projectileManager;
 
