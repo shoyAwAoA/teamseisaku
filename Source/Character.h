@@ -89,9 +89,9 @@ protected:
 
     bool        isGround = false;
 
-    int         health = 5;
+    int         health = 1;
 
-    int         maxHealth = 5;
+    int         maxHealth = 1;
 
     float       acceleratio = 1.0f;
     float       maxMoveSpeed = 5.0f;

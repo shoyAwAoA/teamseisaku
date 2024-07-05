@@ -27,8 +27,24 @@ public:
     //レイキャスト
     //bool RayCast(const DirectX::XMFLOAT3& start, const DirectX::XMFLOAT3& end, HitResult& hit);
     bool RayCast(const DirectX::XMFLOAT3& start, const DirectX::XMFLOAT3& end, HitResult& hit)override;
+
+    //行列更新処理
+    void UpdateTransform();
     //インスタンス取得
   //  static Stage& Instance();
+
+protected:
+
+    DirectX::XMFLOAT3       position = { 0,0,0 };
+    DirectX::XMFLOAT3       angle = { 0,0,0 };
+    DirectX::XMFLOAT3       scale = { 1,1,1 };
+    DirectX::XMFLOAT3 velocity = { 0,0,0 };
+    DirectX::XMFLOAT4X4     transform = {
+        1,0,0,0,
+        0,1,0,0,
+        0,0,1,0,
+        0,0,0,1
+    };
 private:
     Model* model = nullptr;
 };

@@ -51,11 +51,13 @@ void SceneGame::Initialize()
 	cameraController = new CameraController();
 
 	EnemyManager& enemyManager = EnemyManager::Instance();
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
-		EnemySlime* slime = new EnemySlime();
-		slime->SetPosition(DirectX::XMFLOAT3(i * 2.0f, 0, 5));
-		enemyManager.Register(slime);
+		
+			EnemySlime* slime = new EnemySlime();
+			slime->SetPosition(DirectX::XMFLOAT3(i * 2.0f, 0, 10));
+			enemyManager.Register(slime);
+		
 	}
 
 
