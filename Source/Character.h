@@ -77,7 +77,7 @@ protected:
         0,0,1,0,
         0,0,0,1
     };
-    float        radius = 0.5f;
+    float        radius = 5.0f;
 
     float        height = 2.0f;
 
