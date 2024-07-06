@@ -50,8 +50,12 @@ void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
 
 void EnemySlime::MoveSpeed(float elapsedTime)
 {
-    velocity.z = 0.5f;
-    position.z -= velocity.z;
+    if (health > 0)
+    {
+        velocity.z = 0.5f;
+        position.z -= velocity.z;
+
+    }
 }
 
 //void EnemySlime::DrawDebugGUI()

@@ -33,8 +33,8 @@ Player::Player()
 
     position.x = 24.0f;
     position.y = 0;
-    position.z = -120;
-    health = 1;
+    position.z = -105;
+    health = 2;
     //ヒットエフェクト読み込み
     hitEffect = new Effect("Data/Effect/Hit.efk");
 
@@ -263,7 +263,7 @@ void Player::CollisionPlayerVsEnemies()
             if (ApplyDamage(1, 0.5f))
             {
                 //吹っ飛ばす
-                const float power = 0.0f;
+                const float power = 15.0f;
                 const DirectX::XMFLOAT3 p = GetPosition();
                 const DirectX::XMFLOAT3 e = enemy->GetPosition();
 
@@ -278,10 +278,10 @@ void Player::CollisionPlayerVsEnemies()
                 DirectX::XMFLOAT3 impulse;
 
                 impulse.x = vx * power;
-                impulse.y = power * 0.25f;
-                impulse.z = vz * power;
+                impulse.y = power*20.0f ;
+                impulse.z = (vz * power)*0.75f;
 
-               // SetPosition(impulse);
+                AddImpulse(impulse);
             };
             //health--;
             //押し出し後の位置設定
@@ -445,8 +445,19 @@ bool Player::InputMove(float elapsedTime)
     GamePad& gamePad = Input::Instance().GetGamePad();
     if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT)
     {
-        moveMigiFlag = true;
-        return true;
+        if (position.x < 40)
+        {
+            moveMigiFlag = true;
+            return true;
+        }
+    }
+    if(gamePad.GetButtonDown()& GamePad::BTN_LEFT)
+    {
+        if (position.x >= 10)
+        {
+            moveHidariFlag = true;
+            return true;
+        }
     }
     return false;
 
@@ -539,12 +550,17 @@ void Player::TranstionMoveState()
     state = State::Move;
 
     //走りアニメーション再生
-    if (moveMigiFlag)
+    if (moveMigiFlag&&!moveHidariFlag)
     {
+        velocity.x = 7.00f;
+        position.x += velocity.x;
         model->PlayAnimation(Anim_Migi, false);
     }
-    else if(moveHidariFlag)
+     if(moveHidariFlag&&!moveMigiFlag)
     {
+        velocity.x = -7.00f;
+        position.x += velocity.x;
+       
         model->PlayAnimation(Anim_Hidari, false);
 
     }
@@ -651,12 +667,12 @@ void Player::UpdateAttackState(float elapsedTime)
 
     //任意のアニメーション再生区間でのみ衝突判定処理をする
     float animationTime = model->GetCurrentAnimationSeconds();
-    attackCollisitonFlag = animationTime >=0.3f&&animationTime<=0.4f;
+    attackCollisitonFlag = animationTime >=0.2f&&animationTime<=0.7f;
 
     if (attackCollisitonFlag)
     {
         //左手ノードとエネミーの衝突処理
-        CollisionNodeVsEnemies("mixamorig:LeftHand", leftHandRadius+5);
+        CollisionNodeVsEnemies("joint13", leftHandRadius);
     }
 }
 
@@ -732,7 +748,7 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
         {
             
             //ダメージを与える
-            if (enemy->ApplyDamage(1, 0.5f))
+            if (enemy->ApplyDamage(5, 0.5f))
             {
                 //吹っ飛ばす
                 const float power=5.0f;
