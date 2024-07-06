@@ -215,7 +215,7 @@ void Player::DrawDebugPrimitive()
     );*/
     if (attackCollisitonFlag)
     {
-        Model::Node* leftHandBone = model->FindNode("mixamorig:LeftHand");
+        Model::Node* leftHandBone = model->FindNode("joint6");
         debugRenderer->DrawSphere(DirectX::XMFLOAT3(
             leftHandBone->worldTransform._41,
             leftHandBone->worldTransform._42,
@@ -672,7 +672,7 @@ void Player::UpdateAttackState(float elapsedTime)
     if (attackCollisitonFlag)
     {
         //左手ノードとエネミーの衝突処理
-        CollisionNodeVsEnemies("joint13", leftHandRadius);
+        CollisionNodeVsEnemies("joint6", leftHandRadius);
     }
 }
 
@@ -846,11 +846,11 @@ void Player::CollisionProjectilesVsEnemies()
                 outPosition))
             {
                 //ダメージを与える
-                if (enemy->ApplyDamage(1, 0.5f))
+                if (enemy->ApplyDamage(2, 0.5f))
                 {
                     //吹き飛ばす
                     {
-                        const float power = 10.0f;
+                        const float power = 20.0f;
                         const DirectX::XMFLOAT3 e = enemy->GetPosition();
                         const DirectX::XMFLOAT3 p = projectile->GetPosition();
 

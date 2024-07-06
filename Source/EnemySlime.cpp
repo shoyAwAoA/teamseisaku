@@ -12,7 +12,7 @@ EnemySlime::EnemySlime()
     position.y = 0;
     
     //•A‚‚³İ’è
-    radius = 0.5f;
+    radius = 5.0f;
     height = 1.0f;
     health = 1.0f;
 }
