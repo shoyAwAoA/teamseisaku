@@ -721,7 +721,7 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
 {
     //ノード取得
     Model::Node* node = model->FindNode(nodeName);
-
+    DirectX::XMFLOAT3 positionn = { position.x,position.y,position.z + 10 };
     //ノード位置取得
     DirectX::XMFLOAT3 nodePosition;
     nodePosition.x = node->worldTransform._41;
@@ -739,8 +739,10 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
         //衝突処理
         DirectX::XMFLOAT3 outPosition;
         if (Collision::IntersectSphereVsCylinder(
-            position,
-            radius,
+            //position,
+            //radius,
+            positionn,
+            nodeRadius,
             enemy->GetPosition(),
             enemy->GetRadius(),
             enemy->GetHeight(),
