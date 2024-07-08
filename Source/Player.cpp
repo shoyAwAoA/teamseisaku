@@ -277,7 +277,7 @@ void Player::CollisionPlayerVsEnemies()
 
                 DirectX::XMFLOAT3 impulse;
 
-                impulse.x = vx * power;
+                impulse.x = 0;// vx * power;
                 impulse.y = power*20.0f ;
                 impulse.z = (vz * power)*0.75f;
 
@@ -552,13 +552,13 @@ void Player::TranstionMoveState()
     //走りアニメーション再生
     if (moveMigiFlag&&!moveHidariFlag)
     {
-        velocity.x = 7.00f;
+        velocity.x = 6.50f;
         position.x += velocity.x;
         model->PlayAnimation(Anim_Migi, false);
     }
      if(moveHidariFlag&&!moveMigiFlag)
     {
-        velocity.x = -7.00f;
+        velocity.x = -6.50f;
         position.x += velocity.x;
        
         model->PlayAnimation(Anim_Hidari, false);

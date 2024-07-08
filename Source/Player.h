@@ -138,13 +138,13 @@ private:
     //アニメーション
     enum Animation
     {
-        Anim_Falling,
+        Anim_Idle,
         Anim_Hidari,
         Anim_Migi,
         Anim_Attack,
         Anim_GetHit1,
         Anim_GetHit2,
-        Anim_Idle,
+        Anim_Falling,
         Anim_Jump,
         Anim_Jump_Flip,
         Anim_Landing,
