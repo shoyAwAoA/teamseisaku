@@ -138,13 +138,13 @@ private:
     //アニメーション
     enum Animation
     {
-        Anim_Falling,
-        Anim_Migi,
+        Anim_Idle,
         Anim_Hidari,
+        Anim_Migi,
         Anim_Attack,
         Anim_GetHit1,
         Anim_GetHit2,
-        Anim_Idle,
+        Anim_Falling,
         Anim_Jump,
         Anim_Jump_Flip,
         Anim_Landing,
@@ -162,7 +162,7 @@ private:
    
     float       turnSpeed = DirectX::XMConvertToRadians(720);
 
-    float       leftHandRadius = 0.4f;
+    float       leftHandRadius = 6.0f;
 
     int          jumpCount = 0;
 

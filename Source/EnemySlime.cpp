@@ -12,7 +12,7 @@ EnemySlime::EnemySlime()
     position.y = 0;
     
     //•A‚‚³Ý’è
-    radius = 0.5f;
+    radius = 5.0f;
     height = 1.0f;
     health = 1.0f;
 }
@@ -50,8 +50,12 @@ void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
 
 void EnemySlime::MoveSpeed(float elapsedTime)
 {
-    velocity.z = 0.5f;
-    position.z -= velocity.z;
+    if (health > 0)
+    {
+        velocity.z = 0.5f;
+        position.z -= velocity.z;
+
+    }
 }
 
 //void EnemySlime::DrawDebugGUI()
