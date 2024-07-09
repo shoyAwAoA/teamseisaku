@@ -15,7 +15,7 @@
 
 bool player_yarare_flag;
 
-#include"SceneResult.h"
+
 // 初期化
 void SceneGame::Initialize()
 {
@@ -68,7 +68,7 @@ void SceneGame::Initialize()
 			enemyManager.Register(slime);
 
 			kowasenai* wasenai = new kowasenai();
-			wasenai->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 150));
+			wasenai->SetPosition(DirectX::XMFLOAT3(12.0f, 0, 150));
 			enemyManager.Register(wasenai);
 
 
@@ -76,9 +76,8 @@ void SceneGame::Initialize()
 	}
 
 	Boss* boss = new Boss();
-	boss->SetPosition(DirectX::XMFLOAT3(20, 0, 80));
+	boss->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
 	enemyManager.Register(boss);
-
 
 	//ゲージスプライト
 	gauge = new Sprite();
