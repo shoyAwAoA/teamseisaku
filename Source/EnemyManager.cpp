@@ -88,11 +88,21 @@ void EnemyManager::Register(boss* boss)
 //エネミー全削除
 void EnemyManager::Clear()
 {
-  /*  for (Enemy* enemy : enemies)
+    for (Enemy* enemy : enemies)
     {
         delete enemy;
-    }*/
+    }
+    for (notEnemy* notenemy : notenemies)
+    {
+        delete notenemy;
+    }
+    for (boss* boss : bosss)
+    {
+        delete boss;
+    }
         enemies.clear();
+        notenemies.clear();
+        bosss.clear();
 }
 
 void EnemyManager::CollisionEnemyVsEnemies()

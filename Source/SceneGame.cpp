@@ -11,7 +11,9 @@
 #include"kowasenai.h"
 #include"boss.h"
 #include"SceneResult.h"
+#include"SceneManager.h"
 
+bool player_yarare_flag;
 
 
 // 初期化
@@ -23,6 +25,7 @@ void SceneGame::Initialize()
 	StageMain* stageMain = new StageMain();
 	stageManager.Register(stageMain);
 	player = new Player();
+	player_yarare_flag = false;
 
 	//
 	//StageMoveFloor* stageMoveFloor = new StageMoveFloor();
@@ -242,6 +245,11 @@ void SceneGame::Render()
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 		
+	}
+	
+	if (player_yarare_flag)
+	{
+		SceneManager::Instance().ChangeScene(new SceneResult);
 	}
 }
 

@@ -8,11 +8,13 @@
 #include"Graphics/Sprite.h"
 #include"kowasenai.h"
 
+
+
 // ƒQ[ƒ€ƒV[ƒ“
 class SceneGame :public Scene
 {
 public:
-	SceneGame() {}
+	SceneGame(){}
 	//~SceneGame() {}
 
 	// ‰Šú‰»
