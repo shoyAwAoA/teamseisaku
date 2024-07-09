@@ -14,7 +14,6 @@
 // 初期化
 void SceneGame::Initialize()
 {
-	timer = 0;
 	//ステージの初期化
 	//stage = new Stage();
 	StageManager& stageManager = StageManager::Instance();
@@ -117,7 +116,6 @@ void SceneGame::Finalize()
 // 更新処理
 void SceneGame::Update(float elapsedTime)
 {
-	++timer;
 	//カメラコントローラ更新処理
 	DirectX::XMFLOAT3 target = player->GetPosition();
 	target.y += 0.5f;
@@ -136,17 +134,17 @@ void SceneGame::Update(float elapsedTime)
 
 
 
-	if (timer==500)
-	{
-		EnemyManager& enemyManager = EnemyManager::Instance();
-		for (int i = 0; i < 5; i++)
-		{
-			EnemySlime* slime = new EnemySlime;
-			slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
-			enemyManager.Register(slime);
-		}
-		timer = 0;
-	}
+	//if (timer==500)
+	//{
+	//	EnemyManager& enemyManager = EnemyManager::Instance();
+	//	for (int i = 0; i < 5; i++)
+	//	{
+	//		EnemySlime* slime = new EnemySlime;
+	//		slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
+	//		enemyManager.Register(slime);
+	//	}
+	//	timer = 0;
+	//}
 }
 
 // 描画処理
