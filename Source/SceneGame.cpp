@@ -169,7 +169,7 @@ void SceneGame::Update(float elapsedTime)
 				if (wasenai->GetPosition().x == 24||wasenai->GetPosition().x==48)
 				{
 					wasenai->ApplyDamage(5, 1);
-					
+					wasenai->Destoroy();
 				}
 
 			}
@@ -192,7 +192,7 @@ void SceneGame::Update(float elapsedTime)
 				if (wasenai->GetPosition().x == 24 || wasenai->GetPosition().x == 48)
 				{
 					wasenai->ApplyDamage(5, 1);
-				
+					wasenai->Destoroy();
 				}
 			}
 			
@@ -215,7 +215,7 @@ void SceneGame::Update(float elapsedTime)
 				 if (wasenai->GetPosition().x == 24 || wasenai->GetPosition().x == 48)
 				 {
 					 wasenai->ApplyDamage(5, 1);
-				
+					 wasenai->Destoroy();
 				 }
 			}
 			
@@ -238,7 +238,7 @@ void SceneGame::Update(float elapsedTime)
 				if (wasenai->GetPosition().x == 24 || wasenai->GetPosition().x == 48)
 				{
 					wasenai->ApplyDamage(5, 1);
-					
+					wasenai->Destoroy();
 				}
 
 			}

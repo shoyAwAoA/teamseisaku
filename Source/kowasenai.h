@@ -20,5 +20,6 @@ protected:
     //Ž€–S‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é
  //   void OnDead() {};
     void OnDead()override;
+    //ddddddddddddddddddddd
     //  void OnDamaged()override;
 };
