@@ -621,7 +621,7 @@ void Player::UpdateIdleState(float elapsedTime)
     {
         TranstionMoveState();
     };
-
+    
     //ƒWƒƒƒ“ƒv“ü—Íˆ—
     if (InputJump())
     {

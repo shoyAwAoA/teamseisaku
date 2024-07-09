@@ -62,7 +62,7 @@ void SceneGame::Initialize()
 			enemyManager.Register(slime);
 
 			kowasenai* wasenai = new kowasenai();
-			wasenai->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 120));
+			wasenai->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 150));
 			enemyManager.Register(wasenai);
 
 
