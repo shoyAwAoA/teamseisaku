@@ -12,6 +12,7 @@
 #include"SceneResult.h"
 
 static Player* instance = nullptr;
+extern bool player_yarare_flag;
 
 //インスタンス取得
 Player& Player::Instance()
@@ -809,12 +810,13 @@ void Player::UpdateDeathState(float elapsedTime)
 {
     if(!model->IsPlayAimation())
     {
-        //ボタンを押したら復活ステートへ遷移
-        GamePad& gamePad = Input::Instance().GetGamePad();
-        if (gamePad.GetButtonDown() & GamePad::BTN_A)
-        {
-            TransitionReviveState();
-        }
+        player_yarare_flag = true;
+        ////ボタンを押したら復活ステートへ遷移
+        //GamePad& gamePad = Input::Instance().GetGamePad();
+        //if (gamePad.GetButtonDown() & GamePad::BTN_A)
+        //{
+        //    TransitionReviveState();
+        //}
     }
 }
 
