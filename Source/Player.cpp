@@ -790,7 +790,7 @@ void Player::UpdateDamageState(float elapsedTime)
     if (!model->IsPlayAimation())
     {
         
-            SceneManager::Instance().ChangeScene(new SceneResult);
+           // SceneManager::Instance().ChangeScene(new SceneResult);
         
         //TransitionIdleState();
     }
@@ -1071,7 +1071,7 @@ bool Player::InputProjectile()
             float dist = FLT_MAX;
             EnemyManager& enemyManager = EnemyManager::Instance();
             int enemyCount = enemyManager.GetEnemyCount();
-            DirectX::XMFLOAT3 BossPosition =Boss->GetPosition();
+            //DirectX::XMFLOAT3 BossPosition =Boss->GetPosition();
             for (int i = 0; i < enemyCount; ++i)
             {
                 //“G‚Æ‚Ì‹——£”»’è
@@ -1085,12 +1085,12 @@ bool Player::InputProjectile()
                 if (d < dist)
                 {
                     dist = d;
-                   /* target = enemy->GetPosition();
+                    /*target = enemy->GetPosition();
                     target.y += enemy->GetHeight() + 0.5f;*/
-                   /* target.x = boss::GetPosition().x;
-                    target.y = boss::GetPosition().y;
-                    target.z = boss::GetPosition().z;*/
-                    target = BossPosition;
+                    target.x = 24;
+                    target.y = 5;
+                    target.z = 90;
+                    //target = BossPosition;
                 }
             }
             //”­ŽË

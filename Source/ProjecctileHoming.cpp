@@ -7,7 +7,7 @@ ProjectileHoming::ProjectileHoming(ProjectileManager* manager)
     model = new Model("Data/Model/Sword/Sword.mdl");
 
     //モデルが小さいのでスケーリング
-    scale.x = scale.y = scale.z = 20.0f;
+    scale.x = scale.y = scale.z = 30.0f;
 }
 
 //デストラクタ
