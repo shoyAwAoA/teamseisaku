@@ -51,5 +51,5 @@ void Boss::MoveSpeed(float elapsedTime)
 void Boss::OnDead()
 {
     //‚±‚±‚ÅŸ—˜
-
+    //Ÿ‚¿‚Ü‚µ‚½B
 }
