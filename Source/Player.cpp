@@ -857,44 +857,44 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                 bossFlag = true;
 
 
-                DirectX::XMFLOAT3 dir;
+            //    DirectX::XMFLOAT3 dir;
 
-                dir.x = sin(angle.y);
-                dir.y = 0.0f;
-                dir.z = cos(angle.y);
+            //    dir.x = sin(angle.y);
+            //    dir.y = 0.0f;
+            //    dir.z = cos(angle.y);
 
-                DirectX::XMFLOAT3 pos;
-                pos.x = position.x;
-                pos.y = position.y;
-                pos.z = position.z;
-                DirectX::XMFLOAT3 target;
-                target.x = pos.x + dir.x * 1000.0f;
-                target.y = pos.y + dir.y * 1000.0f;
-                target.z = pos.z + dir.z * 1000.0f;
+            //    DirectX::XMFLOAT3 pos;
+            //    pos.x = position.x;
+            //    pos.y = position.y;
+            //    pos.z = position.z;
+            //    DirectX::XMFLOAT3 target;
+            //    target.x = pos.x + dir.x * 1000.0f;
+            //    target.y = pos.y + dir.y * 1000.0f;
+            //    target.z = pos.z + dir.z * 1000.0f;
 
-                float dist = FLT_MAX;
-                EnemyManager& bossmanager = EnemyManager::Instance();
-                int bosscount = bossmanager.GetbossCount();
-                for (int i = 0; i < bosscount; ++i)
-                {
-                    boss* booss = EnemyManager::Instance().Getboss(i);
-                    DirectX::XMVECTOR P = DirectX::XMLoadFloat3(&position);
-                    DirectX::XMVECTOR E = DirectX::XMLoadFloat3(&booss->GetPosition());
-                    DirectX::XMVECTOR V = DirectX::XMVectorSubtract(E, P);
-                    DirectX::XMVECTOR D = DirectX::XMVector3LengthSq(V);
+            //    float dist = FLT_MAX;
+            //    EnemyManager& bossmanager = EnemyManager::Instance();
+            //    int bosscount = bossmanager.GetbossCount();
+            //    for (int i = 0; i < bosscount; ++i)
+            //    {
+            //        boss* booss = EnemyManager::Instance().Getboss(i);
+            //        DirectX::XMVECTOR P = DirectX::XMLoadFloat3(&position);
+            //        DirectX::XMVECTOR E = DirectX::XMLoadFloat3(&booss->GetPosition());
+            //        DirectX::XMVECTOR V = DirectX::XMVectorSubtract(E, P);
+            //        DirectX::XMVECTOR D = DirectX::XMVector3LengthSq(V);
 
-                    float d;
-                    DirectX::XMStoreFloat(&d, D);
-            if (d < dist)
-            {
-                dist = d;
-                target = booss->GetPosition();
-                target.y += booss->GetHeight() + 0.5f;
-            }
+            //        float d;
+            //        DirectX::XMStoreFloat(&d, D);
+            //if (d < dist)
+            //{
+            //    dist = d;
+            //    target = booss->GetPosition();
+            //    target.y += booss->GetHeight() + 0.5f;
+            //}
 
-            ProjectileHoming* projectile = new ProjectileHoming(&projectileManager);
-            projectile->Launch(dir, pos, target);
-        }
+            //ProjectileHoming* projectile = new ProjectileHoming(&projectileManager);
+            //projectile->Launch(dir, pos, target);
+        //}
 
                 //‚Á”ò‚Î‚·
                 //const float power=5.0f;
@@ -1104,14 +1104,14 @@ bool Player::InputProjectile()
             //ˆê”Ô‹ß‚­‚Ì“G‚ðƒ^[ƒQƒbƒg‚É‚·‚é
             float dist = FLT_MAX;
             EnemyManager& enemyManager = EnemyManager::Instance();
-            int enemyCount = enemyManager.GetEnemyCount();
+            int enemyCount = enemyManager.GetbossCount();
             //DirectX::XMFLOAT3 BossPosition =Boss->GetPosition();
             for (int i = 0; i < enemyCount; ++i)
             {
                 //“G‚Æ‚Ì‹——£”»’è
-                Enemy* enemy = EnemyManager::Instance().GetEnemy(i);
+                boss* booss = EnemyManager::Instance().Getboss(i);
                 DirectX::XMVECTOR P = DirectX::XMLoadFloat3(&position);
-                DirectX::XMVECTOR E = DirectX::XMLoadFloat3(&enemy->GetPosition());
+                DirectX::XMVECTOR E = DirectX::XMLoadFloat3(&booss->GetPosition());
                 DirectX::XMVECTOR V = DirectX::XMVectorSubtract(E, P);
                 DirectX::XMVECTOR D = DirectX::XMVector3LengthSq(V);
                 float d;
@@ -1121,9 +1121,9 @@ bool Player::InputProjectile()
                     dist = d;
                     /*target = enemy->GetPosition();
                     target.y += enemy->GetHeight() + 0.5f;*/
-                    target.x = 24;
-                    target.y = 5;
-                    target.z = 90;
+                    target.x = booss->GetPosition().x;
+                    target.y += booss->GetHealth()+0.5f;
+                    target.z = booss->GetPosition().z;
                     //target = BossPosition;
                 }
             }

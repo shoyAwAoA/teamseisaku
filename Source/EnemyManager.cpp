@@ -71,6 +71,16 @@ void EnemyManager::Remove(Enemy* enemy)
     removes.insert(enemy);
 }
 
+void EnemyManager::Remove(notEnemy* notenemy)
+{
+    notremoves.insert(notenemy);
+}
+
+void EnemyManager::Remove(boss* boss)
+{
+    bossremoves.insert(boss);
+}
+
 //エネミー登録
 void EnemyManager::Register(Enemy* enemy)
 {

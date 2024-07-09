@@ -45,6 +45,7 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
 
 void Boss::MoveSpeed(float elapsedTime)
 {
+
 }
 
 void Boss::OnDead()

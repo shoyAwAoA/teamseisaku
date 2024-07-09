@@ -42,6 +42,10 @@ public:
     //エネミー削除
     void Remove(Enemy* enemy);
 
+    void Remove(notEnemy* notenemy);
+
+    void Remove(boss* boss);
+
     //複数のエネミーを管理するため、エネミーのポインタをstd::vectorで管理する
 
     int GetEnemyCount() const { return static_cast<int>(enemies.size()); }
@@ -61,5 +65,7 @@ private:
     std::vector<notEnemy*> notenemies;
     std::vector<boss*>     bosss;
     std::set<Enemy*>        removes;
+    std::set<notEnemy*>     notremoves;
+    std::set<boss*>         bossremoves;
 
 };

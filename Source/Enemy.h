@@ -41,6 +41,9 @@ public:
     //デバッグプリミティブ描画
     virtual void DrawDebugPrimitive();
 
+    //破棄
+    void Destoroy();
+
 };
 
 class boss :public Character
@@ -56,7 +59,10 @@ public:
     virtual void Render(ID3D11DeviceContext* dc, Shader* shader) = 0;
 
     //デバッグプリミティブ描画
-    //virtual void DrawDebugPrimitive();
+    virtual void DrawDebugPrimitive();
+
+    //破棄
+    void Destoroy();
 };
 
 
