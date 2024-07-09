@@ -7,7 +7,7 @@ ProjectileHoming::ProjectileHoming(ProjectileManager* manager)
     model = new Model("Data/Model/Sword/Sword.mdl");
 
     //モデルが小さいのでスケーリング
-    scale.x = scale.y = scale.z = 3.0f;
+    scale.x = scale.y = scale.z = 20.0f;
 }
 
 //デストラクタ
@@ -20,11 +20,11 @@ ProjectileHoming::~ProjectileHoming()
 void ProjectileHoming::Update(float elapsedTime)
 {
     lifeTimer -= elapsedTime;
-    //寿命処理
-    if (lifeTimer < 0)
-    {
-        Destroy();
-    }
+    ////寿命処理
+    //if (lifeTimer < 0)
+    //{
+    //    Destroy();
+    //}
 
 
 

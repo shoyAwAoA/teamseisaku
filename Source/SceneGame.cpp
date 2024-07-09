@@ -13,7 +13,7 @@
 #include"SceneResult.h"
 
 
-#include"SceneResult.h"
+
 // 初期化
 void SceneGame::Initialize()
 {
@@ -73,9 +73,8 @@ void SceneGame::Initialize()
 	}
 
 	Boss* boss = new Boss();
-	boss->SetPosition(DirectX::XMFLOAT3(20, 0, 80));
+	boss->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
 	enemyManager.Register(boss);
-
 
 	//ゲージスプライト
 	gauge = new Sprite();
