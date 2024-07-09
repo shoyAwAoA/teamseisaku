@@ -48,10 +48,13 @@ public:
 
     int GetnotEnemyCount() const { return static_cast<int>(notenemies.size()); }
 
+    int GetbossCount() const { return static_cast<int>(bosss.size()); }
+
     Enemy* GetEnemy(int index) { return enemies.at(index); }
 
     notEnemy* GetnotEnemy(int index) { return notenemies.at(index); }
 
+    boss* Getboss(int index) { return bosss.at(index); }
    
 private:
     std::vector<Enemy*>     enemies;
