@@ -175,8 +175,6 @@ private:
 
     bool         moveHidariFlag = false;
 
-    bool         bossAttackFlag = false;
-
     ProjectileManager   projectileManager;
 
     Effect* hitEffect = nullptr;
