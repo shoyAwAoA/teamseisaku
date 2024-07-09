@@ -8,6 +8,7 @@
 #include"StageManager.h"
 #include"StageMain.h"
 #include"StageMoveFloor.h"
+#include"kowasenai.h"
 
 
 // ‰Šú‰»
@@ -55,9 +56,15 @@ void SceneGame::Initialize()
 	for (int i = 0; i < 5; ++i)
 	{
 		
-			EnemySlime* slime = new EnemySlime();
-			slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
-			enemyManager.Register(slime);
+			//EnemySlime* slime = new EnemySlime();
+			//slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
+			//enemyManager.Register(slime);
+
+			kowasenai* wasenai = new kowasenai();
+			wasenai->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 120));
+			enemyManager.Register(wasenai);
+
+
 		
 	}
 

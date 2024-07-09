@@ -6,6 +6,7 @@
 #include"EnemySlime.h"
 #include"Scene.h"
 #include"Graphics/Sprite.h"
+#include"kowasenai.h"
 
 // ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame :public Scene
@@ -44,4 +45,5 @@ private:
 	CameraController* cameraController = nullptr;
 	EnemySlime* enemyslime = nullptr;
 	Sprite* gauge = nullptr;
+
 };
