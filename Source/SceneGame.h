@@ -48,5 +48,5 @@ private:
 	EnemySlime* enemyslime = nullptr;
 	Sprite* gauge = nullptr;
 	int timer;
-	int  ramdam;
+	int  ramdam=0;
 };

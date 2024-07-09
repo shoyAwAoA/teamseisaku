@@ -26,6 +26,15 @@ EnemySlime::~EnemySlime()
 //更新処理
 void EnemySlime::Update(float elapsedTime)
 {
+    if (health > 0)
+    {
+        radius = 5.0f;
+    }
+    else if (health <= 0)
+    {
+        radius = 0;
+    }
+
     //速力処理更新
     UpdateVelocity(elapsedTime);
 
@@ -45,7 +54,10 @@ void EnemySlime::Update(float elapsedTime)
 //描画処理
 void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
-    shader->Draw(dc, model);
+    if (health > 0)
+    {
+        shader->Draw(dc, model);
+    }
 }
 
 void EnemySlime::MoveSpeed(float elapsedTime)

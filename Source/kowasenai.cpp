@@ -6,8 +6,8 @@ kowasenai::kowasenai()
 {
     model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
     scale.x = scale.y = scale.z = 0.1f;
-
-    radius = 5.0f;
+    health = 1;
+    radius = 4.0f;
     height = 1.0f;
 
 }
@@ -17,6 +17,14 @@ kowasenai::~kowasenai()
 }
 void kowasenai::Update(float elapsedTime)
 {
+    if (health > 0)
+    {
+        radius = 4.0f;
+    }
+    else if (health <= 0)
+    {
+        radius = 0;
+    }
     //速力処理更新
     UpdateVelocity(elapsedTime);
     //無敵時間更新
@@ -30,7 +38,14 @@ void kowasenai::Update(float elapsedTime)
 }
 void kowasenai::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
-    shader->Draw(dc, model);
+    if (health > 0)
+    {
+        shader->Draw(dc, model);
+    }
+    else if (health <= 0)
+    {
+
+    }
 }
 void kowasenai::MoveSpeed(float elapsedTime)
 {
@@ -43,5 +58,5 @@ void kowasenai::MoveSpeed(float elapsedTime)
 
 void kowasenai::OnDead()
 { 
-    
+    notEnemy::Destoroy();
 }
