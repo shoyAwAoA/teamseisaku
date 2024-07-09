@@ -63,6 +63,14 @@ void EnemyManager::DrawDebugPrimitive()
     {
         enemy->DrawDebugPrimitive();
     }
+    for (notEnemy* notenemy : notenemies)
+    {
+        notenemy->DrawDebugPrimitive();
+    }
+    for (boss* boss : bosss)
+    {
+        boss->DrawDebugPrimitive();
+    }
 }
 
 void EnemyManager::Remove(Enemy* enemy)

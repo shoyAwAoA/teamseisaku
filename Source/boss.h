@@ -16,11 +16,10 @@ public:
 
     void MoveSpeed(float elapsedTime);
 
-    //デバッグ用GUI描画
-   // void DrawDebugGUI();
 
 private:
     Model* model = nullptr;
+    int damage_timer = 60;
 protected:
     //死亡したときに呼ばれる
     void OnDead()override;

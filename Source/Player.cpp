@@ -13,6 +13,7 @@
 
 static Player* instance = nullptr;
 extern bool player_yarare_flag;
+bool damage_flag;
 
 //インスタンス取得
 Player& Player::Instance()
@@ -27,6 +28,7 @@ Player::Player()
 {
     //インスタンスポインタ設定
     instance = this;
+    damage_flag = false;
 
    // model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
     model = new Model("Data/Model/pkpk/jiki.mdl");
@@ -986,15 +988,15 @@ void Player::CollisionProjectilesVsEnemies()
 
     //全ての弾丸と全ての敵を総当たりで衝突処理
     int projectileCount = projectileManager.GetProjectileCount();
-    int enemyCount = enemyManager.GetEnemyCount();
+    int bossCount = enemyManager.GetbossCount();
 
     for (int i = 0; i < projectileCount; ++i)
     {
         Projectile* projectile = projectileManager.GetProjectile(i);
 
-        for (int j = 0; j < enemyCount; ++j)
+        for (int j = 0; j <bossCount; ++j)
         {
-            Enemy* enemy = enemyManager.GetEnemy(j);
+            boss* boooss = enemyManager.Getboss(j);
             
             //衝突処理
             DirectX::XMFLOAT3 outPosition;
@@ -1002,45 +1004,46 @@ void Player::CollisionProjectilesVsEnemies()
             if (Collision::IntersectSphereVsCylinder(
                 projectile->GetPosition(),
                 projectile->GetRadius(),
-                enemy->GetPosition(),
-                enemy->GetRadius(),
-                enemy->GetHeight(),
+                boooss->GetPosition(),
+                boooss->GetRadius(),
+                boooss->GetHeight(),
                 outPosition))
             {
                 //ダメージを与える
-                if (enemy->ApplyDamage(2, 0.5f))
+                if (boooss->ApplyDamage(1, 0.5f))
                 {
-                    //吹き飛ばす
-                    {
-                        const float power = 20.0f;
-                        const DirectX::XMFLOAT3 e = enemy->GetPosition();
-                        const DirectX::XMFLOAT3 p = projectile->GetPosition();
+                    damage_flag = true;
+                    ////吹き飛ばす
+                    //{
+                    //    const float power = 20.0f;
+                    //    const DirectX::XMFLOAT3 e = boooss->GetPosition();
+                    //    const DirectX::XMFLOAT3 p = projectile->GetPosition();
 
-                        float vx = e.x - p.x;
-                        float vz = e.z - p.z;
+                    //    float vx = e.x - p.x;
+                    //    float vz = e.z - p.z;
 
-                        float lengthXZ = sqrtf(vx * vx + vz * vz);
+                    //    float lengthXZ = sqrtf(vx * vx + vz * vz);
 
-                        vx /= lengthXZ;
-                        vz /= lengthXZ;
+                    //    vx /= lengthXZ;
+                    //    vz /= lengthXZ;
 
-                        DirectX::XMFLOAT3 impulse;
+                    //    DirectX::XMFLOAT3 impulse;
 
 
 
-                        impulse.x = vx * power;
-                        impulse.y = power * 0.5f;
-                        impulse.z = vz * power;
+                    //    impulse.x = vx * power;
+                    //    impulse.y = power * 0.5f;
+                    //    impulse.z = vz * power;
 
-                        enemy->AddImpulse(impulse);
-                    }
-                    //ヒットエフェクト再生
+                    //    boooss->AddImpulse(impulse);
+                    //}
+                    ////ヒットエフェクト再生
 
-                    {
-                        DirectX::XMFLOAT3 e = enemy->GetPosition();
-                        e.y += enemy->GetHeight() * 0.5f;
-                        hitEffect->Play(e);
-                    }
+                    //{
+                    //    DirectX::XMFLOAT3 e = boooss->GetPosition();
+                    //    e.y += boooss->GetHeight() * 0.5f;
+                    //    hitEffect->Play(e);
+                    //}
 
                     //弾丸破棄
                     projectile->Destroy();
@@ -1122,7 +1125,7 @@ bool Player::InputProjectile()
                     /*target = enemy->GetPosition();
                     target.y += enemy->GetHeight() + 0.5f;*/
                     target.x = booss->GetPosition().x;
-                    target.y += booss->GetHealth()+0.5f;
+                    target.y += booss->GetHealth();
                     target.z = booss->GetPosition().z;
                     //target = BossPosition;
                 }

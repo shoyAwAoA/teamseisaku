@@ -6,9 +6,9 @@ kowasenai::kowasenai()
 {
     model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
     scale.x = scale.y = scale.z = 0.1f;
-    health = 1;
-    radius = 4.0f;
-    height = 1.0f;
+
+    radius = 5.0f;
+    height = 2.0f;
 
 }
 kowasenai::~kowasenai()
