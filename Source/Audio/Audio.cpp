@@ -26,8 +26,8 @@ Audio::Audio()
 	_ASSERT_EXPR(SUCCEEDED(hr), HRTrace(hr));
 
 	// マスタリングボイス生成
-	hr = xaudio->CreateMasteringVoice(&masteringVoice);
-	_ASSERT_EXPR(SUCCEEDED(hr), HRTrace(hr));
+	//hr = xaudio->CreateMasteringVoice(&masteringVoice);
+	//_ASSERT_EXPR(SUCCEEDED(hr), HRTrace(hr));
 }
 
 // デストラクタ
