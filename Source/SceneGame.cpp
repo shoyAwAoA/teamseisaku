@@ -15,6 +15,7 @@
 
 bool player_yarare_flag;
 
+#include"SceneResult.h"
 // ‰Šú‰»
 void SceneGame::Initialize()
 {
