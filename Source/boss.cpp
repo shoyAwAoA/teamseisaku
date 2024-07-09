@@ -1,3 +1,4 @@
+#include<imgui.h>
 #include "boss.h"
 
 Boss::Boss()
@@ -11,8 +12,8 @@ Boss::Boss()
     angle.y=(DirectX::XMConvertToRadians(180));
 
     //幅、高さ設定
-    radius = 5.0f;
-    height = 1.0f;
+    radius = 20.0f;
+    height = 20.0f;
     health = 10.0f;
 }
 
@@ -41,12 +42,24 @@ void Boss::Update(float elapsedTime)
 void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
     shader->Draw(dc, model);
+
+    ImGui::SetNextWindowPos(ImVec2(10, 100), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
+
+    if (ImGui::Begin("Boss", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        //トランスフォーム
+
+        ImGui::InputInt("Health", &health);
+
+    }
+    ImGui::End();
 }
 
 void Boss::MoveSpeed(float elapsedTime)
 {
-
 }
+
 
 void Boss::OnDead()
 {

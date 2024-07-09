@@ -6,7 +6,7 @@ kowasenai::kowasenai()
     scale.x = scale.y = scale.z = 0.1f;
 
     radius = 5.0f;
-    height = 1.0f;
+    height = 2.0f;
 
 }
 kowasenai::~kowasenai()

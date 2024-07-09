@@ -16,8 +16,6 @@ public:
 
     void MoveSpeed(float elapsedTime);
 
-    //デバッグ用GUI描画
-   // void DrawDebugGUI();
 
 private:
     Model* model = nullptr;
