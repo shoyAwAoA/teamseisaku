@@ -27,6 +27,8 @@ public:
     //エネミー登録
     void Register(Enemy* enemy);
 
+    void Register(notEnemy* notenemy);
+
     //エネミー全削除
     void Clear();
 
@@ -40,11 +42,16 @@ public:
 
     int GetEnemyCount() const { return static_cast<int>(enemies.size()); }
 
+    int GetnotEnemyCount() const { return static_cast<int>(notenemies.size()); }
+
     Enemy* GetEnemy(int index) { return enemies.at(index); }
+
+    notEnemy* GetnotEnemy(int index) { return notenemies.at(index); }
 
    
 private:
     std::vector<Enemy*>     enemies;
+    std::vector<notEnemy*> notenemies;
     std::set<Enemy*>        removes;
 
 };

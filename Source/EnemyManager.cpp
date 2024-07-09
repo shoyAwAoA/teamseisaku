@@ -9,6 +9,11 @@ void EnemyManager::Update(float elapsedTime)
         enemy->Update(elapsedTime);
     }
 
+    for (notEnemy* notenemy : notenemies)
+    {
+        notenemy->Update(elapsedTime);
+    }
+
     //”jŠüˆ—
     for (Enemy* enemy : removes)
     {
@@ -22,6 +27,7 @@ void EnemyManager::Update(float elapsedTime)
 
     }
 
+
         removes.clear();
 
     //“G“¯m‚ÌÕ“Ë”»’è
@@ -34,6 +40,11 @@ void EnemyManager::Render(ID3D11DeviceContext* context, Shader* shader)
     for (Enemy* enemy : enemies)
     {
         enemy->Render(context, shader);
+    }
+
+    for (notEnemy* notenemy : notenemies)
+    {
+        notenemy->Render(context, shader);
     }
 }
 
@@ -57,6 +68,10 @@ void EnemyManager::Register(Enemy* enemy)
 {
     
     enemies.emplace_back(enemy);
+}
+void EnemyManager::Register(notEnemy* notenemy)
+{
+    notenemies.emplace_back(notenemy);
 }
 //ƒGƒlƒ~[‘Síœ
 void EnemyManager::Clear()

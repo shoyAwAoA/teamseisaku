@@ -34,7 +34,7 @@ Player::Player()
     position.x = 24.0f;
     position.y = 0;
     position.z = -105;
-    health = 2;
+    health = 1;
     //ヒットエフェクト読み込み
     hitEffect = new Effect("Data/Effect/Hit.efk");
 
@@ -299,6 +299,78 @@ void Player::CollisionPlayerVsEnemies()
         }
 
     }
+
+    EnemyManager& notenemyManager = EnemyManager::Instance();
+
+    int notenemycount = notenemyManager.GetnotEnemyCount();
+    
+
+    for (int i = 0; i < notenemycount; ++i)
+    {
+        notEnemy* notenemy = enemyManager.GetnotEnemy(i);
+        //衝突処理
+        DirectX::XMFLOAT3 outPosition;
+        //    if (Collision::IntersectSphereVeSphere(
+        //        GetPosition(),
+        //        GetRadius(),
+        //        enemy->GetPosition(),
+        //        enemy->GetRadius(),
+        //        outPosition))
+        //    {
+        //        //押し出し後の位置設定
+        //        enemy->SetPosition(outPosition);
+        //    }
+        //}
+        if (Collision::IntersectCylinderVsCylinder(
+            GetPosition(),
+            GetRadius(),
+            GetHeight(),
+            notenemy->GetPosition(),
+            notenemy->GetRadius(),
+            notenemy->GetHeight(),
+            outPosition
+        ))
+        {
+            //ダメージを与える
+            if (ApplyDamage(1, 0.5f))
+            {
+                ////吹っ飛ばす
+                //const float power = 15.0f;
+                //const DirectX::XMFLOAT3 p = GetPosition();
+                //const DirectX::XMFLOAT3 e = notenemy->GetPosition();
+
+                //float vx = p.x - e.x;
+                //float vz = p.z - e.z;
+
+                //float lengthXZ = sqrtf((vx * vx) + (vz * vz));
+
+                //vx /= lengthXZ;
+                //vz /= lengthXZ;
+
+                //DirectX::XMFLOAT3 impulse;
+
+                //impulse.x = 0;// vx * power;
+                //impulse.y = power * 20.0f;
+                //impulse.z = (vz * power) * 0.75f;
+
+                //AddImpulse(impulse);
+            };
+            //health--;
+            //押し出し後の位置設定
+//            enemy->SetPosition(outPosition);
+            //if (enemy->GetPosition().x - 1 <= GetPosition().x && enemy->GetPosition().x + 1 >= GetPosition().x)
+            //{
+            //    if (enemy->GetPosition().y + 1 == GetPosition().y)
+            //    {
+            //        if(enemy->GetPosition().z-1<=GetPosition().z&&enemy->GetPosition().z+1>=GetPosition().z)
+            //        { 
+            //            Jump(jumpSpeed);
+            //        }
+            //    }
+            //}
+        }
+
+    }
 }
 
 void Player::UpdateInvincibleTimer(float elapsedTime)
@@ -340,6 +412,28 @@ void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
 
     //弾丸描画処理
     projectileManager.Render(dc, shader);
+
+    if (ImGui::Begin("parameter", nullptr, ImGuiWindowFlags_None))
+    {
+       
+        if (moveMigiFlag)
+        {
+            ImGui::Checkbox(u8"MIGI", &moveMigiFlag);
+        }
+        else
+        {
+            ImGui::Checkbox(u8"MIGI", &moveMigiFlag);
+        }
+        if (moveHidariFlag)
+        {
+            ImGui::Checkbox(u8"HIGI", &moveHidariFlag);
+        }
+        else
+        {
+            ImGui::Checkbox(u8"HIGI", &moveHidariFlag);
+        }
+    }
+    ImGui::End();
 }
 
 void Player::DrawDebugGUI()
@@ -520,6 +614,8 @@ void Player::TransitionIdleState()
 //待機ステート更新処理
 void Player::UpdateIdleState(float elapsedTime)
 {
+    moveHidariFlag = false;
+    moveMigiFlag = false;
     //移動入力処理
     if (InputMove(elapsedTime))
     {
@@ -751,24 +847,30 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
             //ダメージを与える
             if (enemy->ApplyDamage(5, 0.5f))
             {
+
+                DirectX::XMFLOAT3 dir;
+
+                dir.x = sin(angle.y);
+                dir.y = 0.0f;
+                dir.z = cos(angle.y);
                 //吹っ飛ばす
-                const float power=5.0f;
-                DirectX::XMFLOAT3 e = enemy->GetPosition();
-                float vx = e.x - nodePosition.x;
-                float vz = e.z - nodePosition.z;
+                //const float power=5.0f;
+                //DirectX::XMFLOAT3 e = enemy->GetPosition();
+                //float vx = e.x - nodePosition.x;
+                //float vz = e.z - nodePosition.z;
 
-                float lengthXZ = sqrtf((vx * vx) + (vz * vz));
+                //float lengthXZ = sqrtf((vx * vx) + (vz * vz));
 
-                vx /= lengthXZ;
-                vz /= lengthXZ;
+                //vx /= lengthXZ;
+                //vz /= lengthXZ;
 
-                DirectX::XMFLOAT3 impulse;
+                //DirectX::XMFLOAT3 impulse;
 
-                impulse.x = vx * power;
-                impulse.y = power * 0.5f;
-                impulse.z = vz * power;
+                //impulse.x = vx * power;
+                //impulse.y = power * 0.5f;
+                //impulse.z = vz * power;
 
-                enemy->AddImpulse(impulse);
+                //enemy->AddImpulse(impulse);
             }
             //ヒットエフェクト再生
             {
@@ -776,6 +878,22 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                 e.y += enemy->GetHeight() * 0.5f;
                 hitEffect->Play(e);
             }
+        }
+
+        notEnemy* notenemy = enemyManager.GetnotEnemy(i);
+
+        //衝突処理
+        DirectX::XMFLOAT3 outPosition2;
+        if (Collision::IntersectSphereVsCylinder(
+            //position,
+            positionn,
+            nodeRadius,
+            notenemy->GetPosition(),
+            notenemy->GetRadius(),
+            notenemy->GetHeight(),
+            outPosition2))
+        {
+            ApplyDamage(1, 0.5f);
         }
     }
 }

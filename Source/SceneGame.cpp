@@ -8,18 +8,19 @@
 #include"StageManager.h"
 #include"StageMain.h"
 #include"StageMoveFloor.h"
+#include"kowasenai.h"
 
 
 // 初期化
 void SceneGame::Initialize()
 {
-	timer = 0;
 	//ステージの初期化
 	//stage = new Stage();
 	StageManager& stageManager = StageManager::Instance();
 	StageMain* stageMain = new StageMain();
 	stageManager.Register(stageMain);
 	player = new Player();
+
 	//
 	//StageMoveFloor* stageMoveFloor = new StageMoveFloor();
 	//stageMoveFloor->SetStartPoint(DirectX::XMFLOAT3(0, 1, 3));
@@ -28,10 +29,10 @@ void SceneGame::Initialize()
 	//stageManager.Register(stageMoveFloor);
 
 	//エネミー初期化	
-    // EnemyManager& enemyManager = EnemyManager::Instance();
-	/*enemyslime = new EnemySlime();
-	enemyslime->SetPosition(DirectX::XMFLOAT3(0, 0, 5));
-	enemyManager.Register(enemyslime);*/
+ //    EnemyManager& enemyManager = EnemyManager::Instance();
+	///*enemyslime = new EnemySlime();
+	//enemyslime->SetPosition(DirectX::XMFLOAT3(0, 0, 5));
+	//enemyManager.Register(enemyslime);*/
 	
 
 	//カメラ初期設定
@@ -59,6 +60,12 @@ void SceneGame::Initialize()
 			EnemySlime* slime = new EnemySlime();
 			slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
 			enemyManager.Register(slime);
+
+			kowasenai* wasenai = new kowasenai();
+			wasenai->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 120));
+			enemyManager.Register(wasenai);
+
+
 		
 	}
 
@@ -109,7 +116,6 @@ void SceneGame::Finalize()
 // 更新処理
 void SceneGame::Update(float elapsedTime)
 {
-	++timer;
 	//カメラコントローラ更新処理
 	DirectX::XMFLOAT3 target = player->GetPosition();
 	target.y += 0.5f;
@@ -126,17 +132,19 @@ void SceneGame::Update(float elapsedTime)
 	//エフェクト更新処理
 	EffectManager::Instance().Update(elapsedTime);
 
-	if (timer==500)
-	{
-		EnemyManager& enemyManager = EnemyManager::Instance();
-		for (int i = 0; i < 5; i++)
-		{
-			EnemySlime* slime = new EnemySlime;
-			slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
-			enemyManager.Register(slime);
-		}
-		timer = 0;
-	}
+
+
+	//if (timer==500)
+	//{
+	//	EnemyManager& enemyManager = EnemyManager::Instance();
+	//	for (int i = 0; i < 5; i++)
+	//	{
+	//		EnemySlime* slime = new EnemySlime;
+	//		slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
+	//		enemyManager.Register(slime);
+	//	}
+	//	timer = 0;
+	//}
 }
 
 // 描画処理
@@ -250,106 +258,106 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 
 	for (int i = 0; i < enemyCount; ++i)
 	{
-		Enemy* enemy = enemyManager.GetEnemy(i);
-		
-		DirectX::XMFLOAT3 worldPosition = enemy->GetPosition();
-		worldPosition.y += enemy->GetHeight();
-		DirectX::XMVECTOR WorldPosition = DirectX::XMLoadFloat3(&worldPosition);
+		//	Enemy* enemy = enemyManager.GetEnemy(i);
+		//	
+		//	DirectX::XMFLOAT3 worldPosition = enemy->GetPosition();
+		//	worldPosition.y += enemy->GetHeight();
+		//	DirectX::XMVECTOR WorldPosition = DirectX::XMLoadFloat3(&worldPosition);
 
-		//ワールド座標からスクリーン座標へ変換
-		DirectX::XMVECTOR ScreenPosition = DirectX::XMVector3Project(
-			WorldPosition,//ワールド座標
-			viewport.TopLeftX,	  //ビューポート左上X位置
-			viewport.TopLeftY,	  //ビューポート左上Y位置
-			viewport.Width,//ビューポート幅
-			viewport.Height,//ビューポート高さ
-			viewport.MinDepth,//深度値の範囲を表す最小値(0.0でよい)
-			viewport.MaxDepth,//深度値の範囲を表す最大値(1.0fでよい)
-			Projection,//プロジェクション行列
-			View,//ビュー行列
-			World//ワールド行列(単位行列で良い)
-			);
+		//	//ワールド座標からスクリーン座標へ変換
+		//	DirectX::XMVECTOR ScreenPosition = DirectX::XMVector3Project(
+		//		WorldPosition,//ワールド座標
+		//		viewport.TopLeftX,	  //ビューポート左上X位置
+		//		viewport.TopLeftY,	  //ビューポート左上Y位置
+		//		viewport.Width,//ビューポート幅
+		//		viewport.Height,//ビューポート高さ
+		//		viewport.MinDepth,//深度値の範囲を表す最小値(0.0でよい)
+		//		viewport.MaxDepth,//深度値の範囲を表す最大値(1.0fでよい)
+		//		Projection,//プロジェクション行列
+		//		View,//ビュー行列
+		//		World//ワールド行列(単位行列で良い)
+		//		);
 
-		//スクリーン座標
-		DirectX::XMFLOAT2 screenPosition;
-		DirectX::XMStoreFloat2(&screenPosition, ScreenPosition);
+		//	//スクリーン座標
+		//	DirectX::XMFLOAT2 screenPosition;
+		//	DirectX::XMStoreFloat2(&screenPosition, ScreenPosition);
 
-		//ゲージの長さ
-		const float gaugeWidth = 30.0f;
-		const float gaugeHeight = 5.0f;
+		//	//ゲージの長さ
+		//	const float gaugeWidth = 30.0f;
+		//	const float gaugeHeight = 5.0f;
 
-		float healthRate = enemy->GetHealth() /static_cast<float> (enemy->GetMaxHealth());
+		//	float healthRate = enemy->GetHealth() /static_cast<float> (enemy->GetMaxHealth());
 
-		//ゲージ描画
-		gauge->Render(
-			dc,
-			screenPosition.x - gaugeWidth * 0.5f,
-			screenPosition.y - gaugeHeight,
-			gaugeWidth * healthRate,
-			gaugeHeight,
-			0, 0,
-			static_cast<float>(gauge->GetTextureWidth()),
-			static_cast<float>(gauge->GetTextureHeight()),
-			0.0f,
-			1.0f, 0.0f, 0.0f, 1.0f
-		);
+		//	//ゲージ描画
+		//	gauge->Render(
+		//		dc,
+		//		screenPosition.x - gaugeWidth * 0.5f,
+		//		screenPosition.y - gaugeHeight,
+		//		gaugeWidth * healthRate,
+		//		gaugeHeight,
+		//		0, 0,
+		//		static_cast<float>(gauge->GetTextureWidth()),
+		//		static_cast<float>(gauge->GetTextureHeight()),
+		//		0.0f,
+		//		1.0f, 0.0f, 0.0f, 1.0f
+		//	);
+		//}
+		////エネミーの配置処理
+		//Mouse& mouse = Input::Instance().GetMouse();
+		//if (mouse.GetButtonDown() & Mouse::BTN_LEFT)
+		//{
+		//	//マウスカーソル座標を取得
+		//	DirectX::XMFLOAT3 screenPosition;
+		//	screenPosition.x = static_cast<float>(mouse.GetPositionX());
+		//	screenPosition.y = static_cast<float>(mouse.GetPositionY());
+
+		//	DirectX::XMVECTOR ScreenPosition, WorldPosition;
+
+		//	//レイの始点を算出
+		//	screenPosition.z = 0.0f;
+		//	ScreenPosition = DirectX::XMLoadFloat3(&screenPosition);
+		//	WorldPosition = DirectX::XMVector3Unproject(
+		//		ScreenPosition,
+		//		viewport.TopLeftX,
+		//		viewport.TopLeftY,
+		//		viewport.Width,
+		//		viewport.Height,
+		//		viewport.MinDepth,
+		//		viewport.MaxDepth,
+		//		Projection,
+		//		View,
+		//		World
+		//	);
+		//	DirectX::XMFLOAT3 rayStart;
+		//	DirectX::XMStoreFloat3(&rayStart, WorldPosition);
+
+		//	//レイの終点を算出
+		//	screenPosition.z = 1.0f;
+		//	ScreenPosition = DirectX::XMLoadFloat3(&screenPosition);
+		//	WorldPosition = DirectX::XMVector3Unproject(
+		//		ScreenPosition,
+		//		viewport.TopLeftX,
+		//		viewport.TopLeftY,
+		//		viewport.Width,
+		//		viewport.Height,
+		//		viewport.MinDepth,
+		//		viewport.MaxDepth,
+		//		Projection,
+		//		View,
+		//		World
+		//	);
+		//	DirectX::XMFLOAT3 rayEnd;
+		//	DirectX::XMStoreFloat3(&rayEnd, WorldPosition);
+
+		//	//レイキャスト
+		//	HitResult hit;
+		//	if (StageManager::Instance().RayCast(rayStart, rayEnd, hit))
+		//	{
+		//		//敵を配置
+		//		EnemySlime* slime = new EnemySlime();
+		//		slime->SetPosition(hit.position);
+		//		EnemyManager::Instance().Register(slime);
+		//	}
+		//}
 	}
-	//エネミーの配置処理
-	Mouse& mouse = Input::Instance().GetMouse();
-	if (mouse.GetButtonDown() & Mouse::BTN_LEFT)
-	{
-		//マウスカーソル座標を取得
-		DirectX::XMFLOAT3 screenPosition;
-		screenPosition.x = static_cast<float>(mouse.GetPositionX());
-		screenPosition.y = static_cast<float>(mouse.GetPositionY());
-
-		DirectX::XMVECTOR ScreenPosition, WorldPosition;
-
-		//レイの始点を算出
-		screenPosition.z = 0.0f;
-		ScreenPosition = DirectX::XMLoadFloat3(&screenPosition);
-		WorldPosition = DirectX::XMVector3Unproject(
-			ScreenPosition,
-			viewport.TopLeftX,
-			viewport.TopLeftY,
-			viewport.Width,
-			viewport.Height,
-			viewport.MinDepth,
-			viewport.MaxDepth,
-			Projection,
-			View,
-			World
-		);
-		DirectX::XMFLOAT3 rayStart;
-		DirectX::XMStoreFloat3(&rayStart, WorldPosition);
-
-		//レイの終点を算出
-		screenPosition.z = 1.0f;
-		ScreenPosition = DirectX::XMLoadFloat3(&screenPosition);
-		WorldPosition = DirectX::XMVector3Unproject(
-			ScreenPosition,
-			viewport.TopLeftX,
-			viewport.TopLeftY,
-			viewport.Width,
-			viewport.Height,
-			viewport.MinDepth,
-			viewport.MaxDepth,
-			Projection,
-			View,
-			World
-		);
-		DirectX::XMFLOAT3 rayEnd;
-		DirectX::XMStoreFloat3(&rayEnd, WorldPosition);
-
-		//レイキャスト
-		HitResult hit;
-		if (StageManager::Instance().RayCast(rayStart, rayEnd, hit))
-		{
-			//敵を配置
-			EnemySlime* slime = new EnemySlime();
-			slime->SetPosition(hit.position);
-			EnemyManager::Instance().Register(slime);
-		}
-	}
-
 }

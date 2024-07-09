@@ -57,6 +57,7 @@ void CameraController::Update(float elpsedTime)
     eye.x = 24 - front.x * range;
     eye.y = 40 - front.y * range;
     eye.z = -180 - front.z * range;
+    //DirectX::XMMatrixPerspectiveFovLH(eye.y, 50, front.z, front.z * range);
 
     //ƒJƒƒ‰‚Ì‹“_‚Æ’‹“_‚ğİ’è
     Camera::Instance().SetLookAt(eye,{ 24, 0, 0
