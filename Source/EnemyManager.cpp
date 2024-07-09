@@ -24,6 +24,8 @@ void EnemyManager::Update(float elapsedTime)
 
         removes.clear();
 
+       
+
     //“G“¯m‚ÌÕ“Ë”»’è
     CollisionEnemyVsEnemies();
 }
