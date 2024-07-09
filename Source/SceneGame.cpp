@@ -9,10 +9,8 @@
 #include"StageMain.h"
 #include"StageMoveFloor.h"
 #include"kowasenai.h"
-
-
-
-
+#include"boss.h"
+#include"SceneResult.h"
 
 
 #include"SceneResult.h"
@@ -73,6 +71,10 @@ void SceneGame::Initialize()
 
 		
 	}
+
+	Boss* boss = new Boss();
+	boss->SetPosition(DirectX::XMFLOAT3(20, 0, 80));
+	enemyManager.Register(boss);
 
 
 	//ゲージスプライト
@@ -136,6 +138,7 @@ void SceneGame::Update(float elapsedTime)
 	EnemyManager::Instance().Update(elapsedTime);
 	//エフェクト更新処理
 	EffectManager::Instance().Update(elapsedTime);
+
 
 
 	//if (timer==500)

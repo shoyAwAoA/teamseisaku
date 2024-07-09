@@ -1,8 +1,8 @@
 #pragma once
-
 #include"Enemy.h"
 
-class Boss :public Enemy
+
+class Boss :public boss
 {
 public:
     Boss();
