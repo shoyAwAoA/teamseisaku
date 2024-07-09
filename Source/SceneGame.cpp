@@ -10,8 +10,12 @@
 #include"StageMoveFloor.h"
 #include"kowasenai.h"
 
-#include"SceneResult.h"
 
+
+
+
+
+#include"SceneResult.h"
 // ‰Šú‰»
 void SceneGame::Initialize()
 {
