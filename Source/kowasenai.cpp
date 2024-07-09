@@ -1,4 +1,6 @@
 #include "kowasenai.h"
+
+
 //コンストラクタ
 kowasenai::kowasenai()
 {
@@ -37,4 +39,9 @@ void kowasenai::MoveSpeed(float elapsedTime)
         velocity.z = 0.5f;
         position.z -= velocity.z;
     }
+}
+
+void kowasenai::OnDead()
+{ 
+    
 }

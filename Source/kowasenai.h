@@ -1,6 +1,7 @@
 #pragma once
 #include"Graphics/Model.h"
 #include"Enemy.h"
+#include"EnemyManager.h"
 class kowasenai :public notEnemy
 {
 public:
@@ -17,6 +18,7 @@ private:
     Model* model = nullptr;
 protected:
     //Ž€–S‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é
-    void OnDead() {};
+ //   void OnDead() {};
+    void OnDead()override;
     //  void OnDamaged()override;
 };

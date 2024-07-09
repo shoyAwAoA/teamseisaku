@@ -47,5 +47,6 @@ private:
 	CameraController* cameraController = nullptr;
 	EnemySlime* enemyslime = nullptr;
 	Sprite* gauge = nullptr;
-
+	int timer;
+	int  ramdam;
 };

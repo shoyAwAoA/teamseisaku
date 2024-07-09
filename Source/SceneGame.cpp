@@ -19,6 +19,8 @@ bool player_yarare_flag;
 // 初期化
 void SceneGame::Initialize()
 {
+	timer = 0;
+	ramdam = 0;
 	//ステージの初期化
 	//stage = new Stage();
 	StageManager& stageManager = StageManager::Instance();
@@ -142,18 +144,124 @@ void SceneGame::Update(float elapsedTime)
 	EffectManager::Instance().Update(elapsedTime);
 
 
+	if (timer >= 500 && rand() % 200 == 0)
+	{
+		ramdam = rand() % 4 + 1;
+		EnemyManager& enemyManager = EnemyManager::Instance();
+	
+		
+		switch (ramdam)
+		{
+		case 1:
+			for (int i = 0; i < 2; ++i)
+			{
+				EnemySlime* slime = new EnemySlime;
+				slime->SetPosition(DirectX::XMFLOAT3(i*24.0f, 0, 90));
+				enemyManager.Register(slime);
+			}
+			for (int j = 1; j < 4; ++j)
+			{
+				kowasenai* wasenai = new kowasenai();
+				wasenai->SetPosition(DirectX::XMFLOAT3(j*12, 0.0f, 90.0f));
+				
+				//if(wasenai->SetPosition().)
+				enemyManager.Register(wasenai);
+				if (wasenai->GetPosition().x == 24||wasenai->GetPosition().x==48)
+				{
+					wasenai->ApplyDamage(5, 1);
+					
+				}
 
-	//if (timer==500)
-	//{
-	//	EnemyManager& enemyManager = EnemyManager::Instance();
-	//	for (int i = 0; i < 5; i++)
-	//	{
-	//		EnemySlime* slime = new EnemySlime;
-	//		slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
-	//		enemyManager.Register(slime);
-	//	}
-	//	timer = 0;
-	//}
+			}
+			
+			
+			break;
+		case 2:
+			for (int i = 0; i < 2; ++i)
+			{
+				EnemySlime* slime = new EnemySlime;
+				slime->SetPosition(DirectX::XMFLOAT3(i * 24.0f, 0, 90));
+				enemyManager.Register(slime);
+			}
+			for (int j = 1; j < 4; ++j)
+			{
+				kowasenai* wasenai = new kowasenai();
+				wasenai->SetPosition(DirectX::XMFLOAT3(j * 12, 0.0f, 90.0f));
+				
+				enemyManager.Register(wasenai);
+				if (wasenai->GetPosition().x == 24 || wasenai->GetPosition().x == 48)
+				{
+					wasenai->ApplyDamage(5, 1);
+				
+				}
+			}
+			
+			
+			break;
+		case 3:
+			for (int i = 0; i < 2; ++i)
+			{
+				EnemySlime* slime = new EnemySlime;
+				slime->SetPosition(DirectX::XMFLOAT3(i * 24.0f, 0, 90));
+				enemyManager.Register(slime);
+			}
+			for (int j = 1; j < 4; ++j)
+			{
+				kowasenai* wasenai = new kowasenai();
+				wasenai->SetPosition(DirectX::XMFLOAT3(j * 12, 0.0f, 90.0f));
+			
+				
+				 enemyManager.Register(wasenai);
+				 if (wasenai->GetPosition().x == 24 || wasenai->GetPosition().x == 48)
+				 {
+					 wasenai->ApplyDamage(5, 1);
+				
+				 }
+			}
+			
+		
+			break;
+		case 4:
+			for (int i = 0; i < 2; ++i)
+			{
+				EnemySlime* slime = new EnemySlime;
+				slime->SetPosition(DirectX::XMFLOAT3(i * 24.0f, 0, 90));
+				enemyManager.Register(slime);
+			}
+			for (int j = 1; j < 4; ++j)
+			{
+				kowasenai* wasenai = new kowasenai();
+				wasenai->SetPosition(DirectX::XMFLOAT3(j * 12, 0.0f, 90.0f));
+				
+				
+				enemyManager.Register(wasenai);
+				if (wasenai->GetPosition().x == 24 || wasenai->GetPosition().x == 48)
+				{
+					wasenai->ApplyDamage(5, 1);
+					
+				}
+
+			}
+			
+			break;
+		}
+		/*enemyManager.Register(slime);
+		enemyManager.Register(wasenai);*/
+		timer = 0;
+		ramdam = 0;
+	}
+		//if (timer==500)
+		//{
+		//	EnemyManager& enemyManager = EnemyManager::Instance();
+		//	for (int i = 0; i < 5; i++)
+		//	{
+		//		EnemySlime* slime = new EnemySlime;
+		//		slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
+		//		enemyManager.Register(slime);
+		//	}
+		//	timer = 0;
+		//}
+		timer++;
 }
 
 // 描画処理
