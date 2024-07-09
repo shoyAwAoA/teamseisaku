@@ -13,6 +13,7 @@
 
 static Player* instance = nullptr;
 extern bool player_yarare_flag;
+bool damage_flag;
 
 //インスタンス取得
 Player& Player::Instance()
@@ -27,6 +28,7 @@ Player::Player()
 {
     //インスタンスポインタ設定
     instance = this;
+    damage_flag = false;
 
    // model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
     model = new Model("Data/Model/pkpk/jiki.mdl");
@@ -1010,6 +1012,7 @@ void Player::CollisionProjectilesVsEnemies()
                 //ダメージを与える
                 if (boooss->ApplyDamage(1, 0.5f))
                 {
+                    damage_flag = true;
                     ////吹き飛ばす
                     //{
                     //    const float power = 20.0f;

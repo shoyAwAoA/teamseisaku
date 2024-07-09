@@ -19,6 +19,7 @@ public:
 
 private:
     Model* model = nullptr;
+    int damage_timer = 60;
 protected:
     //Ž€–S‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é
     void OnDead()override;

@@ -1,6 +1,8 @@
 #include<imgui.h>
 #include "boss.h"
 
+extern bool damage_flag;
+
 Boss::Boss()
 {
 
@@ -37,11 +39,25 @@ void Boss::Update(float elapsedTime)
 
     //モデル行列更新
     model->UpdateTransform(transform);
+    if (damage_flag)
+    {
+        damage_timer--;
+        if (damage_timer <= 0)
+        {
+            damage_timer = 60;
+            damage_flag = false;
+        }
+    }
+
 }
 
 void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
-    shader->Draw(dc, model);
+    if (damage_timer >> 3 & 0x01)
+    {
+        shader->Draw(dc, model);
+
+    }
 
     ImGui::SetNextWindowPos(ImVec2(10, 100), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
