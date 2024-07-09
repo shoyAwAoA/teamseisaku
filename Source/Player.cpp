@@ -26,7 +26,7 @@ Player::Player()
     instance = this;
 
    // model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
-    model = new Model("Data/Model/pkpk/pkpk.mdl");
+    model = new Model("Data/Model/pkpk/jiki.mdl");
    // model->PlayAnimation(0);
     //モデルが大きいでスケーリング
     scale.x = scale.y = scale.z = 4.0f;
