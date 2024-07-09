@@ -10,6 +10,7 @@
 #include"StageMoveFloor.h"
 #include"kowasenai.h"
 #include"boss.h"
+#include"SceneResult.h"
 
 
 // ‰Šú‰»
