@@ -162,7 +162,7 @@ private:
    
     float       turnSpeed = DirectX::XMConvertToRadians(720);
 
-    float       leftHandRadius = 6.0f;
+    float       leftHandRadius = 5.0f;
 
     int          jumpCount = 0;
 
