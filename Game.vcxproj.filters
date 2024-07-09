@@ -189,6 +189,9 @@
     <ClInclude Include="Source\kowasenai.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Source\boss.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -327,6 +330,9 @@
       <Filter>Source\Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\kowasenai.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\boss.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
   </ItemGroup>
