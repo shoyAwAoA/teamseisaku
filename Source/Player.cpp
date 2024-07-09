@@ -412,6 +412,28 @@ void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
 
     //弾丸描画処理
     projectileManager.Render(dc, shader);
+
+    if (ImGui::Begin("parameter", nullptr, ImGuiWindowFlags_None))
+    {
+       
+        if (moveMigiFlag)
+        {
+            ImGui::Checkbox(u8"MIGI", &moveMigiFlag);
+        }
+        else
+        {
+            ImGui::Checkbox(u8"MIGI", &moveMigiFlag);
+        }
+        if (moveHidariFlag)
+        {
+            ImGui::Checkbox(u8"HIGI", &moveHidariFlag);
+        }
+        else
+        {
+            ImGui::Checkbox(u8"HIGI", &moveHidariFlag);
+        }
+    }
+    ImGui::End();
 }
 
 void Player::DrawDebugGUI()
@@ -592,6 +614,8 @@ void Player::TransitionIdleState()
 //待機ステート更新処理
 void Player::UpdateIdleState(float elapsedTime)
 {
+    moveHidariFlag = false;
+    moveMigiFlag = false;
     //移動入力処理
     if (InputMove(elapsedTime))
     {
