@@ -20,6 +20,7 @@ void SceneGame::Initialize()
 	StageMain* stageMain = new StageMain();
 	stageManager.Register(stageMain);
 	player = new Player();
+
 	//
 	//StageMoveFloor* stageMoveFloor = new StageMoveFloor();
 	//stageMoveFloor->SetStartPoint(DirectX::XMFLOAT3(0, 1, 3));
@@ -130,6 +131,8 @@ void SceneGame::Update(float elapsedTime)
 	EnemyManager::Instance().Update(elapsedTime);
 	//エフェクト更新処理
 	EffectManager::Instance().Update(elapsedTime);
+
+
 }
 
 // 描画処理

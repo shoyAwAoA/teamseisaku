@@ -823,8 +823,12 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
             //ƒ_ƒ[ƒW‚ð—^‚¦‚é
             if (enemy->ApplyDamage(5, 0.5f))
             {
-                //DirectX::XMFLOAT3 dir;
-                //dir.x=sin()
+
+                DirectX::XMFLOAT3 dir;
+
+                dir.x = sin(angle.y);
+                dir.y = 0.0f;
+                dir.z = cos(angle.y);
                 //‚Á”ò‚Î‚·
                 //const float power=5.0f;
                 //DirectX::XMFLOAT3 e = enemy->GetPosition();
