@@ -192,6 +192,9 @@
     <ClInclude Include="Source\boss.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneResult.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\imgui\imgui.cpp">
@@ -333,6 +336,9 @@
       <Filter>Source\Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\boss.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneResult.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
   </ItemGroup>
