@@ -42,21 +42,30 @@ public:
     //エネミー削除
     void Remove(Enemy* enemy);
 
+    void Remove(notEnemy* notenemy);
+
+    void Remove(boss* boss);
+
     //複数のエネミーを管理するため、エネミーのポインタをstd::vectorで管理する
 
     int GetEnemyCount() const { return static_cast<int>(enemies.size()); }
 
     int GetnotEnemyCount() const { return static_cast<int>(notenemies.size()); }
 
+    int GetbossCount() const { return static_cast<int>(bosss.size()); }
+
     Enemy* GetEnemy(int index) { return enemies.at(index); }
 
     notEnemy* GetnotEnemy(int index) { return notenemies.at(index); }
 
+    boss* Getboss(int index) { return bosss.at(index); }
    
 private:
     std::vector<Enemy*>     enemies;
     std::vector<notEnemy*> notenemies;
     std::vector<boss*>     bosss;
     std::set<Enemy*>        removes;
+    std::set<notEnemy*>     notremoves;
+    std::set<boss*>         bossremoves;
 
 };
