@@ -142,6 +142,7 @@ private:
         Anim_Hidari,
         Anim_Migi,
         Anim_Attack,
+        Anim_Death,
         Anim_GetHit1,
         Anim_GetHit2,
         Anim_Falling,
@@ -150,7 +151,6 @@ private:
         Anim_Landing,
         Anim_Revive,
         Anim_Running,
-        Anim_Death,
         Anim_Walking
     };
 
@@ -162,7 +162,7 @@ private:
    
     float       turnSpeed = DirectX::XMConvertToRadians(720);
 
-    float       leftHandRadius = 5.0f;
+    float       leftHandRadius = 3.0f;
 
     int          jumpCount = 0;
 
@@ -178,6 +178,8 @@ private:
     ProjectileManager   projectileManager;
 
     Effect* hitEffect = nullptr;
+
+    
 
     State       state = State::Idle;
 };

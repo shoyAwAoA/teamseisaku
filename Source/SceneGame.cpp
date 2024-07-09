@@ -9,6 +9,7 @@
 #include"StageMain.h"
 #include"StageMoveFloor.h"
 #include"kowasenai.h"
+#include"SceneResult.h"
 
 
 // 初期化
@@ -131,7 +132,6 @@ void SceneGame::Update(float elapsedTime)
 	EnemyManager::Instance().Update(elapsedTime);
 	//エフェクト更新処理
 	EffectManager::Instance().Update(elapsedTime);
-
 
 
 	//if (timer==500)

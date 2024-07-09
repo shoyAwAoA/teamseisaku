@@ -8,6 +8,8 @@
 #include"ProjectileStraight.h"
 #include"ProjectileHoming.h"
 #include"EnemySlime.h"
+#include"SceneManager.h"
+#include"SceneResult.h"
 
 static Player* instance = nullptr;
 
@@ -786,7 +788,10 @@ void Player::UpdateDamageState(float elapsedTime)
     //ダメージアニメーションが終わったら待機ステートへ遷移
     if (!model->IsPlayAimation())
     {
-        TransitionIdleState();
+        
+            SceneManager::Instance().ChangeScene(new SceneResult);
+        
+        //TransitionIdleState();
     }
 }
 
@@ -900,13 +905,13 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
 
 void Player::TransitionReviveState()
 {
-    state = State::Revive;
+    //state = State::Revive;
 
-    //体力回復
-    health = maxHealth;
+    ////体力回復
+    //health = maxHealth;
 
-    //復活アニメーション再生
-    model->PlayAnimation(Anim_Revive, false);
+    ////復活アニメーション再生
+    //model->PlayAnimation(Anim_Revive, false);
 }
 
 void Player::UpdateReviceState(float elapsedTime)
