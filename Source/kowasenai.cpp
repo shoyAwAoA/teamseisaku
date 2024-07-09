@@ -1,4 +1,6 @@
 #include "kowasenai.h"
+
+
 //コンストラクタ
 kowasenai::kowasenai()
 {
@@ -15,6 +17,14 @@ kowasenai::~kowasenai()
 }
 void kowasenai::Update(float elapsedTime)
 {
+    if (health > 0)
+    {
+        radius = 4.0f;
+    }
+    else if (health <= 0)
+    {
+        radius = 0;
+    }
     //速力処理更新
     UpdateVelocity(elapsedTime);
     //無敵時間更新
@@ -28,7 +38,14 @@ void kowasenai::Update(float elapsedTime)
 }
 void kowasenai::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
-    shader->Draw(dc, model);
+    if (health > 0)
+    {
+        shader->Draw(dc, model);
+    }
+    else if (health <= 0)
+    {
+
+    }
 }
 void kowasenai::MoveSpeed(float elapsedTime)
 {
@@ -37,4 +54,9 @@ void kowasenai::MoveSpeed(float elapsedTime)
         velocity.z = 0.5f;
         position.z -= velocity.z;
     }
+}
+
+void kowasenai::OnDead()
+{ 
+    notEnemy::Destoroy();
 }

@@ -118,6 +118,7 @@ void EnemyManager::Clear()
     {
         delete boss;
     }
+  
         enemies.clear();
         notenemies.clear();
         bosss.clear();

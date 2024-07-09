@@ -2,7 +2,8 @@
 
 #include<DirectXMath.h>
 #include<Effekseer.h>
-#include<EffekseerRendererDX11.h>
+
+#include "../External/Effekseer170b/include/EffekseerRendererDX11/EffekseerRendererDX11.h"
 
 //エフェクトマネージャー
 class EffectManager
