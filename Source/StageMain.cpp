@@ -21,7 +21,7 @@ StageMain::StageMain()
     
     angle.y = DirectX::XMConvertToRadians(180);
 
-    model = new Model("Data/Model/Stage/stage.mdl");
+    model = new Model("Data/Model/Stage/Stage2.mdl");
 }
 
 //デストラクタ

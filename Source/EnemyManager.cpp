@@ -13,6 +13,10 @@ void EnemyManager::Update(float elapsedTime)
     {
         notenemy->Update(elapsedTime);
     }
+    for (boss* boss1 : bosss)
+    {
+        boss1->Update(elapsedTime);
+    }
 
     //破棄処理
     for (Enemy* enemy : removes)
@@ -46,6 +50,10 @@ void EnemyManager::Render(ID3D11DeviceContext* context, Shader* shader)
     {
         notenemy->Render(context, shader);
     }
+    for (boss* boss1 : bosss)
+    {
+        boss1->Render(context, shader);
+    }
 }
 
 //デバッグプリミティブ描画
@@ -72,6 +80,10 @@ void EnemyManager::Register(Enemy* enemy)
 void EnemyManager::Register(notEnemy* notenemy)
 {
     notenemies.emplace_back(notenemy);
+}
+void EnemyManager::Register(boss* boss)
+{
+    bosss.emplace_back(boss);
 }
 //エネミー全削除
 void EnemyManager::Clear()

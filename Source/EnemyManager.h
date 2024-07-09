@@ -29,6 +29,10 @@ public:
 
     void Register(notEnemy* notenemy);
 
+    void Register(boss* boss);
+
+
+
     //エネミー全削除
     void Clear();
 
@@ -52,6 +56,7 @@ public:
 private:
     std::vector<Enemy*>     enemies;
     std::vector<notEnemy*> notenemies;
+    std::vector<boss*>     bosss;
     std::set<Enemy*>        removes;
 
 };

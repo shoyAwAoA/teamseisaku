@@ -43,4 +43,20 @@ public:
 
 };
 
+class boss :public Character
+{
+public:
+    boss() {};
+    ~boss() override {}
+
+    //更新処理
+    virtual void Update(float elapsedTime) = 0;//継承先で必ず実装させるように純粋仮想関数にする
+
+    //描画処理
+    virtual void Render(ID3D11DeviceContext* dc, Shader* shader) = 0;
+
+    //デバッグプリミティブ描画
+    //virtual void DrawDebugPrimitive();
+};
+
 
