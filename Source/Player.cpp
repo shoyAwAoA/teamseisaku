@@ -170,7 +170,10 @@ void Player::Update(float elapsedTime)
     //モデル行列更新
     model->UpdateTransform(transform);
 
-
+    if (deathFlag)
+    {
+        angle.y += 0.095f;
+    }
     ////ジャンプ入力処理
     //InputJump();
 
@@ -827,6 +830,8 @@ void Player::TransitionDeathState()
 
     //ダメージアニメーション再生
     model->PlayAnimation(Anim_Death, false);
+    deathFlag = true;
+
 }
 
 //死亡ステート更新処理
