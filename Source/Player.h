@@ -177,6 +177,8 @@ private:
 
     bool         bossFlag = false;
 
+    bool         deathFlag = false;
+
     ProjectileManager   projectileManager;
 
     Effect* hitEffect = nullptr;

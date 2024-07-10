@@ -78,8 +78,6 @@ void SceneGame::Initialize()
 			wasenai->SetPosition(DirectX::XMFLOAT3(12.0f, 0, 150));
 			enemyManager.Register(wasenai);
 
-
-		
 	}
 
 	Boss* boss = new Boss();
@@ -156,7 +154,6 @@ void SceneGame::Update(float elapsedTime)
 	{
 		
 		EnemyManager& enemyManager = EnemyManager::Instance();
-	
 		
 		switch (ramdam)
 		{
@@ -180,11 +177,8 @@ void SceneGame::Update(float elapsedTime)
 					if (wasenai->ApplyDamage(1, 0.5f))
 					{
 						wasenai->Destoroy();
-						
-
 					}
 				}
-
 			}
 			
 			

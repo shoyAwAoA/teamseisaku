@@ -9,7 +9,7 @@ EnemySlime::EnemySlime()
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 0.1f;
 
-    position.y = 0;
+   /* position.y = 0;*/
     
     //幅、高さ設定
     radius = 5.0f;

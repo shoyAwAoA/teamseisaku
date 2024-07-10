@@ -13,8 +13,8 @@ void CameraController::Update(float elpsedTime)
     float speed = rollSpeed * elpsedTime;
 
     //スティックの入力値に合わせてX軸とY軸を回転
-    angle.y += ax * speed;
-    angle.x += ay * speed;
+   /* angle.y += ax * speed;
+    angle.x += ay * speed;*/
 
     //X軸のカメラ回転を制限
 

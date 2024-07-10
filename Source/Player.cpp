@@ -170,7 +170,10 @@ void Player::Update(float elapsedTime)
     //モデル行列更新
     model->UpdateTransform(transform);
 
-
+    if (deathFlag)
+    {
+        angle.y += 0.095f;
+    }
     ////ジャンプ入力処理
     //InputJump();
 
@@ -624,23 +627,23 @@ void Player::UpdateIdleState(float elapsedTime)
     moveMigiFlag = false;
     if (player_pos == 0)
     {
-        position.x = 24;
+        position.x = 24.0f;
     }
     else if (player_pos == 1)
     {
-        position.x = 36;
+        position.x = 36.0f;
     }
     else if (player_pos == 2)
     {
-        position.x = 48;
+        position.x = 48.0f;
     }
     else if (player_pos == -1)
     {
-        position.x = 12;
+        position.x = 12.0f;
     }
     else if (player_pos == -2)
     {
-        position.x = 0;
+        position.x = 0.0f;
     }
     //移動入力処理
     if (InputMove(elapsedTime))
@@ -827,6 +830,8 @@ void Player::TransitionDeathState()
 
     //ダメージアニメーション再生
     model->PlayAnimation(Anim_Death, false);
+    deathFlag = true;
+
 }
 
 //死亡ステート更新処理
