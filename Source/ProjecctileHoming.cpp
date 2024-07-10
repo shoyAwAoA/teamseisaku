@@ -19,7 +19,7 @@ ProjectileHoming::~ProjectileHoming()
 //XVˆ—
 void ProjectileHoming::Update(float elapsedTime)
 {
-    lifeTimer -= elapsedTime;
+   // lifeTimer -= elapsedTime;
     ////õ–½ˆ—
     //if (lifeTimer < 0)
     //{

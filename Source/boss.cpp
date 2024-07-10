@@ -4,6 +4,8 @@
 extern bool damage_flag;
 extern bool boss_yarare_flag;
 
+int damage_timer = 60;
+
 Boss::Boss()
 {
 
@@ -68,6 +70,7 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
 
     }
 
+
     ImGui::SetNextWindowPos(ImVec2(10, 100), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
 
@@ -78,7 +81,21 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
         ImGui::InputInt("Health", &health);
 
     }
-    ImGui::End();
+   
+        ImGui::End();
+        if (ImGui::Begin("damage", nullptr, ImGuiWindowFlags_None))
+        {
+
+            if (damage_flag)
+            {
+                ImGui::Checkbox(u8"Damage", &damage_flag);
+            }
+            else
+            {
+                ImGui::Checkbox(u8"Damage", &damage_flag);
+            }
+        }
+        ImGui::End();
 }
 
 void Boss::MoveSpeed(float elapsedTime)
