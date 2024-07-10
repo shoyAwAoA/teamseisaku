@@ -40,6 +40,7 @@ Player::Player()
     position.y = 0;
     position.z = -105;
     health = 1;
+    player_pos = 0;
     //ヒットエフェクト読み込み
     hitEffect = new Effect("Data/Effect/Hit.efk");
 
@@ -544,7 +545,7 @@ bool Player::InputMove(float elapsedTime)
     GamePad& gamePad = Input::Instance().GetGamePad();
     if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT)
     {
-        if (position.x < 40)
+        if (position.x < 40&&player_pos<3)
         {
             moveMigiFlag = true;
             return true;
@@ -552,7 +553,7 @@ bool Player::InputMove(float elapsedTime)
     }
     if(gamePad.GetButtonDown()& GamePad::BTN_LEFT)
     {
-        if (position.x >= 10)
+        if (position.x >= 10&&player_pos>-3)
         {
             moveHidariFlag = true;
             return true;
@@ -621,6 +622,26 @@ void Player::UpdateIdleState(float elapsedTime)
 {
     moveHidariFlag = false;
     moveMigiFlag = false;
+    if (player_pos == 0)
+    {
+        position.x = 24;
+    }
+    else if (player_pos == 1)
+    {
+        position.x = 36;
+    }
+    else if (player_pos == 2)
+    {
+        position.x = 48;
+    }
+    else if (player_pos == -1)
+    {
+        position.x = 12;
+    }
+    else if (player_pos == -2)
+    {
+        position.x = 0;
+    }
     //移動入力処理
     if (InputMove(elapsedTime))
     {
@@ -656,12 +677,13 @@ void Player::TranstionMoveState()
         velocity.x = 6.80f;
         position.x += velocity.x;
         model->PlayAnimation(Anim_Migi, false);
+        player_pos += 1;
     }
      if(moveHidariFlag&&!moveMigiFlag)
     {
         velocity.x = -6.80f;
         position.x += velocity.x;
-       
+        player_pos -= 1;
         model->PlayAnimation(Anim_Hidari, false);
 
     }

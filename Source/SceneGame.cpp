@@ -12,9 +12,11 @@
 #include"boss.h"
 #include"SceneResult.h"
 #include"SceneManager.h"
+#include"success.h"
 
 bool player_yarare_flag;
 
+bool boss_yarare_flag;
 
 // 初期化
 void SceneGame::Initialize()
@@ -30,6 +32,7 @@ void SceneGame::Initialize()
 	stageManager.Register(stageMain);
 	player = new Player();
 	player_yarare_flag = false;
+	boss_yarare_flag = false;
 
 	//
 	//StageMoveFloor* stageMoveFloor = new StageMoveFloor();
@@ -379,10 +382,18 @@ void SceneGame::Render()
 		
 	}
 	
+	//プレイヤーが死んだときにリザルト画面に遷移
 	if (player_yarare_flag)
 	{
 		SceneManager::Instance().ChangeScene(new SceneResult);
 	}
+	//ボスが死んだときにクリア画面に遷移
+	if (boss_yarare_flag)
+	{
+		SceneManager::Instance().ChangeScene(new SceneSuccess);
+	}
+
+
 }
 
 //エネミーHPゲージ描画

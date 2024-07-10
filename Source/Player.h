@@ -181,7 +181,7 @@ private:
 
     Effect* hitEffect = nullptr;
 
-    
+    int          player_pos = 0;
 
     State       state = State::Idle;
 };

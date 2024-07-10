@@ -2,6 +2,7 @@
 #include "boss.h"
 
 extern bool damage_flag;
+extern bool boss_yarare_flag;
 
 Boss::Boss()
 {
@@ -42,11 +43,19 @@ void Boss::Update(float elapsedTime)
 
     if (damage_flag)
     {
-        damage_timer--;
+        if (health <= 0)
+        {
+            boss_yarare_flag = true;
+        }
+        else
+        {
+            damage_timer--;
         if (damage_timer <= 0)
         {
             damage_timer = 60;
             damage_flag = false;
+        }
+
         }
     }
 
@@ -54,7 +63,7 @@ void Boss::Update(float elapsedTime)
 
 void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
-    if (damage_timer >> 3 & 0x01)
+    if (damage_timer >> 3 & 0x01)//“_–Å
     {
         shader->Draw(dc, model);
 
