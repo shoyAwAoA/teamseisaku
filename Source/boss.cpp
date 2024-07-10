@@ -39,6 +39,7 @@ void Boss::Update(float elapsedTime)
 
     //モデル行列更新
     model->UpdateTransform(transform);
+
     if (damage_flag)
     {
         damage_timer--;
