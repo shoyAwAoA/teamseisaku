@@ -105,7 +105,7 @@ void EnemySlime::TransitionIdleState()
     state = State::Idle;
 
     //待機アニメーション再生
-    model->PlayAnimation(Anim_GetHit, true);
+    model->PlayAnimation(Anim_Attack2, true);
 }
 
 //待機アニメーション更新処理
