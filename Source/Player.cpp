@@ -624,23 +624,23 @@ void Player::UpdateIdleState(float elapsedTime)
     moveMigiFlag = false;
     if (player_pos == 0)
     {
-        position.x = 24;
+        position.x = 24.0f;
     }
     else if (player_pos == 1)
     {
-        position.x = 36;
+        position.x = 36.0f;
     }
     else if (player_pos == 2)
     {
-        position.x = 48;
+        position.x = 48.0f;
     }
     else if (player_pos == -1)
     {
-        position.x = 12;
+        position.x = 12.0f;
     }
     else if (player_pos == -2)
     {
-        position.x = 0;
+        position.x = 0.0f;
     }
     //移動入力処理
     if (InputMove(elapsedTime))
@@ -674,14 +674,14 @@ void Player::TranstionMoveState()
     //走りアニメーション再生
     if (moveMigiFlag&&!moveHidariFlag)
     {
-        velocity.x = 6.80f;
+        velocity.x = 6.90f;
         position.x += velocity.x;
         model->PlayAnimation(Anim_Migi, false);
         player_pos += 1;
     }
      if(moveHidariFlag&&!moveMigiFlag)
     {
-        velocity.x = -6.80f;
+        velocity.x = -6.90f;
         position.x += velocity.x;
         player_pos -= 1;
         model->PlayAnimation(Anim_Hidari, false);
