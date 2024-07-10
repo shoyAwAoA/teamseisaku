@@ -20,6 +20,7 @@ Boss::Boss()
     radius = 30.0f;
     height = 20.0f;
     health = 10.0f;
+    damage_timer = 60;
 }
 
 Boss::~Boss()
@@ -61,7 +62,7 @@ void Boss::Update(float elapsedTime)
 
 void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
-    if (damage_timer >> 3 & 0x01)//“_–Å
+    if (damage_timer >> 3 & 0x02)//“_–Å
     {
         shader->Draw(dc, model);
 
