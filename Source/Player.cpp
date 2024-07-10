@@ -674,14 +674,14 @@ void Player::TranstionMoveState()
     //走りアニメーション再生
     if (moveMigiFlag&&!moveHidariFlag)
     {
-        velocity.x = 6.80f;
+        velocity.x = 6.90f;
         position.x += velocity.x;
         model->PlayAnimation(Anim_Migi, false);
         player_pos += 1;
     }
      if(moveHidariFlag&&!moveMigiFlag)
     {
-        velocity.x = -6.80f;
+        velocity.x = -6.90f;
         position.x += velocity.x;
         player_pos -= 1;
         model->PlayAnimation(Anim_Hidari, false);
