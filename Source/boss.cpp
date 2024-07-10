@@ -17,7 +17,7 @@ Boss::Boss()
     angle.y=(DirectX::XMConvertToRadians(180));
 
     //幅、高さ設定
-    radius = 20.0f;
+    radius = 30.0f;
     height = 20.0f;
     health = 10.0f;
 }
@@ -42,21 +42,18 @@ void Boss::Update(float elapsedTime)
 
     //モデル行列更新
     model->UpdateTransform(transform);
+
     if (damage_flag)
     {
         if (health <= 0)
         {
             boss_yarare_flag = true;
         }
-        else
-        {
-            damage_timer--;
+        damage_timer--;
         if (damage_timer <= 0)
         {
             damage_timer = 60;
             damage_flag = false;
-        }
-
         }
     }
 
@@ -79,6 +76,15 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
         //トランスフォーム
 
         ImGui::InputInt("Health", &health);
+
+        if (damage_flag)
+        {
+            ImGui::Checkbox(u8"damage_flag", &damage_flag);
+        }
+        else
+        {
+            ImGui::Checkbox(u8"damage_flag", &damage_flag);
+        }
 
     }
    
