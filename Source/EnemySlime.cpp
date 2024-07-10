@@ -1,4 +1,6 @@
 #include"EnemySlime.h"
+#include"Graphics/Graphics.h"
+
 
 
 //コンストラクタ
@@ -8,9 +10,9 @@ EnemySlime::EnemySlime()
 
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 0.1f;
-
+    angle.y = 180.0f;
    /* position.y = 0;*/
-    
+    TransitionIdleState();
     //幅、高さ設定
     radius = 5.0f;
     height = 1.0f;
@@ -26,6 +28,17 @@ EnemySlime::~EnemySlime()
 //更新処理
 void EnemySlime::Update(float elapsedTime)
 {
+    //ステート毎の更新処理
+    switch (state)
+    {
+    case State::Wander:
+        UpdateWanderState(elapsedTime);
+        break;
+    case State::Idle:
+        UpdateIdleState(elapsedTime);
+        break;
+    }
+
     if (health > 0)
     {
         radius = 5.0f;
@@ -34,6 +47,8 @@ void EnemySlime::Update(float elapsedTime)
     {
         radius = 0;
     }
+
+
 
     //速力処理更新
     UpdateVelocity(elapsedTime);
@@ -46,9 +61,11 @@ void EnemySlime::Update(float elapsedTime)
 
     MoveSpeed(elapsedTime);
 
+
+    model->UpdateAnimation(elapsedTime);
+
     //モデル行列更新
     model->UpdateTransform(transform);
-
 }
 
 //描画処理
@@ -62,12 +79,39 @@ void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
 
 void EnemySlime::MoveSpeed(float elapsedTime)
 {
+
     if (health > 0)
     {
         velocity.z = 0.5f;
         position.z -= velocity.z;
-
     }
+}
+
+//徘徊ステートへ遷移
+void EnemySlime::TransitionWanderState()
+{
+    state = State::Wander;
+
+    model->PlayAnimation(Anim_WalkFWD, true);
+}
+//徘徊ステート更新処理
+void EnemySlime::UpdateWanderState(float elapsedTime)
+{
+}
+
+//待機ステートへ遷移
+void EnemySlime::TransitionIdleState()
+{
+    state = State::Idle;
+
+    //待機アニメーション再生
+    model->PlayAnimation(Anim_Attack2, true);
+}
+
+//待機アニメーション更新処理
+void EnemySlime::UpdateIdleState(float elapsedTime)
+{
+
 }
 
 //void EnemySlime::DrawDebugGUI()
