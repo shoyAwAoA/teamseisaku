@@ -15,14 +15,18 @@ EnemySlime::EnemySlime()
     TransitionIdleState();
     //幅、高さ設定
     radius = 5.0f;
-    height = 1.0f;
+    height = 5.0f;
     health = 1.0f;
 }
 
 //デストラクタ
 EnemySlime::~EnemySlime()
 {
-    delete model;
+    if (model != nullptr)
+    {
+        model = nullptr;
+        delete model;
+    }
 }
 
 //更新処理
@@ -82,7 +86,7 @@ void EnemySlime::MoveSpeed(float elapsedTime)
 
     if (health > 0)
     {
-        velocity.z = 0.5f;
+        velocity.z = 0.85f;
         position.z -= velocity.z;
     }
 }
@@ -105,7 +109,7 @@ void EnemySlime::TransitionIdleState()
     state = State::Idle;
 
     //待機アニメーション再生
-    model->PlayAnimation(Anim_Attack2, true);
+    model->PlayAnimation(Anim_IdleNormal, true);
 }
 
 //待機アニメーション更新処理

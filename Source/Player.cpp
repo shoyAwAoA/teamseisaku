@@ -42,10 +42,11 @@ Player::Player()
     position.y = 0;
     position.z = -105;
     health = 1;
+    height = 20.0f;
     player_pos = 0;
     //ヒットエフェクト読み込み
     hitEffect = new Effect("Data/Effect/Hit.efk");
-
+    radius = 5.0f;
     //待機ステートへ遷移
     TransitionIdleState();
 }
@@ -604,7 +605,7 @@ bool Player::InputJump()
 bool Player::InputAttack()
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
-    if (gamePad.GetButtonDown() & GamePad::BTN_B)
+    if (gamePad.GetButtonDown() & GamePad::BTN_B&&state==State::Idle)
     {
         return true;
     }
