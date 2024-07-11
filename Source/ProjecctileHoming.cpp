@@ -35,7 +35,7 @@ void ProjectileHoming::Update(float elapsedTime)
         position.y += direction.y * moveSpeed;
         position.z += direction.z * moveSpeed;
         //direction‚Í•ûŒüH
-
+//        direction.y += 0.05f;
     }
 
     //ù‰ñ
