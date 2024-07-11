@@ -17,6 +17,13 @@ extern int damage_timer;
 
 bool damage_flag;
 
+bool x0_flag;
+bool x1_flag;
+bool x2_flag;
+bool x3_flag;
+bool x4_flag;
+
+
 //インスタンス取得
 Player& Player::Instance()
 {
@@ -32,6 +39,14 @@ Player::Player()
     instance = this;
     damage_flag = false;
     deathFlag = false;
+
+    x0_flag = false;
+    x1_flag = false;
+    x2_flag = false;
+    x3_flag = false;
+    x4_flag = false;
+
+    interval_flag = true;
    // model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
     model = new Model("Data/Model/pkpk/jiki.mdl");
    // model->PlayAnimation(0);
@@ -50,7 +65,6 @@ Player::Player()
     //待機ステートへ遷移
     TransitionIdleState();
 }
-
 
 //デストラクタ
 Player::~Player()
@@ -121,6 +135,17 @@ void Player::Update(float elapsedTime)
     //InputMove(elapsedTime);
 
     position.y = 0;
+
+    if (interval != 10)
+    {
+        interval_flag = false;
+        interval++;
+    }
+    else if(interval==10)
+    {
+        interval = 10;
+        interval_flag = true;
+    }
 
     //ステート毎の処理
     switch (state)
@@ -549,23 +574,38 @@ DirectX::XMFLOAT3 Player::GetMoveVec() const
 bool Player::InputMove(float elapsedTime)
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
-    if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT)
+    if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT&& interval_flag)
     {
-        if (position.x < 40&&player_pos<3)
+        if (state == State::Idle)
         {
-            moveMigiFlag = true;
-            return true;
+            if (position.x < 40 && player_pos < 3)
+            {
+                moveMigiFlag = true;
+                interval = 0;
+                interval_flag = false;
+                return true;
+            }
         }
+
     }
-    if(gamePad.GetButtonDown()& GamePad::BTN_LEFT)
+    if (gamePad.GetButtonDown() & GamePad::BTN_LEFT && gamePad.GetButtonDown() != GamePad::BTN_B)
     {
-        if (position.x >= 10&&player_pos>-3)
+        if (state == State::Idle)
         {
-            moveHidariFlag = true;
-            return true;
+            if (position.x >= 10 && player_pos > -3)
+            {
+                moveHidariFlag = true;
+                interval = 0;
+                interval_flag = false;
+                return true;
+            }
         }
+
+
     }
     return false;
+}
+    
 
  //   //進行ベクトル所得
  //   DirectX::XMFLOAT3 moveVec = GetMoveVec();
@@ -579,7 +619,7 @@ bool Player::InputMove(float elapsedTime)
 
  //   //進行ベクトルがゼロベクトルではない場合は入力された
  //   return moveVec.x != 0|| moveVec.y != 0|| moveVec.z != 0;
-}
+
 
 bool Player::InputJump()
 {
@@ -605,9 +645,15 @@ bool Player::InputJump()
 bool Player::InputAttack()
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
-    if (gamePad.GetButtonDown() & GamePad::BTN_B&&state==State::Idle)
+    if (gamePad.GetButtonDown() & GamePad::BTN_B&& interval_flag)
     {
-        return true;
+        if (state == State::Idle)
+        {
+            interval = 0;
+            interval_flag = false;
+            return true;
+
+        }
     }
 
     return false;
@@ -718,10 +764,10 @@ void Player::UpdateMoveState(float elapsedTime)
         TransitionJumpState();
     }
     //攻撃入力処理
-    if (InputAttack())
+   /* if (InputAttack())
     {
         TransitionAttackState();
-    }
+    }*/
     ////ジャンプ入力処理
     //InputJump();
 
@@ -886,6 +932,30 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
             //ダメージを与える
             if (enemy->ApplyDamage(5, 0.5f))
             {
+                if (enemy->GetPosition().x >=-1&&enemy->GetPosition().x<=1)
+                {
+                    x0_flag = true;
+                }
+
+                if (enemy->GetPosition().x >= 11 && enemy->GetPosition().x <= 13)
+                {
+                    x1_flag = true;
+                }
+
+                if (enemy->GetPosition().x >= 23 && enemy->GetPosition().x <= 25)
+                {
+                    x2_flag = true;
+                }
+
+                if (enemy->GetPosition().x >= 35 && enemy->GetPosition().x <= 37)
+                {
+                    x3_flag = true;
+                }
+
+                if (enemy->GetPosition().x >= 47 && enemy->GetPosition().x <= 49)
+                {
+                    x4_flag=true;
+                }
                 bossFlag = true;
 
 
@@ -1046,6 +1116,26 @@ void Player::CollisionProjectilesVsEnemies()
                     {
                         damage_timer = 60;
                         damage_flag = true;
+                        if (x0_flag)
+                        {
+                            x0_flag = false;
+                        }
+                        if (x1_flag)
+                        {
+                            x1_flag = false;
+                        }
+                        if (x2_flag)
+                        {
+                            x2_flag = false;
+                        }
+                        if (x3_flag)
+                        {
+                            x3_flag = false;
+                        }
+                        if (x4_flag)
+                        {
+                            x4_flag = false;
+                        }
                         ////吹き飛ばす
                         //{
                         //    const float power = 20.0f;

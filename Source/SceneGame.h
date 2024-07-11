@@ -47,11 +47,7 @@ private:
 	CameraController* cameraController = nullptr;
 	EnemySlime* enemyslime = nullptr;
 	Sprite* gauge = nullptr;
-	bool ran_flag0 = false;
-	bool ran_flag1= false;
-	bool ran_flag2 = false;
-	bool ran_flag3 = false;
-	bool ran_flag4 = false;
+	
 	int timer0;
 	int timer1;
 	int timer2;

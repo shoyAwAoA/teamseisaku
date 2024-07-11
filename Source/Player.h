@@ -158,7 +158,7 @@ private:
 
     float moveSpeed = 15.0f;
 
-    float        jumpSpeed = 20.0f;
+    float        jumpSpeed = 1.0f;
    
     float       turnSpeed = DirectX::XMConvertToRadians(720);
 
@@ -178,6 +178,10 @@ private:
     bool         bossFlag = false;
 
     bool         deathFlag = false;
+
+    int          interval = 15;
+
+    bool         interval_flag = true;
 
     ProjectileManager   projectileManager;
 

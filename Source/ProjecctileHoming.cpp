@@ -1,11 +1,23 @@
 #include"ProjectileHoming.h"
 
+//extern bool ran_flag0;
+//extern bool ran_flag1;
+//extern bool ran_flag2;
+//extern bool ran_flag3;
+//extern bool ran_flag4;
+
+extern bool x0_flag;
+extern bool x1_flag;
+extern bool x2_flag;
+extern bool x3_flag;
+extern bool x4_flag;
+
 //コンストラクタ
 ProjectileHoming::ProjectileHoming(ProjectileManager* manager)
     :Projectile(manager)
 {
     model = new Model("Data/Model/Sword/Sword.mdl");
-
+    ue = false;
     //モデルが小さいのでスケーリング
     scale.x = scale.y = scale.z = 30.0f;
 }
@@ -35,7 +47,56 @@ void ProjectileHoming::Update(float elapsedTime)
         position.y += direction.y * moveSpeed;
         position.z += direction.z * moveSpeed;
         //directionは方向？
-//        direction.y += 0.05f;
+        if (!ue)
+        {
+            if (x0_flag)
+            {
+                direction.x -= 0.0065f;
+            }
+            if (x1_flag)
+            {
+                direction.x -= 0.0035f;
+            }
+            if (x2_flag)
+            {
+            }
+            if (x3_flag)
+            {
+                direction.x += 0.0035f;
+            }
+            if (x4_flag)
+            {
+                direction.x += 0.0065f;
+            }
+            direction.y += 0.0055f;
+        }
+        if (position.y> 25)
+        {
+            ue = true;
+        }
+        if (ue)
+        {
+            if (x0_flag)
+            {
+                direction.x += 0.0085f;
+            }
+            if (x1_flag)
+            {
+                direction.x += 0.0050f;
+            }
+            if (x2_flag)
+            {  
+            }
+            if (x3_flag)
+            {
+                direction.x -= 0.0050f;
+            }
+            if (x4_flag)
+            {
+                direction.x -= 0.009f;
+            }
+            direction.y -= 0.0055f;
+        }
     }
 
     //旋回

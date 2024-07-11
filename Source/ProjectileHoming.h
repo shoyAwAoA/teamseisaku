@@ -26,8 +26,8 @@ public:
 private:
     Model* model = nullptr;
     DirectX::XMFLOAT3   target = { 0,0,0 };
-    float               moveSpeed = 100.0f;
+    float               moveSpeed = 120.0f;
     float               turnSpeed = DirectX::XMConvertToRadians(180);
     float               lifeTimer = 3.0f;
-
+    bool                ue = false;
 };
