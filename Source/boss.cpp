@@ -24,7 +24,11 @@ Boss::Boss()
 
 Boss::~Boss()
 {
+    if (model != nullptr)
+    {
+        model = nullptr;
     delete model;
+    }
 }
 
 void Boss::Update(float elapsedTime)

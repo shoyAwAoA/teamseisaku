@@ -8,12 +8,16 @@ kowasenai::kowasenai()
     scale.x = scale.y = scale.z = 0.1f;
 
     radius = 5.0f;
-    height = 2.0f;
+    height = 5.0f;
 
 }
 kowasenai::~kowasenai()
 {
-    delete model;
+    if (model != nullptr)
+    {
+        model = nullptr;
+        delete model;
+    }
 }
 void kowasenai::Update(float elapsedTime)
 {
@@ -51,7 +55,7 @@ void kowasenai::MoveSpeed(float elapsedTime)
 {
     if (health > 0)
     {
-        velocity.z = 0.5f;
+        velocity.z = 0.85f;
         position.z -= velocity.z;
     }
 }
