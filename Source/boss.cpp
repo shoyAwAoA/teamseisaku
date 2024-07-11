@@ -18,7 +18,7 @@ Boss::Boss()
 
     //•A‚‚³İ’è
     radius = 30.0f;
-    height = 20.0f;
+    height = 40.0f;
     health = 10.0f;
 }
 

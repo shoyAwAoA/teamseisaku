@@ -17,6 +17,11 @@
 bool player_yarare_flag;
 
 bool boss_yarare_flag;
+bool ran_flag0;
+bool ran_flag1;
+bool ran_flag2;
+bool ran_flag3;
+bool ran_flag4;
 
 // 初期化
 void SceneGame::Initialize()
@@ -29,11 +34,15 @@ void SceneGame::Initialize()
 	timer3 = 0;
 	timer4 = 0;
 	enemyType = 0;
+
 	ran_flag0 = false;
 	ran_flag1 = false;
 	ran_flag2 = false;
 	ran_flag3 = false;
 	ran_flag4 = false;
+
+	
+
 	//ステージの初期化
 	//stage = new Stage();
 	StageManager& stageManager = StageManager::Instance();
