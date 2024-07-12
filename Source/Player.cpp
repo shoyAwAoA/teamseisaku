@@ -136,16 +136,16 @@ void Player::Update(float elapsedTime)
 
     position.y = 0;
 
-    if (interval != 10)
-    {
-        interval_flag = false;
-        interval++;
-    }
-    else if(interval==10)
-    {
-        interval = 10;
-        interval_flag = true;
-    }
+    //if (interval != 10)
+    //{
+    //    interval_flag = false;
+    //    interval++;
+    //}
+    //else if(interval==10)
+    //{
+    //    interval = 10;
+    //    interval_flag = true;
+    //}
 
     //ステート毎の処理
     switch (state)
@@ -286,6 +286,21 @@ void Player::CollisionPlayerVsEnemies()
         //        enemy->SetPosition(outPosition);
         //    }
         //}
+        //notEnemy* notenemy = enemyManager.GetnotEnemy(i);
+
+        ////衝突処理
+        //DirectX::XMFLOAT3 outPosition2;
+        //if (Collision::IntersectSphereVsCylinder(
+        //    GetPosition(),
+        //    GetRadius(),
+        //    notenemy->GetPosition(),
+        //    notenemy->GetRadius(),
+        //    notenemy->GetHeight(),
+        //    outPosition2))
+        //{
+        //    ApplyDamage(1, 0.5f);
+        //}
+
         if (Collision::IntersectCylinderVsCylinder(
             GetPosition(),
             GetRadius(),
@@ -469,6 +484,14 @@ void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
         {
             ImGui::Checkbox(u8"HIGI", &moveHidariFlag);
         }
+        if (interval_flag)
+        {
+            ImGui::Checkbox(u8"Interval_flag", &interval_flag);
+        }
+        else
+        {
+            ImGui::Checkbox(u8"Interval_flag", &interval_flag);
+        }
     }
     ImGui::End();
 }
@@ -574,35 +597,49 @@ DirectX::XMFLOAT3 Player::GetMoveVec() const
 bool Player::InputMove(float elapsedTime)
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
-    if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT&& interval_flag)
     {
-        if (state == State::Idle)
+        if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT && gamePad.GetButtonDown() != GamePad::BTN_B)
         {
-            if (position.x < 40 && player_pos < 3)
-            {
-                moveMigiFlag = true;
-                interval = 0;
-                interval_flag = false;
-                return true;
-            }
-        }
 
+            if (state == State::Idle)
+            {
+                if (interval_flag)
+                {
+                    if (position.x < 40 && player_pos < 3)
+                    {
+                        moveMigiFlag = true;
+                        // interval = 0;
+                        interval_flag = false;
+                        return true;
+                    }
+                }
+            }
+
+        }
     }
-    if (gamePad.GetButtonDown() & GamePad::BTN_LEFT && gamePad.GetButtonDown() != GamePad::BTN_B)
+
     {
-        if (state == State::Idle)
+
+    
+        if (gamePad.GetButtonDown() & GamePad::BTN_LEFT&& gamePad.GetButtonDown() != GamePad::BTN_B)
         {
-            if (position.x >= 10 && player_pos > -3)
+            if (state == State::Idle)
             {
-                moveHidariFlag = true;
-                interval = 0;
-                interval_flag = false;
-                return true;
+                if (interval_flag)
+                {
+                    if (position.x >= 10 && player_pos > -3)
+                    {
+                        moveHidariFlag = true;
+                        //interval = 0;
+                        interval_flag = false;
+                        return true;
+                    }
+                }
+
             }
-        }
 
 
-    }
+        }}
     return false;
 }
     
@@ -648,11 +685,9 @@ bool Player::InputAttack()
     if (gamePad.GetButtonDown() & GamePad::BTN_B&& interval_flag)
     {
         if (state == State::Idle)
-        {
-            interval = 0;
-            interval_flag = false;
-            return true;
-
+        {       interval_flag = false;
+                return true;
+            
         }
     }
 
@@ -674,6 +709,7 @@ void Player::UpdateIdleState(float elapsedTime)
 {
     moveHidariFlag = false;
     moveMigiFlag = false;
+    interval_flag = true;
     if (player_pos == 0)
     {
         position.x = 24.0f;
@@ -753,6 +789,7 @@ void Player::UpdateMoveState(float elapsedTime)
     {
         moveMigiFlag = false;
         moveHidariFlag = false;
+        interval_flag = true;
     }
     if (!moveMigiFlag&&!moveHidariFlag)
     {
@@ -836,6 +873,7 @@ void Player::UpdateAttackState(float elapsedTime)
     if (!model->IsPlayAimation())
     {
         TransitionIdleState();
+        interval_flag = true;
     }
     ////左手ノードとエネミーの衝突処理
     //CollisionNodeVsEnemies("mixamorig:LeftHand", leftHandRadius);
@@ -846,8 +884,10 @@ void Player::UpdateAttackState(float elapsedTime)
 
     if (attackCollisitonFlag)
     {
-        //左手ノードとエネミーの衝突処理
-        CollisionNodeVsEnemies("joint6", leftHandRadius);
+        
+            //左手ノードとエネミーの衝突処理
+             CollisionNodeVsEnemies("joint6", leftHandRadius);
+        
     }
 }
 
@@ -900,146 +940,79 @@ void Player::UpdateDeathState(float elapsedTime)
 
 void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
 {
-    //ノード取得
-    Model::Node* node = model->FindNode(nodeName);
-    DirectX::XMFLOAT3 positionn = { position.x,position.y,position.z + 10 };
-    //ノード位置取得
-    DirectX::XMFLOAT3 nodePosition;
-    nodePosition.x = node->worldTransform._41;
-    nodePosition.y = node->worldTransform._42;
-    nodePosition.z = node->worldTransform._43;
-
-    //指定のノードと全ての敵を総当たりで衝突処理
-    EnemyManager& enemyManager = EnemyManager::Instance();
-    int enemyCount = enemyManager.GetEnemyCount();
-
-    for (int i = 0; i < enemyCount; ++i)
+    if (!interval_flag)
     {
-        Enemy* enemy = enemyManager.GetEnemy(i);
+        //ノード取得
+        Model::Node* node = model->FindNode(nodeName);
+        DirectX::XMFLOAT3 positionn = { position.x,position.y,position.z + 5 };
+        //ノード位置取得
+        DirectX::XMFLOAT3 nodePosition;
+        nodePosition.x = node->worldTransform._41;
+        nodePosition.y = node->worldTransform._42;
+        nodePosition.z = node->worldTransform._43;
 
-        //衝突処理
-        DirectX::XMFLOAT3 outPosition;
-        if (Collision::IntersectSphereVsCylinder(
-            //position,
-            positionn,
-            nodeRadius,
-            enemy->GetPosition(),
-            enemy->GetRadius(),
-            enemy->GetHeight(),
-            outPosition))
+        //指定のノードと全ての敵を総当たりで衝突処理
+        EnemyManager& enemyManager = EnemyManager::Instance();
+        int enemyCount = enemyManager.GetEnemyCount();
+
+        for (int i = 0; i < enemyCount; ++i)
         {
-            
-            //ダメージを与える
-            if (enemy->ApplyDamage(5, 0.5f))
+            Enemy* enemy = enemyManager.GetEnemy(i);
+
+            //衝突処理
+            DirectX::XMFLOAT3 outPosition;
+            if (Collision::IntersectSphereVsCylinder(
+                //position,
+                positionn,
+                nodeRadius,
+                enemy->GetPosition(),
+                enemy->GetRadius(),
+                enemy->GetHeight(),
+                outPosition))
             {
-                if (enemy->GetPosition().x >=-1&&enemy->GetPosition().x<=1)
+
+                //ダメージを与える
+                if (enemy->ApplyDamage(5, 0.5f))
                 {
-                    x0_flag = true;
-                }
+                    if (enemy->GetPosition().x >= -1 && enemy->GetPosition().x <= 1)
+                    {
+                        x0_flag = true;
+                    }
 
-                if (enemy->GetPosition().x >= 11 && enemy->GetPosition().x <= 13)
+                    if (enemy->GetPosition().x >= 11 && enemy->GetPosition().x <= 13)
+                    {
+                        x1_flag = true;
+                    }
+
+                    if (enemy->GetPosition().x >= 23 && enemy->GetPosition().x <= 25)
+                    {
+                        x2_flag = true;
+                    }
+
+                    if (enemy->GetPosition().x >= 35 && enemy->GetPosition().x <= 37)
+                    {
+                        x3_flag = true;
+                    }
+
+                    if (enemy->GetPosition().x >= 47 && enemy->GetPosition().x <= 49)
+                    {
+                        x4_flag = true;
+                    }
+                    bossFlag = true;
+
+
+                }
+                //ヒットエフェクト再生
                 {
-                    x1_flag = true;
+                    DirectX::XMFLOAT3 e = enemy->GetPosition();
+                    e.y += enemy->GetHeight() * 0.5f;
+                    hitEffect->Play(e);
                 }
-
-                if (enemy->GetPosition().x >= 23 && enemy->GetPosition().x <= 25)
-                {
-                    x2_flag = true;
-                }
-
-                if (enemy->GetPosition().x >= 35 && enemy->GetPosition().x <= 37)
-                {
-                    x3_flag = true;
-                }
-
-                if (enemy->GetPosition().x >= 47 && enemy->GetPosition().x <= 49)
-                {
-                    x4_flag=true;
-                }
-                bossFlag = true;
-
-
-            //    DirectX::XMFLOAT3 dir;
-
-            //    dir.x = sin(angle.y);
-            //    dir.y = 0.0f;
-            //    dir.z = cos(angle.y);
-
-            //    DirectX::XMFLOAT3 pos;
-            //    pos.x = position.x;
-            //    pos.y = position.y;
-            //    pos.z = position.z;
-            //    DirectX::XMFLOAT3 target;
-            //    target.x = pos.x + dir.x * 1000.0f;
-            //    target.y = pos.y + dir.y * 1000.0f;
-            //    target.z = pos.z + dir.z * 1000.0f;
-
-            //    float dist = FLT_MAX;
-            //    EnemyManager& bossmanager = EnemyManager::Instance();
-            //    int bosscount = bossmanager.GetbossCount();
-            //    for (int i = 0; i < bosscount; ++i)
-            //    {
-            //        boss* booss = EnemyManager::Instance().Getboss(i);
-            //        DirectX::XMVECTOR P = DirectX::XMLoadFloat3(&position);
-            //        DirectX::XMVECTOR E = DirectX::XMLoadFloat3(&booss->GetPosition());
-            //        DirectX::XMVECTOR V = DirectX::XMVectorSubtract(E, P);
-            //        DirectX::XMVECTOR D = DirectX::XMVector3LengthSq(V);
-
-            //        float d;
-            //        DirectX::XMStoreFloat(&d, D);
-            //if (d < dist)
-            //{
-            //    dist = d;
-            //    target = booss->GetPosition();
-            //    target.y += booss->GetHeight() + 0.5f;
-            //}
-
-            //ProjectileHoming* projectile = new ProjectileHoming(&projectileManager);
-            //projectile->Launch(dir, pos, target);
-        //}
-
-                //吹っ飛ばす
-                //const float power=5.0f;
-                //DirectX::XMFLOAT3 e = enemy->GetPosition();
-                //float vx = e.x - nodePosition.x;
-                //float vz = e.z - nodePosition.z;
-
-                //float lengthXZ = sqrtf((vx * vx) + (vz * vz));
-
-                //vx /= lengthXZ;
-                //vz /= lengthXZ;
-
-                //DirectX::XMFLOAT3 impulse;
-
-                //impulse.x = vx * power;
-                //impulse.y = power * 0.5f;
-                //impulse.z = vz * power;
-
-                //enemy->AddImpulse(impulse);
             }
-            //ヒットエフェクト再生
-            {
-                DirectX::XMFLOAT3 e = enemy->GetPosition();
-                e.y += enemy->GetHeight() * 0.5f;
-                hitEffect->Play(e);
-            }
-        }
+    }
+   
 
-        notEnemy* notenemy = enemyManager.GetnotEnemy(i);
-
-        //衝突処理
-        DirectX::XMFLOAT3 outPosition2;
-        if (Collision::IntersectSphereVsCylinder(
-            //position,
-            positionn,
-            nodeRadius,
-            notenemy->GetPosition(),
-            notenemy->GetRadius(),
-            notenemy->GetHeight(),
-            outPosition2))
-        {
-            ApplyDamage(1, 0.5f);
-        }
+       
     }
 }
 

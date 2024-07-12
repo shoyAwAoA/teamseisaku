@@ -17,8 +17,8 @@ Boss::Boss()
     angle.y=(DirectX::XMConvertToRadians(180));
 
     //•A‚‚³İ’è
-    radius = 60.0f;
-    height = 40.0f;
+    radius = 30.0f;
+    height = 55.0f;
     health = 10.0f;
     damage_timer = 60;
 }
