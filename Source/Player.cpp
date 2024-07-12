@@ -286,20 +286,7 @@ void Player::CollisionPlayerVsEnemies()
         //        enemy->SetPosition(outPosition);
         //    }
         //}
-        //notEnemy* notenemy = enemyManager.GetnotEnemy(i);
-
-        ////Õ“Ëˆ—
-        //DirectX::XMFLOAT3 outPosition2;
-        //if (Collision::IntersectSphereVsCylinder(
-        //    GetPosition(),
-        //    GetRadius(),
-        //    notenemy->GetPosition(),
-        //    notenemy->GetRadius(),
-        //    notenemy->GetHeight(),
-        //    outPosition2))
-        //{
-        //    ApplyDamage(1, 0.5f);
-        //}
+     
 
         if (Collision::IntersectCylinderVsCylinder(
             GetPosition(),
@@ -1024,8 +1011,21 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                     hitEffect->Play(e);
                 }
             }
-    }
-   
+            //notEnemy* notenemy = enemyManager.GetnotEnemy(i);
+
+     ////Õ“Ëˆ—
+     //DirectX::XMFLOAT3 outPosition2;
+     //if (Collision::IntersectSphereVsCylinder(
+     //    GetPosition(),
+     //    GetRadius(),
+     //    notenemy->GetPosition(),
+     //    notenemy->GetRadius(),
+     //    notenemy->GetHeight(),
+     //    outPosition2))
+     //{
+     //    ApplyDamage(1, 0.5f);
+     //}
+        }
 
        
     }

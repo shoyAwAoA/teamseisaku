@@ -11,6 +11,7 @@
 
 
 
+
 // ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame :public Scene
 {
@@ -48,6 +49,7 @@ private:
 	CameraController* cameraController = nullptr;
 	EnemySlime* enemyslime = nullptr;
 	Sprite* gauge = nullptr;
+	std::unique_ptr<AudioSource> game_bgm;
 	
 	int timer0;
 	int timer1;
@@ -56,5 +58,4 @@ private:
 	int timer4;
 	int  ramdam0=0;
 	int  enemyType = 0;
-	//std::unique_ptr<AudioSource> game_bgm;
 };
