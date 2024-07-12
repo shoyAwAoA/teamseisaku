@@ -85,6 +85,7 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
         if (damage_flag)
         {
             ImGui::Checkbox(u8"damage_flag", &damage_flag);
+
         }
         else
         {
@@ -92,20 +93,7 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
         }
 
     }
-   
-        ImGui::End();
-        if (ImGui::Begin("damage", nullptr, ImGuiWindowFlags_None))
-        {
-
-            if (damage_flag)
-            {
-                ImGui::Checkbox(u8"Damage", &damage_flag);
-            }
-            else
-            {
-                ImGui::Checkbox(u8"Damage", &damage_flag);
-            }
-        }
+  
         ImGui::End();
 }
 

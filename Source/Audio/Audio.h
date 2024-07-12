@@ -17,9 +17,13 @@ public:
 	// オーディオソース読み込み
 	std::unique_ptr<AudioSource> LoadAudioSource(const char* filename);
 
+
+
 private:
 	static Audio*			instance;
 
 	IXAudio2*				xaudio = nullptr;
 	IXAudio2MasteringVoice* masteringVoice = nullptr;
+
+
 };

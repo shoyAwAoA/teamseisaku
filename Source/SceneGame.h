@@ -7,6 +7,7 @@
 #include"Scene.h"
 #include"Graphics/Sprite.h"
 #include"kowasenai.h"
+#include"Audio/AudioSource.h"
 
 
 
@@ -55,4 +56,5 @@ private:
 	int timer4;
 	int  ramdam0=0;
 	int  enemyType = 0;
+	//std::unique_ptr<AudioSource> game_bgm;
 };

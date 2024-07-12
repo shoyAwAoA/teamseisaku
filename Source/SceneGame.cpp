@@ -13,6 +13,8 @@
 #include"SceneResult.h"
 #include"SceneManager.h"
 #include"success.h"
+#include"Audio/Audio.h"
+
 
 bool player_yarare_flag;
 
@@ -41,7 +43,8 @@ void SceneGame::Initialize()
 	ran_flag3 = false;
 	ran_flag4 = false;
 
-	
+	Audio& audioManager = Audio::Instance();
+	//game_bgm = audioManager.LoadAudioSource("Data/Audio/game_bgm.wav");
 
 	//ステージの初期化
 	//stage = new Stage();
@@ -51,6 +54,8 @@ void SceneGame::Initialize()
 	player = new Player();
 	player_yarare_flag = false;
 	boss_yarare_flag = false;
+
+
 
 	//
 	//StageMoveFloor* stageMoveFloor = new StageMoveFloor();
@@ -98,7 +103,7 @@ void SceneGame::Initialize()
 
 	//}z
 
-	Boss* boss = new Boss();
+	Boss* boss = new Boss;
 	boss->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
 	enemyManager.Register(boss);
 
@@ -148,7 +153,13 @@ void SceneGame::Finalize()
 // 更新処理
 void SceneGame::Update(float elapsedTime)
 {
-	
+	//if (game_bgm)
+	//{
+		//game_bgm->Play(true);
+	//}
+
+
+
 	EnemyManager& enemyManager = EnemyManager::Instance();
 	//0レーンの敵処理
 	{
