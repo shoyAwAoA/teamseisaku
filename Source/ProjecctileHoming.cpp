@@ -51,7 +51,7 @@ void ProjectileHoming::Update(float elapsedTime)
         {
             if (x0_flag)
             {
-                direction.x -= 0.0065f;
+                direction.x -= 0.0025f;
             }
             if (x1_flag)
             {
@@ -66,11 +66,11 @@ void ProjectileHoming::Update(float elapsedTime)
             }
             if (x4_flag)
             {
-                direction.x += 0.0065f;
+                direction.x += 0.0025f;
             }
-            direction.y += 0.0055f;
+            direction.y += 0.0065f;
         }
-        if (position.y> 25)
+        if (position.y> 30)
         {
             ue = true;
         }
@@ -78,7 +78,7 @@ void ProjectileHoming::Update(float elapsedTime)
         {
             if (x0_flag)
             {
-                direction.x += 0.0085f;
+                direction.x += 0.0065f;
             }
             if (x1_flag)
             {
@@ -93,9 +93,9 @@ void ProjectileHoming::Update(float elapsedTime)
             }
             if (x4_flag)
             {
-                direction.x -= 0.009f;
+                direction.x -= 0.0065f;
             }
-            direction.y -= 0.0055f;
+            direction.y -= 0.0085f;
         }
     }
 

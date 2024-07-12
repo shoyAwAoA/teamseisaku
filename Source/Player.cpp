@@ -870,6 +870,21 @@ void Player::TransitionAttackState()
 //攻撃ステート更新処理
 void Player::UpdateAttackState(float elapsedTime)
 {
+    {
+        GamePad& gamePad = Input::Instance().GetGamePad();
+        {
+            if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT && gamePad.GetButtonDown() != GamePad::BTN_B)
+            {
+                state = State::Move;
+            }
+        }
+
+            if (gamePad.GetButtonDown() & GamePad::BTN_LEFT && gamePad.GetButtonDown() != GamePad::BTN_B)
+            {
+                state = State::Move;
+            }
+    }
+
     if (!model->IsPlayAimation())
     {
         TransitionIdleState();
