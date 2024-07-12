@@ -8,6 +8,7 @@
 #include"Graphics/Sprite.h"
 #include"kowasenai.h"
 #include"Audio/AudioSource.h"
+#include"Effect.h"
 
 
 
@@ -58,4 +59,5 @@ private:
 	int timer4;
 	int  ramdam0=0;
 	int  enemyType = 0;
+	Effect* kurogiri = nullptr;
 };

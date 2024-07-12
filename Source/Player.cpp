@@ -60,7 +60,7 @@ Player::Player()
     height = 20.0f;
     player_pos = 0;
     //ヒットエフェクト読み込み
-    hitEffect = new Effect("Data/Effect/Hit.efk");
+    hitEffect = new Effect("Data/Effect/kurogiri2.efk");
     radius = 5.0f;
     //待機ステートへ遷移
     TransitionIdleState();
@@ -1005,11 +1005,11 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
 
                 }
                 //ヒットエフェクト再生
-                {
-                    DirectX::XMFLOAT3 e = enemy->GetPosition();
-                    e.y += enemy->GetHeight() * 0.5f;
-                    hitEffect->Play(e);
-                }
+                //{
+                //    DirectX::XMFLOAT3 e = enemy->GetPosition();
+                //    e.y += enemy->GetHeight() * 0.5f;
+                //    hitEffect->Play(e);
+                //}
             }
             //notEnemy* notenemy = enemyManager.GetnotEnemy(i);
 
@@ -1150,14 +1150,15 @@ void Player::CollisionProjectilesVsEnemies()
                         //}
                         ////ヒットエフェクト再生
 
-                        //{
-                        //    DirectX::XMFLOAT3 e = boooss->GetPosition();
-                        //    e.y += boooss->GetHeight() * 0.5f;
-                        //    hitEffect->Play(e);
-                        //}
+                        {
+                            DirectX::XMFLOAT3 e = boooss->GetPosition();
+                            e.y += boooss->GetHeight() * 0.5f;
+                            hitEffect->Play(e,50);
+                        }
 
                         //弾丸破棄
                         projectile->Destroy();
+                        
                     }
                 }
                 
