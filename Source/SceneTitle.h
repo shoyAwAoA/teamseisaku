@@ -26,4 +26,7 @@ public:
 private:
     Sprite* sprite = nullptr;
     std::unique_ptr<AudioSource> title_bgm;
+    std::unique_ptr<AudioSource> sentaku_bgm;
+    int sen = 0;
+    bool sen_flag = false;
 };

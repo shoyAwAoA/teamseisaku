@@ -13,6 +13,9 @@ void SceneTitle::Initialize()
     sprite = new Sprite("Data/Sprite/Title.png");
     Audio& audiomanager = Audio::Instance();
     title_bgm = audiomanager.LoadAudioSource("Data/Audio/title.wav");
+    sentaku_bgm = audiomanager.LoadAudioSource("Data/Audio/senntaku.wav");
+    sen = 0;
+    sen_flag = false;
 }
 
 //終了化
@@ -33,7 +36,7 @@ void SceneTitle::Update(float elapseTime)
 
     if (title_bgm)
     {
-        title_bgm->Play(true);
+        title_bgm->Play(true,1.0f);
     }
 
     //何かボタンを押したらゲームシーンへ切り替え
@@ -49,9 +52,27 @@ void SceneTitle::Update(float elapseTime)
 
     if (gamePad.GetButton() & anyButton)
     {
-        SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
+        sen_flag = true;
     }
+    if (sen_flag)
+    {
 
+        if (sen <= 50)
+        {
+            if (sentaku_bgm)
+            {
+                sentaku_bgm->Play(true, 8.5f);
+            }
+        }
+        else if (sen > 50)
+        {
+            SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
+            sen_flag = false;
+            sen = 0;
+        }
+        sen++;
+    }
+   
     
 }
 //描画処理

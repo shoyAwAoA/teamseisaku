@@ -156,7 +156,7 @@ void SceneGame::Update(float elapsedTime)
 {
 	if (game_bgm)
 	{
-		game_bgm->Play(true);
+		game_bgm->Play(true,0.5f);
 	}
 
 

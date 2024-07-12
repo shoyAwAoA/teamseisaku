@@ -1,6 +1,6 @@
 #include"EnemySlime.h"
 #include"Graphics/Graphics.h"
-
+#include"Audio/Audio.h"
 
 
 //コンストラクタ
@@ -13,6 +13,11 @@ EnemySlime::EnemySlime()
     angle.y = 180.0f;
    /* position.y = 0;*/
     TransitionIdleState();
+
+    Audio& audioManager = Audio::Instance();
+
+    zakosi_bgm = audioManager.LoadAudioSource("Data/Audio/zakosi.wav");
+
     //幅、高さ設定
     radius = 5.0f;
     height = 5.0f;
@@ -158,6 +163,10 @@ void EnemySlime::UpdateIdleState(float elapsedTime)
 //死亡した時に呼ばれる
 void EnemySlime::OnDead()
 {
+    if (zakosi_bgm)
+    {
+        zakosi_bgm->Play(false, 12.0f);
+    }
    Destroy();
 }
 
