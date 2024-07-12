@@ -179,7 +179,7 @@ private:
 
     bool         deathFlag = false;
 
-    int          interval = 15;
+   // int          interval = 15;
 
     bool         interval_flag = true;
 

@@ -20,6 +20,7 @@ Boss::Boss()
     radius = 30.0f;
     height = 55.0f;
     health = 10.0f;
+    damage_timer = 60;
 }
 
 Boss::~Boss()
