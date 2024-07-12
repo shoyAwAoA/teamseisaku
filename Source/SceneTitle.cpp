@@ -4,12 +4,15 @@
 #include"SceneManager.h"
 #include"Input/Input.h"
 #include"SceneLoading.h"
+#include"Audio/Audio.h"
 
 //初期化
 void SceneTitle::Initialize()
 {
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/Title.png");
+    Audio& audiomanager = Audio::Instance();
+    title_bgm = audiomanager.LoadAudioSource("Data/Audio/title.wav");
 }
 
 //終了化
@@ -27,6 +30,11 @@ void SceneTitle::Finalize()
 void SceneTitle::Update(float elapseTime)
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
+
+    if (title_bgm)
+    {
+        title_bgm->Play(true);
+    }
 
     //何かボタンを押したらゲームシーンへ切り替え
     const GamePadButton anyButton =

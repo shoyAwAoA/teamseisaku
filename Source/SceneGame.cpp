@@ -44,7 +44,7 @@ void SceneGame::Initialize()
 	ran_flag4 = false;
 
 	Audio& audioManager = Audio::Instance();
-	game_bgm=audioManager.LoadAudioSource("Data/Audio/game_bgm.wav");
+	game_bgm=audioManager.LoadAudioSource("Data/Audio/bgm_game.wav");
 
 
 	//ステージの初期化
