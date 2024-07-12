@@ -5,6 +5,7 @@
 #include"Character.h"
 #include"ProjectileManager.h"
 #include"Effect.h"
+#include"Audio/AudioSource.h"
 
 //ƒvƒŒƒCƒ„[
 class Player :public Character
@@ -190,5 +191,10 @@ private:
     int          player_pos = 0;
 
     State       state = State::Idle;
+
+    std::unique_ptr<AudioSource> move_Bgm;
+    std::unique_ptr<AudioSource> attack_Bgm;
+
+
 };
 

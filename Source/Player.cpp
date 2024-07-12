@@ -10,6 +10,7 @@
 #include"EnemySlime.h"
 #include"SceneManager.h"
 #include"SceneResult.h"
+#include"Audio/Audio.h"
 
 static Player* instance = nullptr;
 extern bool player_yarare_flag;
@@ -36,6 +37,10 @@ Player& Player::Instance()
 Player::Player()
 {
     //インスタンスポインタ設定
+    Audio& audioManager = Audio::Instance();
+
+    move_Bgm = audioManager.LoadAudioSource("Data/Audio/idou.wav");
+    attack_Bgm = audioManager.LoadAudioSource("Data/Audio/kougeki.wav");
     instance = this;
     damage_flag = false;
     deathFlag = false;
@@ -49,6 +54,7 @@ Player::Player()
     interval_flag = true;
    // model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
     model = new Model("Data/Model/pkpk/jiki.mdl");
+    
    // model->PlayAnimation(0);
     //モデルが大きいでスケーリング
     scale.x = scale.y = scale.z = 4.0f;
@@ -594,6 +600,11 @@ bool Player::InputMove(float elapsedTime)
                 {
                     if (position.x < 40 && player_pos < 3)
                     {
+                        if (move_Bgm)
+                        {
+                            move_Bgm->Play(false,1.5f);
+                        }
+
                         moveMigiFlag = true;
                         // interval = 0;
                         interval_flag = false;
@@ -616,6 +627,12 @@ bool Player::InputMove(float elapsedTime)
                 {
                     if (position.x >= 10 && player_pos > -3)
                     {
+
+                        if (move_Bgm)
+                        {
+                            move_Bgm->Play(false,1.5f);
+                        }
+
                         moveHidariFlag = true;
                         //interval = 0;
                         interval_flag = false;
@@ -672,8 +689,13 @@ bool Player::InputAttack()
     if (gamePad.GetButtonDown() & GamePad::BTN_B&& interval_flag)
     {
         if (state == State::Idle)
-        {       interval_flag = false;
-                return true;
+        {       
+            interval_flag = false;
+            if (attack_Bgm)
+            {
+                attack_Bgm->Play(false,2.3f);
+            }
+            return true;
             
         }
     }
@@ -749,6 +771,10 @@ void Player::TranstionMoveState()
     //走りアニメーション再生
     if (moveMigiFlag&&!moveHidariFlag)
     {
+        if (move_Bgm)
+        {
+            move_Bgm->Play(true,1.5f);
+        }
         velocity.x = 6.90f;
         position.x += velocity.x;
         model->PlayAnimation(Anim_Migi, false);
@@ -756,6 +782,7 @@ void Player::TranstionMoveState()
     }
      if(moveHidariFlag&&!moveMigiFlag)
     {
+
         velocity.x = -6.90f;
         position.x += velocity.x;
         player_pos -= 1;
@@ -774,6 +801,10 @@ void Player::UpdateMoveState(float elapsedTime)
     }*/
     if (!model->IsPlayAimation())
     {
+        if (move_Bgm)
+        {
+            move_Bgm->Stop();
+        }
         moveMigiFlag = false;
         moveHidariFlag = false;
         interval_flag = true;
@@ -857,20 +888,7 @@ void Player::TransitionAttackState()
 //攻撃ステート更新処理
 void Player::UpdateAttackState(float elapsedTime)
 {
-    {
-        GamePad& gamePad = Input::Instance().GetGamePad();
-        {
-            if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT && gamePad.GetButtonDown() != GamePad::BTN_B)
-            {
-                state = State::Move;
-            }
-        }
-
-            if (gamePad.GetButtonDown() & GamePad::BTN_LEFT && gamePad.GetButtonDown() != GamePad::BTN_B)
-            {
-                state = State::Move;
-            }
-    }
+  
 
     if (!model->IsPlayAimation())
     {
@@ -1148,7 +1166,7 @@ void Player::CollisionProjectilesVsEnemies()
 
                         //    boooss->AddImpulse(impulse);
                         //}
-                        ////ヒットエフェクト再生
+                        //ヒットエフェクト再生
 
                         {
                             DirectX::XMFLOAT3 e = boooss->GetPosition();

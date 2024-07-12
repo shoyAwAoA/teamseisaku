@@ -2,7 +2,7 @@
 
 #include"Graphics/Model.h"
 #include"Enemy.h"
-
+#include"Audio/AudioSource.h"
 
 //ƒXƒ‰ƒCƒ€
 class EnemySlime :public Enemy
@@ -78,4 +78,6 @@ protected:
     //Ž€–S‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é
     void OnDead()override;
   //  void OnDamaged()override;
+    std::unique_ptr<AudioSource> zakosi_bgm;
+
 };
