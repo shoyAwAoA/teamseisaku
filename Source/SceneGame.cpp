@@ -597,68 +597,78 @@ void SceneGame::Render()
 }
 
 //エネミーHPゲージ描画
+//エネミーHPゲージ描画
 void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT4X4& view, const DirectX::XMFLOAT4X4 projection)
 {
-	////ビューポート
-	//D3D11_VIEWPORT viewport;
-	//UINT numViewports = 1;
-	//dc->RSGetViewports(&numViewports, &viewport);
+	//ビューポート
+	D3D11_VIEWPORT viewport;
+	UINT numViewports = 1;
+	dc->RSGetViewports(&numViewports, &viewport);
+	//変換行列
+	DirectX::XMMATRIX View = DirectX::XMLoadFloat4x4(&view);
+	DirectX::XMMATRIX Projection = DirectX::XMLoadFloat4x4(&projection);
+	DirectX::XMMATRIX World = DirectX::XMMatrixIdentity();
+	//全ての敵の頭上にHPゲージを表示
+	EnemyManager& enemyManager = EnemyManager::Instance();
+	int bossCount = enemyManager.GetbossCount();
+	for (int i = 0; i < bossCount; ++i)
+	{
+		boss* boss = enemyManager.Getboss(i);
 
-	////変換行列
-	//DirectX::XMMATRIX View = DirectX::XMLoadFloat4x4(&view);
-	//DirectX::XMMATRIX Projection = DirectX::XMLoadFloat4x4(&projection);
-	//DirectX::XMMATRIX World = DirectX::XMMatrixIdentity();
+		DirectX::XMFLOAT3 worldPosition = boss->GetPosition();
+		worldPosition.y += boss->GetHeight();
+		DirectX::XMVECTOR WorldPosition = DirectX::XMLoadFloat3(&worldPosition);
+		//ワールド座標からスクリーン座標へ変換
+		DirectX::XMVECTOR ScreenPosition = DirectX::XMVector3Project(
+			WorldPosition,//ワールド座標
+			viewport.TopLeftX,	  //ビューポート左上X位置
+			viewport.TopLeftY,	  //ビューポート左上Y位置
+			viewport.Width,//ビューポート幅
+			viewport.Height,//ビューポート高さ
+			viewport.MinDepth,//深度値の範囲を表す最小値(0.0でよい)
+			viewport.MaxDepth,//深度値の範囲を表す最大値(1.0fでよい)
+			Projection,//プロジェクション行列
+			View,//ビュー行列
+			World//ワールド行列(単位行列で良い)
+		);
+		//スクリーン座標
+		DirectX::XMFLOAT2 screenPosition;
+		DirectX::XMStoreFloat2(&screenPosition, ScreenPosition);
+		//ゲージの長さ
+		const float gaugeWidth = 50.0f;
+		const float gaugeHeight = 40.0f;
+		float healthRate = boss->GetHealth() / static_cast<float> (boss->GetMaxHealth());
+		float maxHealthRate = static_cast<float>(boss->GetMaxHealth());
+		//ゲージ描画
+		gauge->Render(
+			dc,
+			screenPosition.x + gaugeWidth * 2.5f,
+			screenPosition.y - gaugeHeight * 3.0f,
+			gaugeWidth * 10,
+			gaugeHeight,
+			0, 0,
+			static_cast<float>(gauge->GetTextureWidth()),
+			static_cast<float>(gauge->GetTextureHeight()),
+			0.0f,
+			1.0f, 1.0f, 1.0f, 1.0f
+		);
+		gauge->Render(
+			dc,
+			screenPosition.x + gaugeWidth * 2.5f,
+			screenPosition.y - gaugeHeight * 3.0f,
+			gaugeWidth * healthRate,
+			gaugeHeight,
+			0, 0,
+			static_cast<float>(gauge->GetTextureWidth()),
+			static_cast<float>(gauge->GetTextureHeight()),
+			0.0f,
+			1.0f, 0.0f, 0.0f, 1.0f
+		);
 
-	////全ての敵の頭上にHPゲージを表示
-	//EnemyManager& enemyManager = EnemyManager::Instance();
-	//int enemyCount = enemyManager.GetEnemyCount();
-
-	//for (int i = 0; i < enemyCount; ++i)
-	//{
-	//	//	Enemy* enemy = enemyManager.GetEnemy(i);
-	//	//	
-	//	//	DirectX::XMFLOAT3 worldPosition = enemy->GetPosition();
-	//	//	worldPosition.y += enemy->GetHeight();
-	//	//	DirectX::XMVECTOR WorldPosition = DirectX::XMLoadFloat3(&worldPosition);
-
-	//	//	//ワールド座標からスクリーン座標へ変換
-	//	//	DirectX::XMVECTOR ScreenPosition = DirectX::XMVector3Project(
-	//	//		WorldPosition,//ワールド座標
-	//	//		viewport.TopLeftX,	  //ビューポート左上X位置
-	//	//		viewport.TopLeftY,	  //ビューポート左上Y位置
-	//	//		viewport.Width,//ビューポート幅
-	//	//		viewport.Height,//ビューポート高さ
-	//	//		viewport.MinDepth,//深度値の範囲を表す最小値(0.0でよい)
-	//	//		viewport.MaxDepth,//深度値の範囲を表す最大値(1.0fでよい)
-	//	//		Projection,//プロジェクション行列
-	//	//		View,//ビュー行列
-	//	//		World//ワールド行列(単位行列で良い)
-	//	//		);
-
-	//	//	//スクリーン座標
-	//	//	DirectX::XMFLOAT2 screenPosition;
-	//	//	DirectX::XMStoreFloat2(&screenPosition, ScreenPosition);
-
-	//	//	//ゲージの長さ
-	//	//	const float gaugeWidth = 30.0f;
-	//	//	const float gaugeHeight = 5.0f;
-
-	//	//	float healthRate = enemy->GetHealth() /static_cast<float> (enemy->GetMaxHealth());
-
-	//	//	//ゲージ描画
-	//	//	gauge->Render(
-	//	//		dc,
-	//	//		screenPosition.x - gaugeWidth * 0.5f,
-	//	//		screenPosition.y - gaugeHeight,
-	//	//		gaugeWidth * healthRate,
-	//	//		gaugeHeight,
-	//	//		0, 0,
-	//	//		static_cast<float>(gauge->GetTextureWidth()),
-	//	//		static_cast<float>(gauge->GetTextureHeight()),
-	//	//		0.0f,
-	//	//		1.0f, 0.0f, 0.0f, 1.0f
-	//	//	);
-	//	//}
+	}
+	//
+	//
+	//
 	//	////エネミーの配置処理
 	//	//Mouse& mouse = Input::Instance().GetMouse();
 	//	//if (mouse.GetButtonDown() & Mouse::BTN_LEFT)
@@ -667,9 +677,7 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 	//	//	DirectX::XMFLOAT3 screenPosition;
 	//	//	screenPosition.x = static_cast<float>(mouse.GetPositionX());
 	//	//	screenPosition.y = static_cast<float>(mouse.GetPositionY());
-
 	//	//	DirectX::XMVECTOR ScreenPosition, WorldPosition;
-
 	//	//	//レイの始点を算出
 	//	//	screenPosition.z = 0.0f;
 	//	//	ScreenPosition = DirectX::XMLoadFloat3(&screenPosition);
@@ -687,7 +695,6 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 	//	//	);
 	//	//	DirectX::XMFLOAT3 rayStart;
 	//	//	DirectX::XMStoreFloat3(&rayStart, WorldPosition);
-
 	//	//	//レイの終点を算出
 	//	//	screenPosition.z = 1.0f;
 	//	//	ScreenPosition = DirectX::XMLoadFloat3(&screenPosition);
@@ -705,7 +712,6 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 	//	//	);
 	//	//	DirectX::XMFLOAT3 rayEnd;
 	//	//	DirectX::XMStoreFloat3(&rayEnd, WorldPosition);
-
 	//	//	//レイキャスト
 	//	//	HitResult hit;
 	//	//	if (StageManager::Instance().RayCast(rayStart, rayEnd, hit))
