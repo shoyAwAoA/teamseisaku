@@ -23,7 +23,11 @@ public:
     //停止
     void Stop(Effekseer::Handle handle);
 
+    //前提し
+    void Stopp();
+
     //座標設定
+
     void SetPosition(Effekseer::Handle handle, const DirectX::XMFLOAT3& posdition);
 
     //スケール設定

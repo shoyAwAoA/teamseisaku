@@ -6,6 +6,7 @@
 
 
 extern Effect* hitEffect;
+extern  bool player_yarare_flag;
 bool Effect0_flag;
 bool Effect1_flag;
 bool Effect2_flag;
@@ -33,14 +34,17 @@ EnemySlime::EnemySlime()
     angle.y = 180.0f;
    /* position.y = 0;*/
     TransitionIdleState();
-
+   
   
 
     zakosi_bgm = audioManager.LoadAudioSource("Data/Audio/zakosi.wav");
    
+    kurogiri->Stopp();
     //エフェクトの読み込み
     kurogiri = new Effect("Data/Effect/kurogiri2.efk");
 
+
+   
     //幅、高さ設定
     radius = 5.0f;
     height = 5.0f;
@@ -55,6 +59,7 @@ EnemySlime::~EnemySlime()
         model = nullptr;
         delete model;
     }
+  
     if (kurogiri != nullptr)
     {
         kurogiri = nullptr;
@@ -198,13 +203,9 @@ void EnemySlime::UpdateIdleState(float elapsedTime)
         TransitionMoveState();
        
        //idle_timer = 0;
-    }
-   
+    }  
     
     ++idle_timer;
-
-    
-    
 }
 
 //移動ステートへ遷移
@@ -234,6 +235,7 @@ void EnemySlime::Effect_create()
     {
         if (Effect_flag(idle_timer, idle_flag, count))
         {
+
             if (GetType() == 0)
             {
                 DirectX::XMFLOAT3 p = { 0,0,90 };

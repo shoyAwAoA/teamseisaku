@@ -36,7 +36,7 @@ public:
 	//void Render();
 	void Render()override;
 
-	
+
 	
 private:
 	//エネミーHPゲージ描画

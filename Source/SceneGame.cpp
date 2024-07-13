@@ -31,7 +31,8 @@ extern int count;
 void SceneGame::Initialize()
 {
 	srand((unsigned int)time(NULL));
-	count = 0;
+
+
 	timer0 = 0;
 	timer1 = 0;
 	timer2 = 0;
@@ -45,6 +46,7 @@ void SceneGame::Initialize()
 	ran_flag3 = false;
 	ran_flag4 = false;
 
+	
 
 	//Effect0_flag=false;
  //   Effect1_flag=false;
@@ -119,6 +121,7 @@ void SceneGame::Initialize()
 
 	//ゲージスプライト
 	gauge = new Sprite();
+	kurogiri2->Stopp();
 }
 
 // 終了化

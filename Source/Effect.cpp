@@ -48,6 +48,13 @@ void Effect::Stop(Effekseer::Handle handle)
 
 }
 
+void Effect::Stopp()
+{
+    Effekseer::ManagerRef effekseerManager = EffectManager::Instance().GetEffekseerManager();
+
+    effekseerManager->StopAllEffects();
+}
+
 //ç¿ïWê›íË
 void Effect::SetPosition(Effekseer::Handle handle, const DirectX::XMFLOAT3& position)
 {
