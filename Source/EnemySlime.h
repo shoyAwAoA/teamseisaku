@@ -3,7 +3,8 @@
 #include"Graphics/Model.h"
 #include"Enemy.h"
 #include"Audio/AudioSource.h"
-
+#include"Effect.h"
+#include"Player.h"
 //スライム
 class EnemySlime :public Enemy
 {
@@ -19,6 +20,15 @@ public:
 
     void MoveSpeed(float elapsedTime);
 
+    void Effect_create();
+
+    void Effect_death(float type);
+
+    bool Effect_flag(int efc_timer, bool efc_flag,int count);
+    //タイプ取得
+    float GetType()const { return type; }
+
+    void SetType(float type) { this->type = type; };
     //デバッグ用GUI描画
    // void DrawDebugGUI();
 
@@ -36,12 +46,19 @@ private:
     //待機ステート更新処理
     void UpdateIdleState(float elapsedTime);
 
+    //移動ステートへ遷移
+    void TransitionMoveState();
+
+    //移動ステート更新処理
+    void UpdateMoveState(float elapsedTime);
+
 private:
     //ステート
     enum class State
     {
         Wander,
         Idle,
+        Move,
         Die,
     };
 
@@ -74,10 +91,21 @@ private:
     float             moveSpeed = 3.0f;
     float             turnSpeed = DirectX::XMConvertToRadians(360);
     float             stateTimer = 0.0f;
+
+    int               zako = 0;
+    bool              zako_flag = false;
+
+  
+    bool idle_flag=true;
+
+    int  idle_timer=0;
+
 protected:
     //死亡したときに呼ばれる
     void OnDead()override;
   //  void OnDamaged()override;
     std::unique_ptr<AudioSource> zakosi_bgm;
-
+   
+private:
+    Effect* kurogiri = nullptr;
 };

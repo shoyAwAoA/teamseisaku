@@ -186,7 +186,7 @@ private:
 
     ProjectileManager   projectileManager;
 
-    Effect* hitEffect = nullptr;
+
 
     int          player_pos = 0;
 

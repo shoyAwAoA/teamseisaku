@@ -11,6 +11,9 @@ Effect::Effect(const char* filename)
     //エフェクトを読み込みする前にロックする
     //マルチスレッドでEffectを作成するとDeviceContextを同時アクセスして
     //フリーズする可能性があるので排他制御
+
+   
+
     std::lock_guard<std::mutex> lock(Graphics::Instance().GetMutex());
 
     char16_t utf16Filename[256];
@@ -37,9 +40,12 @@ Effekseer::Handle Effect::Play(const DirectX::XMFLOAT3& position, float scale)
 //停止
 void Effect::Stop(Effekseer::Handle handle)
 {
+
+
     Effekseer::ManagerRef effekseerManager = EffectManager::Instance().GetEffekseerManager();
 
     effekseerManager->StopEffect(handle);
+
 }
 
 //座標設定

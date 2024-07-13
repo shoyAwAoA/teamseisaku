@@ -1,6 +1,7 @@
 #pragma once
 
 //#include"Stage.h"
+#include"Effect.h"
 #include"Player.h"
 #include"CameraController.h"
 #include"EnemySlime.h"
@@ -8,7 +9,6 @@
 #include"Graphics/Sprite.h"
 #include"kowasenai.h"
 #include"Audio/AudioSource.h"
-#include"Effect.h"
 
 
 
@@ -36,6 +36,8 @@ public:
 	//void Render();
 	void Render()override;
 
+	
+	
 private:
 	//エネミーHPゲージ描画
 	void RenderEnemyGauge(
@@ -59,5 +61,7 @@ private:
 	int timer4;
 	int  ramdam0=0;
 	int  enemyType = 0;
-	Effect* kurogiri = nullptr;
+
+private:
+	Effect* kurogiri2 = nullptr;
 };

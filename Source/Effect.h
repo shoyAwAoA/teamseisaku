@@ -7,6 +7,13 @@
 class Effect
 {
 public:
+
+    //static Effect& Instance()
+    //{
+    //    static Effect& instance;
+    //    return instance;
+    //}
+
     Effect(const char* filename);
     ~Effect() {};
 
@@ -22,6 +29,9 @@ public:
     //ÉXÉPÅ[Éãê›íË
     void SetScale(Effekseer::Handle handle, const DirectX::XMFLOAT3& scale);
 
+    int GetEffectCount() const { return static_cast<int>(effecties.size()); }
+
 private:
+    std::vector<Effect*>        effecties;
     Effekseer::EffectRef    effekseerEffect;
 };

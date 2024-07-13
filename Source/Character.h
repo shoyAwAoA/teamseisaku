@@ -31,6 +31,10 @@ public:
     //スケール設定
     void SetScale(const DirectX::XMFLOAT3& scale) { this->scale = scale; }
 
+
+
+   
+
     //半径取得
     float GetRadius() const { return radius; }
 
@@ -39,6 +43,8 @@ public:
 
     //高さ取得
     float GetHeight() const { return height; }
+
+  
 
     //ダメージを与える
     //bool ApplyDamage(int damage);
@@ -89,7 +95,11 @@ protected:
 
     bool        isGround = false;
 
+    int         type = 0;
+
     int         health = 1;
+
+
 
     int         maxHealth = 1;
 

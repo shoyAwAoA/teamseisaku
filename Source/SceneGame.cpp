@@ -25,11 +25,13 @@ bool ran_flag2;
 bool ran_flag3;
 bool ran_flag4;
 
+
+extern int count;
 // 初期化
 void SceneGame::Initialize()
 {
 	srand((unsigned int)time(NULL));
-
+	count = 0;
 	timer0 = 0;
 	timer1 = 0;
 	timer2 = 0;
@@ -43,11 +45,17 @@ void SceneGame::Initialize()
 	ran_flag3 = false;
 	ran_flag4 = false;
 
+
+	//Effect0_flag=false;
+ //   Effect1_flag=false;
+	//Effect2_flag=false;
+	//Effect3_flag=false;
+	//Effect4_flag=false;
+
 	Audio& audioManager = Audio::Instance();
 	game_bgm=audioManager.LoadAudioSource("Data/Audio/bgm_game.wav");
-	kurogiri = new Effect("Data/Effect/korogiri.efk");
-
-
+	
+	kurogiri2 = new Effect("Data/Effect/kurogiri2.efk");
 	//ステージの初期化
 	//stage = new Stage();
 	StageManager& stageManager = StageManager::Instance();
@@ -151,7 +159,7 @@ void SceneGame::Finalize()
 	}
 	StageManager::Instance().Clear();
 
-	delete kurogiri;
+
 }
 
 // 更新処理
@@ -174,7 +182,7 @@ void SceneGame::Update(float elapsedTime)
 	EnemyManager& enemyManager = EnemyManager::Instance();
 	//0レーンの敵処理
 	{
-		if (timer0 >= 150 && rand() % 150 == 0)
+		if (timer0 >= 350 && rand() % 150 == 0)
 		{
 			if (ran_flag0 == false)
 			{
@@ -186,21 +194,38 @@ void SceneGame::Update(float elapsedTime)
 			}
 			if (enemyType == 1 && ran_flag0)
 			{
+				
 				EnemySlime* slime = new EnemySlime;
+				slime->SetType(0);
 				slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
 				enemyManager.Register(slime);
+				
 			}
 			else if(enemyType==2 && ran_flag0)/* if (enemyType == 2 && ran_flag0)*/
 			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-				enemyManager.Register(wasenai);
+				EnemySlime* slime = new EnemySlime;
+				slime->SetType(0);
+				slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+				enemyManager.Register(slime);
+
+
+				//kowasenai* wasenai = new kowasenai;
+				////wasenai->SetType(0);
+				//wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+				//enemyManager.Register(wasenai);
 			}
 			else if (enemyType == 3 && ran_flag0)
 			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-				enemyManager.Register(wasenai);
+
+				EnemySlime* slime = new EnemySlime;
+				slime->SetType(0);
+				slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+				enemyManager.Register(slime);
+
+			//	kowasenai* wasenai = new kowasenai;
+			////	wasenai->SetType(0);
+			//	wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+			//	enemyManager.Register(wasenai);
 			}
 			ran_flag0 = false;
 			timer0 = 0;
@@ -219,6 +244,7 @@ void SceneGame::Update(float elapsedTime)
 			if (enemyType == 1 && ran_flag1)
 			{
 				EnemySlime* slime = new EnemySlime;
+				slime->SetType(1);
 				slime->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
 				enemyManager.Register(slime);
 			}
@@ -251,6 +277,7 @@ void SceneGame::Update(float elapsedTime)
 			if (enemyType == 1 && ran_flag2)
 			{
 				EnemySlime* slime = new EnemySlime;
+				slime->SetType(2);
 				slime->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
 				enemyManager.Register(slime);
 			}
@@ -284,6 +311,7 @@ void SceneGame::Update(float elapsedTime)
 			if (enemyType == 1 && ran_flag3)
 			{
 				EnemySlime* slime = new EnemySlime;
+				slime->SetType(3);
 				slime->SetPosition(DirectX::XMFLOAT3(36, 0, 90));
 
 				enemyManager.Register(slime);
@@ -318,6 +346,7 @@ void SceneGame::Update(float elapsedTime)
 			if (enemyType == 1 && ran_flag4)
 			{
 				EnemySlime* slime = new EnemySlime;
+				slime->SetType(4);
 				slime->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
 				enemyManager.Register(slime);
 			}
@@ -325,24 +354,24 @@ void SceneGame::Update(float elapsedTime)
 			{
 				kowasenai* wasenai = new kowasenai;
 				wasenai->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
-				DirectX::XMFLOAT3 e = wasenai->GetPosition();
-				e.y += wasenai->GetHeight() * 0.5f;
-				kurogiri->Play(e, 70);
+				
+				
 				enemyManager.Register(wasenai);
 			}
 			else if (enemyType == 3 && ran_flag4)
 			{
 				kowasenai* wasenai = new kowasenai;
 				wasenai->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
-				DirectX::XMFLOAT3 e = wasenai->GetPosition();
-				e.y += wasenai->GetHeight() * 0.5f;
-				kurogiri->Play(e,70);
+			
+			
 				enemyManager.Register(wasenai);
 			}
 			ran_flag4 = false;
 			timer4 = 0;
 
 		}
+
+
 
 	}
 	timer0++;
@@ -494,6 +523,7 @@ void SceneGame::Update(float elapsedTime)
 	cameraController->SetTarget(target);
 	cameraController->Update(elapsedTime);
 
+
 	//ステージ更新処理
 //	stage->Update(elapsedTime);
 	StageManager::Instance().Update(elapsedTime);
@@ -503,9 +533,13 @@ void SceneGame::Update(float elapsedTime)
 	EnemyManager::Instance().Update(elapsedTime);
 	//エフェクト更新処理
 	EffectManager::Instance().Update(elapsedTime);
-
-}
 	
+}
+
+
+	
+
+
 
 // 描画処理
 void SceneGame::Render()

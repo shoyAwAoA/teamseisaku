@@ -24,7 +24,7 @@ bool x2_flag;
 bool x3_flag;
 bool x4_flag;
 
-
+Effect* hitEffect = nullptr;
 //インスタンス取得
 Player& Player::Instance()
 {
@@ -1168,11 +1168,11 @@ void Player::CollisionProjectilesVsEnemies()
                         //}
                         //ヒットエフェクト再生
 
-                        {
+                     /*   {
                             DirectX::XMFLOAT3 e = boooss->GetPosition();
                             e.y += boooss->GetHeight() * 0.5f;
                             hitEffect->Play(e,50);
-                        }
+                        }*/
 
                         //弾丸破棄
                         projectile->Destroy();
