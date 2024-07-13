@@ -9,6 +9,7 @@ extern Effect* hitEffect;
 
 Effect* kurogiri = nullptr;
 extern  bool player_yarare_flag;
+extern  int  owari_timer;
 bool Effect0_flag;
 bool Effect1_flag;
 bool Effect2_flag;
@@ -16,12 +17,8 @@ bool Effect3_flag;
 bool Effect4_flag;
 
 
-
 int count = 0;
-int count1=0;
-int count2=0;
-int count3=0;
-int count4=0;
+
 //コンストラクタ
 EnemySlime::EnemySlime()
 {
@@ -37,7 +34,7 @@ EnemySlime::EnemySlime()
    /* position.y = 0;*/
     TransitionIdleState();
    
-  
+   /* kurogiri->Stopp();*/
 
     zakosi_bgm = audioManager.LoadAudioSource("Data/Audio/zakosi.wav");
    
@@ -67,11 +64,18 @@ EnemySlime::~EnemySlime()
 //更新処理
 void EnemySlime::Update(float elapsedTime)
 {
+    //if (player_yarare_flag)
+    //{
+    //    //Effect_death();
+    //    owari_timer++;
+    //   /* owari = true;*/
+    //}
+   
     //ステート毎の更新処理
     switch (state)
     {
-    case State::Wander:
-        UpdateWanderState(elapsedTime);
+   // case State::Wander:
+       // UpdateWanderState(elapsedTime);
         break;
     case State::Idle:
         UpdateIdleState(elapsedTime);
@@ -95,11 +99,14 @@ void EnemySlime::Update(float elapsedTime)
         Destroy();
     }
 
+    //if (state==State::Move&&idle_flag==false&&idle_timer>90)
+    //{
 
-    Effect_create();
+    //    Effect_death(GetType());
+    //}
+  //  Effect_create();
 
-
-
+    Effect_flag(idle_timer, idle_flag, count);
     //速力処理更新
     UpdateVelocity(elapsedTime);
 
@@ -111,13 +118,17 @@ void EnemySlime::Update(float elapsedTime)
 
     //MoveSpeed(elapsedTime);
 
-
-
+   
     model->UpdateAnimation(elapsedTime);
-
+  
     //モデル行列更新
     model->UpdateTransform(transform);
+
+   
+
+    idle_timer++;
 }
+
 
 //描画処理
 void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
@@ -132,15 +143,16 @@ void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
 
         if (idle_flag)
         {
-            ImGui::Checkbox(u8"Idle", &idle_flag);
+            ImGui::Checkbox(u8"Idle_flag", &idle_flag);
         }
         else
         {
-            ImGui::Checkbox(u8"Idle", &idle_flag);
+            ImGui::Checkbox(u8"Idle_flag", &idle_flag);
         }
         ImGui::InputInt("Idle_Timer", &idle_timer);
         ImGui::InputInt("count", &count);
-       
+     
+      
     }
     ImGui::End();
 
@@ -186,39 +198,33 @@ void EnemySlime::UpdateIdleState(float elapsedTime)
        // if (GetType() == 0)
         if(idle_flag)
         {
-            if (GetType() == 0)
-            {
+          
                 Effect_create();
-                //idle_flag = false;
-            }
+         
         }
     }
     
    // else if(idle_timer>90)
-    else if(!idle_flag&&idle_timer>90)
-    {
+    //else if(!idle_flag&&idle_timer>90)
+   
      
-        Effect_death(GetType());
-        count++;
-        TransitionMoveState();
+        if (idle_timer > 90&&!idle_flag) { 
+            Effect_death();
+           count++; 
+            TransitionMoveState();
+        }
        
        //idle_timer = 0;
-    }  
     
-    ++idle_timer;
+    
+  //  ++idle_timer;
 }
 
 //移動ステートへ遷移
 void EnemySlime::TransitionMoveState()
 {
     state = State::Move;
-  
-    idle_flag = false;
-    //for (int i = 0; i < 200; ++i)
-    //{
-    //     hitEffect->Stop(i);
-    //}
-    //
+ 
     //移動アニメーション再生
     model->PlayAnimation(Anim_WalkBWD, true);
 }
@@ -229,99 +235,126 @@ void EnemySlime::Effect_create()
 
     int EffectCount = kurogiri->GetEffectCount();
     int enemy_Count=enemyManager.GetEnemyCount();
-    int enemyCount=enemyManager.Instance().GetEnemyCount();
+  
 
     for (int i = 0; i < enemy_Count; ++i)
     {
         if (Effect_flag(idle_timer, idle_flag, count))
         {
-
-            if (GetType() == 0)
+            if (owari_timer==0)
             {
-                DirectX::XMFLOAT3 p = { 0,0,90 };
-                p.y += 2.5f;
-                kurogiri->Play(p, 20);
-             
+                if (GetType() == 0)
+                {
+                    DirectX::XMFLOAT3 p = { 0,0,90 };
+                    p.y += 2.5f;
+                    kurogiri->Play(p, 20);
 
-                idle_flag = false;
+
+                    idle_flag = false;
+                }
+                if (GetType() == 1)
+                {
+                    DirectX::XMFLOAT3 p = { 12,0,90 };
+                    p.y += 2.5f;
+                    kurogiri->Play(p, 20);
+
+
+                    idle_flag = false;
+                }
+                if (GetType() == 2)
+                {
+                    DirectX::XMFLOAT3 p = { 24,0,90 };
+                    p.y += 2.5f;
+                    kurogiri->Play(p, 20);
+
+
+                    idle_flag = false;
+                }
+                if (GetType() == 3)
+                {
+                    DirectX::XMFLOAT3 p = { 36,0,90 };
+                    p.y += 2.5f;
+                    kurogiri->Play(p, 20);
+
+
+                    idle_flag = false;
+                }
+                if (GetType() == 4)
+                {
+                    DirectX::XMFLOAT3 p = { 48,0,90 };
+                    p.y += 2.5f;
+                    kurogiri->Play(p, 20);
+
+
+                    idle_flag = false;
+                }
             }
-            if (GetType() == 1)
-            {
-                DirectX::XMFLOAT3 p = { 12,0,90 };
-                p.y += 2.5f;
-                kurogiri->Play(p, 20);
-            
-
-                idle_flag = false;
-            }
-            if (GetType() == 2)
-            {
-                DirectX::XMFLOAT3 p = { 24,0,90 };
-                p.y += 2.5f;
-                kurogiri->Play(p, 20);
-               
-
-                idle_flag = false;
-            }
-            if (GetType() == 3)
-            {
-                DirectX::XMFLOAT3 p = { 36,0,90 };
-                p.y += 2.5f;
-                kurogiri->Play(p, 20);
           
-
-                idle_flag = false;
-            }
-            if (GetType() == 4)
-            {
-                DirectX::XMFLOAT3 p = { 48,0,90 };
-                p.y += 2.5f;
-                kurogiri->Play(p, 20);
-             
-
-                idle_flag = false;
-            }
         };
 
     }
 }
 
-void EnemySlime::Effect_death(float GetType)
+void EnemySlime::reset()
+{
+    //count = 0;
+   /* idle_flag = true;
+    idle_timer = 0;*/
+   // count = 0;
+ /*    kurogiri->Stopp();
+    kurogiri->Stopp();*/
+}
+
+
+void EnemySlime::Effect_death()
 {
     EnemyManager& enemyManager = EnemyManager::Instance();
 
     int EffectCount = kurogiri->GetEffectCount();
     int enemy_Count = enemyManager.GetEnemyCount();
-    int enemyCount = enemyManager.Instance().GetEnemyCount();
+   // int enemyCount = enemyManager.Instance().GetEnemyCount();
 
     for (int i = 0; i < enemy_Count; ++i)
     {
+        if (!Effect_flag(idle_timer, idle_flag, count))
+        {
+            if (GetType() == 0)
+            {
+               
+                kurogiri->Stop(count);
+                idle_flag = true;
+            }
+            if (GetType() == 1)
+            {
+          
+                kurogiri->Stop(count);
+                idle_flag = true;
+                //  TransitionMoveState();
+            }
+            if (GetType() == 2)
+            {
+            
+                kurogiri->Stop(count);
+                idle_flag = true;
+                //  TransitionMoveState();
+            }
+            if (GetType() == 3)
+            {
+           
+                kurogiri->Stop(count);
+                idle_flag = true;
+                //  TransitionMoveState();
+            }
+            if (GetType() == 4)
+            {
+             
+                kurogiri->Stop(count);
+                idle_flag = true;
+                // TransitionMoveState();
+            }
         
-            if (GetType == 0)
-            {
-                kurogiri->Stop(count);
-               
-            }
-            if (GetType == 1)
-            {
-                kurogiri->Stop(count);
-              
-            }
-            if (GetType == 2)
-            {
-                kurogiri->Stop(count);
-               
-            }
-            if (GetType == 3)
-            {
-                kurogiri->Stop(count);
-              
-            }
-            if (GetType == 4)
-            {
-                kurogiri->Stop(count);
-               
-            }
+
+        }
     }
 }
 
@@ -331,7 +364,7 @@ bool EnemySlime::Effect_flag(int efc_timer, bool efc_flag,int count)
     {
         return true;
     }
-    else if (efc_timer > 90)
+    else if (efc_timer > 90&&!efc_flag)
     {
         return false;
     }

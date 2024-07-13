@@ -206,7 +206,7 @@ void Player::Update(float elapsedTime)
 
     if (deathFlag)
     {
-        angle.y += 0.095f;
+        angle.y += 0.035f;
     }
     ////ジャンプ入力処理
     //InputJump();
@@ -948,6 +948,7 @@ void Player::UpdateDeathState(float elapsedTime)
 {
     if(!model->IsPlayAimation())
     {
+        
         player_yarare_flag = true;
         ////ボタンを押したら復活ステートへ遷移
         //GamePad& gamePad = Input::Instance().GetGamePad();

@@ -33,9 +33,11 @@ public:
     //ÉXÉPÅ[Éãê›íË
     void SetScale(Effekseer::Handle handle, const DirectX::XMFLOAT3& scale);
 
-    int GetEffectCount() const { return static_cast<int>(effecties.size()); }
+   int GetEffectCount() const { return static_cast<int>(effecties.size()); }
+    //int GetEffectCount() const { return Count; }
 
 private:
+    
     std::vector<Effect*>        effecties;
     Effekseer::EffectRef    effekseerEffect;
 };

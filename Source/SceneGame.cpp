@@ -25,9 +25,13 @@ bool ran_flag2;
 bool ran_flag3;
 bool ran_flag4;
 
+bool owari = false;
+int owari_timer = 0;
 
 extern int count;
 extern Effect* kurogiri;
+;
+extern bool owari;
 // 初期化
 void SceneGame::Initialize()
 {
@@ -40,6 +44,10 @@ void SceneGame::Initialize()
 	timer3 = 0;
 	timer4 = 0;
 	enemyType = 0;
+	owari = false;
+	owari_timer = 0;
+	/*EnemySlime* slime = new EnemySlime;
+	slime->reset();*/
 
 	ran_flag0 = false;
 	ran_flag1 = false;
@@ -47,6 +55,7 @@ void SceneGame::Initialize()
 	ran_flag3 = false;
 	ran_flag4 = false;
 
+	//idole_flag = true;
 	
 
 	//Effect0_flag=false;
@@ -68,7 +77,7 @@ void SceneGame::Initialize()
 	player_yarare_flag = false;
 	boss_yarare_flag = false;
 
-
+	kurogiri->Stopp();
 
 	//
 	//StageMoveFloor* stageMoveFloor = new StageMoveFloor();
@@ -115,7 +124,7 @@ void SceneGame::Initialize()
 	//		enemyManager.Register(wasenai);
 
 	//}z
-
+	
 	Boss* boss = new Boss;
 	boss->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
 	enemyManager.Register(boss);
@@ -175,9 +184,16 @@ void SceneGame::Update(float elapsedTime)
 		game_bgm->Play(true,0.5f);
 	}
 
-	//kurogiri
-
-
+	
+	if (player_yarare_flag)
+	{
+		kurogiri2->Stopp();
+		owari_timer++;
+	}
+	if (owari_timer > 100)
+	{
+		owari = true;
+	}
 
 	//DirectX::XMFLOAT3 e = enemy->GetPosition();
 	//e.y += enemy->GetHeight() * 0.5f;
@@ -187,198 +203,200 @@ void SceneGame::Update(float elapsedTime)
 	EnemyManager& enemyManager = EnemyManager::Instance();
 	//0レーンの敵処理
 	{
-		if (timer0 >= 350 && rand() % 150 == 0)
+		if (!owari)
 		{
-			if (ran_flag0 == false)
+			if (timer0 >= 350 && rand() % 150 == 0)
 			{
-				for (int i = 1; i < 2; ++i)
+				if (ran_flag0 == false)
 				{
-					enemyType = rand() % 3+i;
-					ran_flag0 = true;
+					for (int i = 1; i < 2; ++i)
+					{
+						enemyType = rand() % 3 + i;
+						ran_flag0 = true;
+					}
 				}
+				if (enemyType == 1 && ran_flag0)
+				{
+
+					EnemySlime* slime = new EnemySlime;
+					slime->SetType(0);
+					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+					enemyManager.Register(slime);
+
+				}
+				else if (enemyType == 2 && ran_flag0)/* if (enemyType == 2 && ran_flag0)*/
+				{
+					EnemySlime* slime = new EnemySlime;
+					slime->SetType(0);
+					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+					enemyManager.Register(slime);
+
+
+					//kowasenai* wasenai = new kowasenai;
+					////wasenai->SetType(0);
+					//wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+					//enemyManager.Register(wasenai);
+				}
+				else if (enemyType == 3 && ran_flag0)
+				{
+
+					EnemySlime* slime = new EnemySlime;
+					slime->SetType(0);
+					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+					enemyManager.Register(slime);
+
+					//	kowasenai* wasenai = new kowasenai;
+					////	wasenai->SetType(0);
+					//	wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+					//	enemyManager.Register(wasenai);
+				}
+				ran_flag0 = false;
+				timer0 = 0;
+
 			}
-			if (enemyType == 1 && ran_flag0)
-			{
-				
-				EnemySlime* slime = new EnemySlime;
-				slime->SetType(0);
-				slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-				enemyManager.Register(slime);
-				
-			}
-			else if(enemyType==2 && ran_flag0)/* if (enemyType == 2 && ran_flag0)*/
-			{
-				EnemySlime* slime = new EnemySlime;
-				slime->SetType(0);
-				slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-				enemyManager.Register(slime);
-
-
-				//kowasenai* wasenai = new kowasenai;
-				////wasenai->SetType(0);
-				//wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-				//enemyManager.Register(wasenai);
-			}
-			else if (enemyType == 3 && ran_flag0)
-			{
-
-				EnemySlime* slime = new EnemySlime;
-				slime->SetType(0);
-				slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-				enemyManager.Register(slime);
-
-			//	kowasenai* wasenai = new kowasenai;
-			////	wasenai->SetType(0);
-			//	wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-			//	enemyManager.Register(wasenai);
-			}
-			ran_flag0 = false;
-			timer0 = 0;
-
 		}
-	}
-	//1レーンの敵処理
-	{
-		if (timer1 >= 250 && rand() % 150 == 0)
+		//1レーンの敵処理
 		{
-			if (ran_flag1 == false)
+			if (timer1 >= 250 && rand() % 150 == 0)
 			{
-				enemyType = rand() % 3 + 1;
-				ran_flag1 = true;
-			}
-			if (enemyType == 1 && ran_flag1)
-			{
-				EnemySlime* slime = new EnemySlime;
-				slime->SetType(1);
-				slime->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
-				enemyManager.Register(slime);
-			}
-			else if (enemyType == 2 && ran_flag1)/* if (enemyType == 2 && ran_flag0)*/
-			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
-				enemyManager.Register(wasenai);
-			}
-			else if (enemyType == 3 && ran_flag1)
-			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
-				enemyManager.Register(wasenai);
-			}
-			ran_flag1 = false;
-			timer1 = 0;
+				if (ran_flag1 == false)
+				{
+					enemyType = rand() % 3 + 1;
+					ran_flag1 = true;
+				}
+				if (enemyType == 1 && ran_flag1)
+				{
+					EnemySlime* slime = new EnemySlime;
+					slime->SetType(1);
+					slime->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
+					enemyManager.Register(slime);
+				}
+				else if (enemyType == 2 && ran_flag1)/* if (enemyType == 2 && ran_flag0)*/
+				{
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
+					enemyManager.Register(wasenai);
+				}
+				else if (enemyType == 3 && ran_flag1)
+				{
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
+					enemyManager.Register(wasenai);
+				}
+				ran_flag1 = false;
+				timer1 = 0;
 
+			}
 		}
-	}
-	//2レーンの敵処理
-	{
-		if (timer2 >= 200 && rand() % 150 == 0)
+		//2レーンの敵処理
 		{
-			if (ran_flag2 == false)
+			if (timer2 >= 200 && rand() % 150 == 0)
 			{
-				enemyType = rand() % 3 + 1;
-				ran_flag2 = true;
+				if (ran_flag2 == false)
+				{
+					enemyType = rand() % 3 + 1;
+					ran_flag2 = true;
+				}
+				if (enemyType == 1 && ran_flag2)
+				{
+					EnemySlime* slime = new EnemySlime;
+					slime->SetType(2);
+					slime->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
+					enemyManager.Register(slime);
+				}
+				else if (enemyType == 2 && ran_flag2)/* if (enemyType == 2 && ran_flag0)*/
+				{
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
+					enemyManager.Register(wasenai);
+				}
+				else if (enemyType == 3 && ran_flag2)
+				{
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
+					enemyManager.Register(wasenai);
+				}
+				ran_flag2 = false;
+				timer2 = 0;
+
 			}
-			if (enemyType == 1 && ran_flag2)
-			{
-				EnemySlime* slime = new EnemySlime;
-				slime->SetType(2);
-				slime->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
-				enemyManager.Register(slime);
-			}
-			else if (enemyType == 2 && ran_flag2)/* if (enemyType == 2 && ran_flag0)*/
-			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
-				enemyManager.Register(wasenai);
-			}
-			else if (enemyType == 3 && ran_flag2)
-			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
-				enemyManager.Register(wasenai);
-			}
-			ran_flag2 = false;
-			timer2 = 0;
 
 		}
-
-	}
-	//3レーンの敵処理
-	{
-		if (timer3 >= 250 && rand() % 150 == 0)
+		//3レーンの敵処理
 		{
-			if (ran_flag3 == false)
+			if (timer3 >= 250 && rand() % 150 == 0)
 			{
-				enemyType = rand() % 3 + 1;
-				ran_flag3 = true;
-			}
-			if (enemyType == 1 && ran_flag3)
-			{
-				EnemySlime* slime = new EnemySlime;
-				slime->SetType(3);
-				slime->SetPosition(DirectX::XMFLOAT3(36, 0, 90));
+				if (ran_flag3 == false)
+				{
+					enemyType = rand() % 3 + 1;
+					ran_flag3 = true;
+				}
+				if (enemyType == 1 && ran_flag3)
+				{
+					EnemySlime* slime = new EnemySlime;
+					slime->SetType(3);
+					slime->SetPosition(DirectX::XMFLOAT3(36, 0, 90));
 
-				enemyManager.Register(slime);
+					enemyManager.Register(slime);
+				}
+				else if (enemyType == 2 && ran_flag3)/* if (enemyType == 2 && ran_flag0)*/
+				{
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(36, 0, 90));
+					enemyManager.Register(wasenai);
+				}
+				else if (enemyType == 3 && ran_flag3)
+				{
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(36, 0, 90));
+					enemyManager.Register(wasenai);
+				}
+				ran_flag3 = false;
+				timer3 = 0;
+
 			}
-			else if (enemyType == 2 && ran_flag3)/* if (enemyType == 2 && ran_flag0)*/
-			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(36, 0, 90));
-				enemyManager.Register(wasenai);
-			}
-			else if (enemyType == 3 && ran_flag3)
-			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(36, 0, 90));
-				enemyManager.Register(wasenai);
-			}
-			ran_flag3 = false;
-			timer3 = 0;
 
 		}
-
-	}
-	//4レーンの敵処理
-	{
-		if (timer4 >= 150 && rand() % 150 == 0)
+		//4レーンの敵処理
 		{
-			if (ran_flag4 == false)
+			if (timer4 >= 150 && rand() % 150 == 0)
 			{
-				enemyType = rand() % 3 + 1;
-				ran_flag4 = true;
-			}
-			if (enemyType == 1 && ran_flag4)
-			{
-				EnemySlime* slime = new EnemySlime;
-				slime->SetType(4);
-				slime->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
-				enemyManager.Register(slime);
-			}
-			else if (enemyType == 2 && ran_flag4)/* if (enemyType == 2 && ran_flag0)*/
-			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
-				
-				
-				enemyManager.Register(wasenai);
-			}
-			else if (enemyType == 3 && ran_flag4)
-			{
-				kowasenai* wasenai = new kowasenai;
-				wasenai->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
-			
-			
-				enemyManager.Register(wasenai);
-			}
-			ran_flag4 = false;
-			timer4 = 0;
-
-		}
+				if (ran_flag4 == false)
+				{
+					enemyType = rand() % 3 + 1;
+					ran_flag4 = true;
+				}
+				if (enemyType == 1 && ran_flag4)
+				{
+					EnemySlime* slime = new EnemySlime;
+					slime->SetType(4);
+					slime->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
+					enemyManager.Register(slime);
+				}
+				else if (enemyType == 2 && ran_flag4)/* if (enemyType == 2 && ran_flag0)*/
+				{
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
 
 
+					enemyManager.Register(wasenai);
+				}
+				else if (enemyType == 3 && ran_flag4)
+				{
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
 
-	}
+
+					enemyManager.Register(wasenai);
+				}
+				ran_flag4 = false;
+				timer4 = 0;
+
+			}
+
+
+
+		}}
 	timer0++;
 	timer1++;
 	timer2++;
@@ -639,10 +657,15 @@ void SceneGame::Render()
 	}
 	
 	//プレイヤーが死んだときにリザルト画面に遷移
-	if (player_yarare_flag)
-	{
+	//if (player_yarare_flag&&owari)
+	//{
+		if (owari)
+		{
 		SceneManager::Instance().ChangeScene(new SceneResult);
+
 	}
+	
+//	}
 	//ボスが死んだときにクリア画面に遷移
 	if (boss_yarare_flag)
 	{

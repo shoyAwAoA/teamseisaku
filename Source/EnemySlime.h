@@ -24,7 +24,7 @@ public:
 
     void Effect_create();
 
-    void Effect_death(float type);
+    void Effect_death();
 
     bool Effect_flag(int efc_timer, bool efc_flag,int count);
     //タイプ取得
@@ -33,7 +33,8 @@ public:
     void SetType(float type) { this->type = type; };
     //デバッグ用GUI描画
    // void DrawDebugGUI();
-   
+    void reset();
+ 
 private:
 
     //徘徊ステーとへ遷移
@@ -54,6 +55,8 @@ private:
     //移動ステート更新処理
     void UpdateMoveState(float elapsedTime);
 
+
+ 
 private:
     //ステート
     enum class State
@@ -97,10 +100,10 @@ private:
     int               zako = 0;
     bool              zako_flag = false;
 
-  
-    bool idle_flag=true;
+ 
+    bool idle_flag = true;
 
-    int  idle_timer=0;
+    int  idle_timer = 0;
 
 protected:
     //死亡したときに呼ばれる
