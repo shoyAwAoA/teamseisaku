@@ -6,6 +6,8 @@
 
 
 extern Effect* hitEffect;
+
+Effect* kurogiri = nullptr;
 extern  bool player_yarare_flag;
 bool Effect0_flag;
 bool Effect1_flag;
@@ -39,7 +41,7 @@ EnemySlime::EnemySlime()
 
     zakosi_bgm = audioManager.LoadAudioSource("Data/Audio/zakosi.wav");
    
-    kurogiri->Stopp();
+
     //エフェクトの読み込み
     kurogiri = new Effect("Data/Effect/kurogiri2.efk");
 
@@ -59,12 +61,7 @@ EnemySlime::~EnemySlime()
         model = nullptr;
         delete model;
     }
-  
-    if (kurogiri != nullptr)
-    {
-        kurogiri = nullptr;
-        delete kurogiri;
-    }
+
 }
 
 //更新処理
@@ -100,6 +97,8 @@ void EnemySlime::Update(float elapsedTime)
 
 
     Effect_create();
+
+
 
     //速力処理更新
     UpdateVelocity(elapsedTime);
@@ -194,8 +193,9 @@ void EnemySlime::UpdateIdleState(float elapsedTime)
             }
         }
     }
+    
    // else if(idle_timer>90)
-    else if(!idle_flag)
+    else if(!idle_flag&&idle_timer>90)
     {
      
         Effect_death(GetType());

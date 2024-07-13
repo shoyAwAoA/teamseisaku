@@ -6,6 +6,8 @@
 #include"Effect.h"
 #include"Player.h"
 //スライム
+
+
 class EnemySlime :public Enemy
 {
 public:
@@ -31,7 +33,7 @@ public:
     void SetType(float type) { this->type = type; };
     //デバッグ用GUI描画
    // void DrawDebugGUI();
-
+   
 private:
 
     //徘徊ステーとへ遷移
@@ -106,6 +108,6 @@ protected:
   //  void OnDamaged()override;
     std::unique_ptr<AudioSource> zakosi_bgm;
    
-private:
-    Effect* kurogiri = nullptr;
+
+
 };

@@ -27,6 +27,7 @@ bool ran_flag4;
 
 
 extern int count;
+extern Effect* kurogiri;
 // 初期化
 void SceneGame::Initialize()
 {
@@ -121,7 +122,8 @@ void SceneGame::Initialize()
 
 	//ゲージスプライト
 	gauge = new Sprite();
-	kurogiri2->Stopp();
+	/*kurogiri->Stopp();
+	count = 0;*/
 }
 
 // 終了化
