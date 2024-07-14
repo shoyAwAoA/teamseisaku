@@ -30,6 +30,8 @@ public:
     //タイプ取得
     float GetType()const { return type; }
 
+    int GetEffectTimer()const { return effect_timer; }
+
     void SetType(float type) { this->type = type; };
     //デバッグ用GUI描画
    // void DrawDebugGUI();
@@ -101,6 +103,9 @@ private:
     bool              zako_flag = false;
 
  
+    int  effect_timer=0;
+ 
+
     bool idle_flag = true;
 
     int  idle_timer = 0;

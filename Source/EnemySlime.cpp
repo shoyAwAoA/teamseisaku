@@ -15,7 +15,7 @@ bool Effect1_flag;
 bool Effect2_flag;
 bool Effect3_flag;
 bool Effect4_flag;
-
+bool effect_flag ;
 
 int count = 0;
 
@@ -28,12 +28,16 @@ EnemySlime::EnemySlime()
     zako_flag = false;
     idle_timer = 0;
     idle_flag = true;
+    effect_flag = true;
+    
+
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 0.1f;
     angle.y = 180.0f;
    /* position.y = 0;*/
-    TransitionIdleState();
-   
+    //TransitionIdleState();
+    TransitionWanderState();
+
    /* kurogiri->Stopp();*/
 
     zakosi_bgm = audioManager.LoadAudioSource("Data/Audio/zakosi.wav");
@@ -74,8 +78,8 @@ void EnemySlime::Update(float elapsedTime)
     //ステート毎の更新処理
     switch (state)
     {
-   // case State::Wander:
-       // UpdateWanderState(elapsedTime);
+    case State::Wander:
+        UpdateWanderState(elapsedTime);
         break;
     case State::Idle:
         UpdateIdleState(elapsedTime);
@@ -94,7 +98,7 @@ void EnemySlime::Update(float elapsedTime)
         radius = 0;
     }
 
-    if (position.z<-120)
+    if (position.z<-140)
     {
         Destroy();
     }
@@ -114,15 +118,18 @@ void EnemySlime::Update(float elapsedTime)
     UpdateInvincibleTimer(elapsedTime);
 
     //オブジェクト行列を更新
-    UpdateTransform();
+    
 
     //MoveSpeed(elapsedTime);
 
-   
+    
+    UpdateTransform();
     model->UpdateAnimation(elapsedTime);
+    model->UpdateTransform(transform);
+
+    
   
     //モデル行列更新
-    model->UpdateTransform(transform);
 
    
 
@@ -133,7 +140,7 @@ void EnemySlime::Update(float elapsedTime)
 //描画処理
 void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
-    if (health > 0)
+    if (health > 0&&state!=State::Wander)
     {
         shader->Draw(dc, model);
     }
@@ -168,15 +175,32 @@ void EnemySlime::MoveSpeed(float elapsedTime)
     }
 }
 
-//徘徊ステートへ遷移
+//エフェクトステートへ遷移
 void EnemySlime::TransitionWanderState()
 {
     state = State::Wander;
-    model->PlayAnimation(Anim_WalkFWD, true);
+   // model->PlayAnimation(Anim_WalkFWD, true);
 }
-//徘徊ステート更新処理
+//エフェクトステート更新処理
 void EnemySlime::UpdateWanderState(float elapsedTime)
 {
+    
+    if (effect_timer <= 90)
+    {
+
+        // if (GetType() == 0)
+        if (effect_flag)
+        {
+
+            Effect_create();
+
+        }
+    }
+    if (effect_timer > 90)
+    {
+        TransitionIdleState();
+    }
+    effect_timer++;
 }
 
 //待機ステートへ遷移
@@ -192,32 +216,32 @@ void EnemySlime::TransitionIdleState()
 void EnemySlime::UpdateIdleState(float elapsedTime)
 {
 
-    if (idle_timer <= 90)
-    {
-           
-       // if (GetType() == 0)
-        if(idle_flag)
-        {
-          
-                Effect_create();
-         
-        }
-    }
-    
-   // else if(idle_timer>90)
+   // if (idle_timer <= 90)
+   // {
+   //        
+   //    // if (GetType() == 0)
+   //     if(idle_flag)
+   //     {
+   //       
+   //             Effect_create();
+   //      
+   //     }
+   // }
+   // 
+   //// else if(idle_timer>90)
     //else if(!idle_flag&&idle_timer>90)
    
      
-        if (idle_timer > 90&&!idle_flag) { 
-            Effect_death();
-           count++; 
+        if (idle_timer > 120&&!idle_flag) { 
+           
             TransitionMoveState();
+            idle_timer = 0;
         }
        
        //idle_timer = 0;
     
     
-  //  ++idle_timer;
+    ++idle_timer;
 }
 
 //移動ステートへ遷移
@@ -247,46 +271,46 @@ void EnemySlime::Effect_create()
                 {
                     DirectX::XMFLOAT3 p = { 0,0,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 20);
-
+                    kurogiri->Play(p, 8);
 
                     idle_flag = false;
+                    effect_flag = false;
                 }
                 if (GetType() == 1)
                 {
                     DirectX::XMFLOAT3 p = { 12,0,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 20);
-
+                    kurogiri->Play(p, 8);
 
                     idle_flag = false;
+                    effect_flag = false;
                 }
                 if (GetType() == 2)
                 {
                     DirectX::XMFLOAT3 p = { 24,0,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 20);
-
+                    kurogiri->Play(p, 8);
 
                     idle_flag = false;
+                    effect_flag = false;
                 }
                 if (GetType() == 3)
                 {
                     DirectX::XMFLOAT3 p = { 36,0,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 20);
-
+                    kurogiri->Play(p, 8);
 
                     idle_flag = false;
+                    effect_flag = false;
                 }
                 if (GetType() == 4)
                 {
                     DirectX::XMFLOAT3 p = { 48,0,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 20);
-
+                    kurogiri->Play(p, 8);
 
                     idle_flag = false;
+                    effect_flag = false;
                 }
             }
           
@@ -322,12 +346,14 @@ void EnemySlime::Effect_death()
             {
                
                 kurogiri->Stop(count);
+                effect_flag=true;
                 idle_flag = true;
             }
             if (GetType() == 1)
             {
           
                 kurogiri->Stop(count);
+                effect_flag = true;
                 idle_flag = true;
                 //  TransitionMoveState();
             }
@@ -335,6 +361,7 @@ void EnemySlime::Effect_death()
             {
             
                 kurogiri->Stop(count);
+                effect_flag = true;
                 idle_flag = true;
                 //  TransitionMoveState();
             }
@@ -342,6 +369,7 @@ void EnemySlime::Effect_death()
             {
            
                 kurogiri->Stop(count);
+                effect_flag = true;
                 idle_flag = true;
                 //  TransitionMoveState();
             }
@@ -349,6 +377,7 @@ void EnemySlime::Effect_death()
             {
              
                 kurogiri->Stop(count);
+                effect_flag = true;
                 idle_flag = true;
                 // TransitionMoveState();
             }
@@ -373,7 +402,15 @@ bool EnemySlime::Effect_flag(int efc_timer, bool efc_flag,int count)
 //移動アニメーション更新処理
 void EnemySlime::UpdateMoveState(float elapsedTime)
 {
-   
+    if (idle_timer > 90 && !idle_flag) {
+        Effect_death();
+        count++;
+    }
+
+    //idle_timer = 0;
+
+
+    ++idle_timer;
     MoveSpeed(elapsedTime);
 
     

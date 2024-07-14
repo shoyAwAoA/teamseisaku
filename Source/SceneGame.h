@@ -10,9 +10,6 @@
 #include"kowasenai.h"
 #include"Audio/AudioSource.h"
 
-
-
-
 // ƒQ[ƒ€ƒV[ƒ“
 class SceneGame :public Scene
 {
@@ -65,3 +62,4 @@ private:
 private:
 	Effect* kurogiri2 = nullptr;
 };
+

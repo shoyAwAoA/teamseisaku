@@ -32,6 +32,7 @@ extern int count;
 extern Effect* kurogiri;
 ;
 extern bool owari;
+extern bool effect_flag;
 // ‰Šú‰»
 void SceneGame::Initialize()
 {
@@ -217,20 +218,24 @@ void SceneGame::Update(float elapsedTime)
 				}
 				if (enemyType == 1 && ran_flag0)
 				{
-
+				
 					EnemySlime* slime = new EnemySlime;
 					slime->SetType(0);
-					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-					enemyManager.Register(slime);
+					
+						slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+						enemyManager.Register(slime);
+					
 
 				}
 				else if (enemyType == 2 && ran_flag0)/* if (enemyType == 2 && ran_flag0)*/
 				{
 					EnemySlime* slime = new EnemySlime;
 					slime->SetType(0);
-					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-					enemyManager.Register(slime);
 
+						slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+						enemyManager.Register(slime);
+					
+					
 
 					//kowasenai* wasenai = new kowasenai;
 					////wasenai->SetType(0);
@@ -242,8 +247,10 @@ void SceneGame::Update(float elapsedTime)
 
 					EnemySlime* slime = new EnemySlime;
 					slime->SetType(0);
-					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-					enemyManager.Register(slime);
+
+						slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+						enemyManager.Register(slime);
+					
 
 					//	kowasenai* wasenai = new kowasenai;
 					////	wasenai->SetType(0);
