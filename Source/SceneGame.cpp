@@ -660,6 +660,8 @@ void SceneGame::Render()
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 
+
+
 		
 	}
 	
