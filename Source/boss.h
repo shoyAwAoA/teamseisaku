@@ -16,10 +16,12 @@ public:
 
     void MoveSpeed(float elapsedTime);
 
-
+    void BossSinu(bool Boss_Sinu);
 private:
     Model* model = nullptr;
   
+    int boss_sinu_timer = 0;
+
 protected:
     //Ž€–S‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é
     void OnDead()override;

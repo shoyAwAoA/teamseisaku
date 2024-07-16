@@ -23,7 +23,7 @@ int count = 0;
 EnemySlime::EnemySlime()
 {
     Audio& audioManager = Audio::Instance();
-    model = new Model("Data/Model/Enemy/teki.mdl");
+    model = new Model("Data/Model/Slime/teki3.mdl");
     zako = 0;
     zako_flag = false;
     idle_timer = 0;
@@ -45,7 +45,7 @@ EnemySlime::EnemySlime()
    
 
     //エフェクトの読み込み
-    kurogiri = new Effect("Data/Effect/kurogiri3.efk");
+    kurogiri = new Effect("Data/Effect/kurogiri4.efk");
 
 
    
@@ -261,8 +261,7 @@ void EnemySlime::Effect_create()
 
     int EffectCount = kurogiri->GetEffectCount();
     int enemy_Count=enemyManager.GetEnemyCount();
-  
-
+ 
     for (int i = 0; i <= enemy_Count; ++i)
     {
         if (Effect_flag(idle_timer, idle_flag, count))
@@ -338,7 +337,6 @@ void EnemySlime::Effect_death()
 
     int EffectCount = kurogiri->GetEffectCount();
     int enemy_Count = enemyManager.GetEnemyCount();
-   // int enemyCount = enemyManager.Instance().GetEnemyCount();
 
     for (int i = 0; i < enemy_Count; ++i)
     {
