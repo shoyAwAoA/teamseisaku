@@ -32,7 +32,7 @@ EnemySlime::EnemySlime()
     
 
     //モデルが大きいのでスケーリング
-    scale.x = scale.y = scale.z = 0.3f;
+    scale.x = scale.y = scale.z = 0.2f;
     angle.y = DirectX::XMConvertToRadians(180);
     //angle.y = 180.0f;
    /* position.y = 0;*/
@@ -171,7 +171,8 @@ void EnemySlime::MoveSpeed(float elapsedTime)
    
     if (health > 0)
     {
-        velocity.z = 0.85f;
+       // velocity.z = 0.85f;
+        velocity.z = 1.7f;
         position.z -= velocity.z;
     }
 }

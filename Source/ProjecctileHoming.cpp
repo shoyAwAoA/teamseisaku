@@ -16,10 +16,10 @@ extern bool x4_flag;
 ProjectileHoming::ProjectileHoming(ProjectileManager* manager)
     :Projectile(manager)
 {
-    model = new Model("Data/Model/Sword/Sword.mdl");
+    model = new Model("Data/Model/Enemy/teki.mdl");
     ue = false;
     //モデルが小さいのでスケーリング
-    scale.x = scale.y = scale.z = 30.0f;
+    scale.x = scale.y = scale.z = 0.2f;
 }
 
 //デストラクタ
@@ -51,26 +51,26 @@ void ProjectileHoming::Update(float elapsedTime)
         {
             if (x0_flag)
             {
-                direction.x -= 0.0025f;
+                direction.x -= 0.0095f;
             }
             if (x1_flag)
             {
-                direction.x -= 0.0035f;
+                direction.x -= 0.0065f;
             }
             if (x2_flag)
             {
             }
             if (x3_flag)
             {
-                direction.x += 0.0035f;
+                direction.x += 0.0065f;
             }
             if (x4_flag)
             {
-                direction.x += 0.0025f;
+                direction.x += 0.0095f;
             }
             direction.y += 0.0065f;
         }
-        if (position.y> 30)
+        if (position.y> 15)
         {
             ue = true;
         }
@@ -78,22 +78,22 @@ void ProjectileHoming::Update(float elapsedTime)
         {
             if (x0_flag)
             {
-                direction.x += 0.0065f;
+                direction.x += 0.0145f;
             }
             if (x1_flag)
             {
-                direction.x += 0.0050f;
+                direction.x += 0.0070f;
             }
             if (x2_flag)
             {  
             }
             if (x3_flag)
             {
-                direction.x -= 0.0050f;
+                direction.x -= 0.0070f;
             }
             if (x4_flag)
             {
-                direction.x -= 0.0065f;
+                direction.x -= 0.0145f;
             }
             direction.y -= 0.0085f;
         }
