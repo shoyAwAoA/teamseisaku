@@ -27,11 +27,11 @@ Boss::Boss()
     angle.y=(DirectX::XMConvertToRadians(180));
 
     Boss_T = false;
-    Bosss = false;
+
     //ïùÅAçÇÇ≥ê›íË
     radius = 30.0f;
     height = 55.0f;
-    health = 1.0f;
+    health = 10.0f;
     Boss_Sinu = false;
     damage_timer = 60;
 
@@ -51,7 +51,13 @@ void Boss::Update(float elapsedTime)
 {
     if (damage_flag)
     {
-       
+        if (health ==0)
+        {
+
+            Boss_Sinu = true;
+            health--;
+            //boss_yarare_flag = true;
+        }
         damage_timer--;
         if (damage_timer <= 0)
         {
@@ -102,14 +108,16 @@ void Boss::BossSinu()
     if (Boss_Sinu&&!Bosss)
     {
         DirectX::XMFLOAT3 p = GetPosition();
-        p.y += GetHeight()*0.5f;
-        Boss_sinu->Play(p, 2);
+        Boss_sinu->Play(p, 5);
         Boss_T = true;
         Boss_Sinu = false;
         Bosss = true;
     }
-    //Boss_Sinu = false;
-
+            
+    if (Boss_T)
+    {
+        boss_sinu_timer++;
+    }
     
 
 }
