@@ -23,7 +23,7 @@ int count = 0;
 EnemySlime::EnemySlime()
 {
     Audio& audioManager = Audio::Instance();
-    model = new Model("Data/Model/Slime/Slime.mdl");
+    model = new Model("Data/Model/Enemy/teki.mdl");
     zako = 0;
     zako_flag = false;
     idle_timer = 0;
@@ -32,8 +32,9 @@ EnemySlime::EnemySlime()
     
 
     //モデルが大きいのでスケーリング
-    scale.x = scale.y = scale.z = 0.1f;
-    angle.y = 180.0f;
+    scale.x = scale.y = scale.z = 0.3f;
+    angle.y = DirectX::XMConvertToRadians(180);
+    //angle.y = 180.0f;
    /* position.y = 0;*/
     //TransitionIdleState();
     TransitionWanderState();
