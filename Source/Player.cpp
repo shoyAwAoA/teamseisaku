@@ -15,6 +15,7 @@
 static Player* instance = nullptr;
 extern bool player_yarare_flag;
 extern int damage_timer;
+extern bool Bosss;
 
 bool damage_flag;
 
@@ -44,6 +45,7 @@ Player::Player()
     instance = this;
     damage_flag = false;
     deathFlag = false;
+    effecFlag = false;
 
     x0_flag = false;
     x1_flag = false;
@@ -65,8 +67,10 @@ Player::Player()
     health = 1;
     height = 20.0f;
     player_pos = 0;
+
+    effectTimer = 0;
     //ヒットエフェクト読み込み
-    hitEffect = new Effect("Data/Effect/kurogiri2.efk");
+    hitEffect = new Effect("Data/Effect/kougeki.efk");
     radius = 5.0f;
     //待機ステートへ遷移
     TransitionIdleState();
@@ -188,10 +192,13 @@ void Player::Update(float elapsedTime)
     projectileManager.Update(elapsedTime);
 
     //プレイヤーと敵との衝突処理
+    if (!Bosss)
+    {
     CollisionPlayerVsEnemies();
 
     //弾丸と敵の衝突判定
     CollisionProjectilesVsEnemies();
+    }
 
     //オブジェクト行列を更新
     UpdateTransform();
@@ -208,6 +215,8 @@ void Player::Update(float elapsedTime)
     {
         angle.y += 0.035f;
     }
+
+   
     ////ジャンプ入力処理
     //InputJump();
 
@@ -1019,34 +1028,37 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                     {
                         x4_flag = true;
                     }
+                    {
+                        DirectX::XMFLOAT3 e = enemy->GetPosition();
+                        e.y += enemy->GetHeight() * 1.2f;
+                        hitEffect->Play(e, 2);
+                    }
                     bossFlag = true;
+                }
+                {
+                    //ヒットエフェクト再生
 
 
                 }
-                //ヒットエフェクト再生
-                //{
-                //    DirectX::XMFLOAT3 e = enemy->GetPosition();
-                //    e.y += enemy->GetHeight() * 0.5f;
-                //    hitEffect->Play(e);
-                //}
+
+                //notEnemy* notenemy = enemyManager.GetnotEnemy(i);
+
+         ////衝突処理
+         //DirectX::XMFLOAT3 outPosition2;
+         //if (Collision::IntersectSphereVsCylinder(
+         //    GetPosition(),
+         //    GetRadius(),
+         //    notenemy->GetPosition(),
+         //    notenemy->GetRadius(),
+         //    notenemy->GetHeight(),
+         //    outPosition2))
+         //{
+         //    ApplyDamage(1, 0.5f);
+         //}
             }
-            //notEnemy* notenemy = enemyManager.GetnotEnemy(i);
 
-     ////衝突処理
-     //DirectX::XMFLOAT3 outPosition2;
-     //if (Collision::IntersectSphereVsCylinder(
-     //    GetPosition(),
-     //    GetRadius(),
-     //    notenemy->GetPosition(),
-     //    notenemy->GetRadius(),
-     //    notenemy->GetHeight(),
-     //    outPosition2))
-     //{
-     //    ApplyDamage(1, 0.5f);
-     //}
+
         }
-
-       
     }
 }
 

@@ -7,28 +7,35 @@ extern bool damage_flag;
 extern bool boss_yarare_flag;
 
 int damage_timer = 60;
+int boss_sinu_timer = 0;
+bool Boss_Sinu;
+bool Boss_T;
+bool Bosss;
 
-
-//Effect* Boss_sinu=nullptr;
+Effect* Boss_sinu=nullptr;
 
 Boss::Boss()
 {
 
     model = new Model("Data/Model/Boss/boss.mdl");
     
-    //Boss_sinu = new Effect("Data/Effect/Boss_Sinu.efk");
+    Boss_sinu = new Effect("Data/Effect/Boss_Sinu.efk");
 
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 3.0f;
 
     angle.y=(DirectX::XMConvertToRadians(180));
 
+    Boss_T = false;
 
     //幅、高さ設定
     radius = 30.0f;
     height = 55.0f;
     health = 10.0f;
+    Boss_Sinu = false;
     damage_timer = 60;
+
+    boss_sinu_timer = 0;
 }
 
 Boss::~Boss()
@@ -44,11 +51,14 @@ void Boss::Update(float elapsedTime)
 {
     if (damage_flag)
     {
-        if (health <=0)
+        if (health ==0)
         {
             boss_yarare_flag = true;
-            //Boss_sinu->Play()
+            Boss_sinu->Play()
 
+            Boss_Sinu = true;
+            health--;
+            //boss_yarare_flag = true;
         }
         damage_timer--;
         if (damage_timer <= 0)
@@ -57,8 +67,15 @@ void Boss::Update(float elapsedTime)
             damage_flag = false;
         }
     }
+    if (health == 0 && !Bosss)
+    {
 
-   
+        Boss_Sinu = true;
+
+        //health--;
+        //boss_yarare_flag = true;
+    }
+    BossSinu();
 
     //速力処理更新
     UpdateVelocity(elapsedTime);
@@ -74,29 +91,33 @@ void Boss::Update(float elapsedTime)
     //モデル行列更新
     model->UpdateTransform(transform);
 
-   
+    if (health <= 0)
+    {
+        health = 0;
+        boss_sinu_timer++;
+    }
 
 }
 
-//void Boss::BossSinu(bool Boss_Sinu)
-//{
-//    if (boss_sinu_timer > 180)
-//    {
-//        boss_yarare_flag = true;
-//        //Boss_T = false;
-//    }
-//        
-//        
-//    if (Boss_Sinu)
-//    {
-//        DirectX::XMFLOAT3 p = GetPosition();
-//        Boss_sinu->Play(p, 5);
-//        Boss_Sinu = false;
-//    }
-//            
-//    
-//
-//}
+void Boss::BossSinu(bool Boss_Sinu)
+{
+    if (boss_sinu_timer > 180)
+    {
+        boss_yarare_flag = true;
+        //Boss_T = false;
+    }
+        
+        
+    if (Boss_Sinu)
+    {
+        DirectX::XMFLOAT3 p = GetPosition();
+        Boss_sinu->Play(p, 5);
+        Boss_Sinu = false;
+    }
+            
+    
+
+}
 
 void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
@@ -115,6 +136,7 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
         //トランスフォーム
 
         ImGui::InputInt("Health", &health);
+        ImGui::InputInt("sinu_timer", &boss_sinu_timer);
 
         if (damage_flag)
         {
@@ -125,7 +147,15 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
         {
             ImGui::Checkbox(u8"damage_flag", &damage_flag);
         }
-
+        if (Boss_Sinu)
+        {
+            ImGui::Checkbox(u8"boss_Sinu", &Boss_Sinu);
+        }
+        else
+        {
+            ImGui::Checkbox(u8"boss_Sinu", &Boss_Sinu);
+        }
+        
     }
   
         ImGui::End();
