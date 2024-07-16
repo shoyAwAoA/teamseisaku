@@ -31,7 +31,7 @@ Boss::Boss()
     //•A‚‚³Ý’è
     radius = 30.0f;
     height = 55.0f;
-    health = 10.0f;
+    health = 1.0f;
     Boss_Sinu = false;
     damage_timer = 60;
 
@@ -56,8 +56,8 @@ void Boss::Update(float elapsedTime)
             boss_yarare_flag = true;
             //Boss_sinu->Play()
 
-            Boss_Sinu = true;
-            health--;
+            //Boss_Sinu = true;
+           // health--;
             //boss_yarare_flag = true;
         }
         damage_timer--;
@@ -115,6 +115,7 @@ void Boss::BossSinu(bool Boss_Sinu)
         Boss_Sinu = false;
     }
             
+    
     
 
 }

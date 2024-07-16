@@ -50,6 +50,7 @@ private:
 	CameraController* cameraController = nullptr;
 	EnemySlime* enemyslime = nullptr;
 	Sprite* gauge = nullptr;
+	
 	std::unique_ptr<AudioSource> game_bgm;
 
 	

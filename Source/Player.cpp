@@ -1030,14 +1030,16 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                     }
 
                     bossFlag = true;
-                }
 
-                {
-                    //ヒットエフェクト再生
-                    DirectX::XMFLOAT3 e = enemy->GetPosition();
-                    e.y += enemy->GetHeight() * 1.2f;
-                    hitEffect->Play(e, 2);
+                    {
+                        //ヒットエフェクト再生
+                        {
+                            DirectX::XMFLOAT3 e = enemy->GetPosition();
+                            e.y += enemy->GetHeight() * 1.2f;
+                            hitEffect->Play(e, 2);
+                        }
 
+                    }
                 }
 
                 //notEnemy* notenemy = enemyManager.GetnotEnemy(i);
@@ -1180,7 +1182,7 @@ void Player::CollisionProjectilesVsEnemies()
                         //}
                         //ヒットエフェクト再生
 
-                   /*     {
+                      /*  {
                             DirectX::XMFLOAT3 e = boooss->GetPosition();
                             e.y += boooss->GetHeight() * 0.5f;
                             hitEffect->Play(e,50);
