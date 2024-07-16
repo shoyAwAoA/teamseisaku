@@ -70,7 +70,7 @@ void ProjectileHoming::Update(float elapsedTime)
             }
             direction.y += 0.0065f;
         }
-        if (position.y> 15)
+        if (position.y> 20)
         {
             ue = true;
         }
