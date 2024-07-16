@@ -9,6 +9,7 @@
 #include"Graphics/Sprite.h"
 #include"kowasenai.h"
 #include"Audio/AudioSource.h"
+#include<string>
 
 // ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame :public Scene
@@ -50,6 +51,7 @@ private:
 	EnemySlime* enemyslime = nullptr;
 	Sprite* gauge = nullptr;
 	std::unique_ptr<AudioSource> game_bgm;
+
 	
 	int timer0;
 	int timer1;
@@ -61,6 +63,8 @@ private:
 	
 private:
 	Effect* kurogiri2 = nullptr;
+
+	Sprite* score;
 };
 
 

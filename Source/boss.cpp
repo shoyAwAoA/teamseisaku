@@ -9,14 +9,14 @@ extern bool boss_yarare_flag;
 int damage_timer = 60;
 
 
-Effect* Boss_sinu=nullptr;
+//Effect* Boss_sinu=nullptr;
 
 Boss::Boss()
 {
 
     model = new Model("Data/Model/Boss/boss.mdl");
     
-    Boss_sinu = new Effect("Data/Effect/Boss_Sinu.efk");
+    //Boss_sinu = new Effect("Data/Effect/Boss_Sinu.efk");
 
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 3.0f;
@@ -47,7 +47,7 @@ void Boss::Update(float elapsedTime)
         if (health <=0)
         {
             boss_yarare_flag = true;
-            Boss_sinu->Play()
+            //Boss_sinu->Play()
 
         }
         damage_timer--;
@@ -78,25 +78,25 @@ void Boss::Update(float elapsedTime)
 
 }
 
-void Boss::BossSinu(bool Boss_Sinu)
-{
-    if (boss_sinu_timer > 180)
-    {
-        boss_yarare_flag = true;
-        //Boss_T = false;
-    }
-        
-        
-    if (Boss_Sinu)
-    {
-        DirectX::XMFLOAT3 p = GetPosition();
-        Boss_sinu->Play(p, 5);
-        Boss_Sinu = false;
-    }
-            
-    
-
-}
+//void Boss::BossSinu(bool Boss_Sinu)
+//{
+//    if (boss_sinu_timer > 180)
+//    {
+//        boss_yarare_flag = true;
+//        //Boss_T = false;
+//    }
+//        
+//        
+//    if (Boss_Sinu)
+//    {
+//        DirectX::XMFLOAT3 p = GetPosition();
+//        Boss_sinu->Play(p, 5);
+//        Boss_Sinu = false;
+//    }
+//            
+//    
+//
+//}
 
 void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
