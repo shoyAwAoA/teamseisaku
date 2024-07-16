@@ -23,7 +23,7 @@ int count = 0;
 EnemySlime::EnemySlime()
 {
     Audio& audioManager = Audio::Instance();
-    model = new Model("Data/Model/Enemy/teki.mdl");
+    model = new Model("Data/Model/Slime/teki3.mdl");
     zako = 0;
     zako_flag = false;
     idle_timer = 0;
@@ -45,7 +45,7 @@ EnemySlime::EnemySlime()
    
 
     //エフェクトの読み込み
-    kurogiri = new Effect("Data/Effect/kurogiri2.efk");
+    kurogiri = new Effect("Data/Effect/kurogiri4.efk");
 
 
    
@@ -261,8 +261,7 @@ void EnemySlime::Effect_create()
 
     int EffectCount = kurogiri->GetEffectCount();
     int enemy_Count=enemyManager.GetEnemyCount();
-  
-
+ 
     for (int i = 0; i <= enemy_Count; ++i)
     {
         if (Effect_flag(idle_timer, idle_flag, count))
@@ -273,7 +272,7 @@ void EnemySlime::Effect_create()
                 {
                     DirectX::XMFLOAT3 p = { 0,5,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 8);
+                    kurogiri->Play(p, 5);
 
                     idle_flag = false;
                     effect_flag = false;
@@ -282,7 +281,7 @@ void EnemySlime::Effect_create()
                 {
                     DirectX::XMFLOAT3 p = { 12,5,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 8);
+                    kurogiri->Play(p, 5);
 
                     idle_flag = false;
                     effect_flag = false;
@@ -291,7 +290,7 @@ void EnemySlime::Effect_create()
                 {
                     DirectX::XMFLOAT3 p = { 24,5,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 8);
+                    kurogiri->Play(p, 5);
 
                     idle_flag = false;
                     effect_flag = false;
@@ -300,7 +299,7 @@ void EnemySlime::Effect_create()
                 {
                     DirectX::XMFLOAT3 p = { 36,5,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 8);
+                    kurogiri->Play(p, 5);
 
                     idle_flag = false;
                     effect_flag = false;
@@ -309,7 +308,7 @@ void EnemySlime::Effect_create()
                 {
                     DirectX::XMFLOAT3 p = { 48,5,90 };
                     p.y += 2.5f;
-                    kurogiri->Play(p, 8);
+                    kurogiri->Play(p, 5);
 
                     idle_flag = false;
                     effect_flag = false;
@@ -338,7 +337,6 @@ void EnemySlime::Effect_death()
 
     int EffectCount = kurogiri->GetEffectCount();
     int enemy_Count = enemyManager.GetEnemyCount();
-   // int enemyCount = enemyManager.Instance().GetEnemyCount();
 
     for (int i = 0; i < enemy_Count; ++i)
     {
@@ -415,7 +413,7 @@ void EnemySlime::UpdateMoveState(float elapsedTime)
     ++idle_timer;
     if (idle_timer > 120)
     {
-        Effect_death();
+        //Effect_death();
       //  count++;
         MoveSpeed(elapsedTime);
     }

@@ -6,7 +6,7 @@
 void SceneSuccess::Initialize()
 {
     //スプライト初期化
-    sprite = new Sprite("Data/Sprite/Title.png");
+    sprite = new Sprite("Data/Sprite/kati.png");
 }
 
 void SceneSuccess::Finalize()

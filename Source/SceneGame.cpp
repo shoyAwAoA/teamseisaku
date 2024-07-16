@@ -33,6 +33,7 @@ extern Effect* kurogiri;
 ;
 extern bool owari;
 extern bool effect_flag;
+extern bool Boss_Sinu;
 // ‰Šú‰»
 void SceneGame::Initialize()
 {
@@ -49,6 +50,8 @@ void SceneGame::Initialize()
 	owari_timer = 0;
 	/*EnemySlime* slime = new EnemySlime;
 	slime->reset();*/
+
+	Boss_Sinu = false;
 
 	ran_flag0 = false;
 	ran_flag1 = false;

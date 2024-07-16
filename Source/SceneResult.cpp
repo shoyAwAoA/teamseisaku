@@ -9,7 +9,7 @@
 void SceneResult::Initialize()
 {
     //スプライト初期化
-    sprite = new Sprite("Data/Sprite/Title.png");
+    sprite = new Sprite("Data/Sprite/make.png");
 
 }
 
