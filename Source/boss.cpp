@@ -54,7 +54,7 @@ void Boss::Update(float elapsedTime)
         if (health ==0)
         {
             boss_yarare_flag = true;
-            Boss_sinu->Play()
+            //Boss_sinu->Play()
 
             Boss_Sinu = true;
             health--;
@@ -75,7 +75,7 @@ void Boss::Update(float elapsedTime)
         //health--;
         //boss_yarare_flag = true;
     }
-    BossSinu();
+    BossSinu(Boss_Sinu);
 
     //‘¬—Íˆ—XV
     UpdateVelocity(elapsedTime);
