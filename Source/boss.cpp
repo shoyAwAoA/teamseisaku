@@ -39,6 +39,7 @@ void Boss::Update(float elapsedTime)
         if (health <= 0)
         {
             boss_yarare_flag = true;
+
         }
         damage_timer--;
         if (damage_timer <= 0)
