@@ -27,7 +27,7 @@ bool ran_flag4;
 
 bool owari = false;
 int owari_timer = 0;
-
+char              score[100] = "score";
 extern int count;
 extern Effect* kurogiri;
 ;
@@ -191,8 +191,9 @@ void SceneGame::Update(float elapsedTime)
 		kurogiri2->Stopp();
 		owari_timer++;
 	}
-	if (owari_timer > 100)
+	if (owari_timer > 120)
 	{
+		kurogiri2->Stopp();
 		owari = true;
 	}
 
@@ -206,7 +207,7 @@ void SceneGame::Update(float elapsedTime)
 	{
 		if (!owari)
 		{
-			if (timer0 >= 350 && rand() % 150 == 0)
+			if (timer0 >= 250 && rand() % 150 == 0)
 			{
 				if (ran_flag0 == false)
 				{
@@ -264,7 +265,7 @@ void SceneGame::Update(float elapsedTime)
 		}
 		//1レーンの敵処理
 		{
-			if (timer1 >= 250 && rand() % 150 == 0)
+			if (timer1 >= 220 && rand() % 150 == 0)
 			{
 				if (ran_flag1 == false)
 				{
@@ -331,7 +332,7 @@ void SceneGame::Update(float elapsedTime)
 		}
 		//3レーンの敵処理
 		{
-			if (timer3 >= 250 && rand() % 150 == 0)
+			if (timer3 >= 210 && rand() % 150 == 0)
 			{
 				if (ran_flag3 == false)
 				{
@@ -366,7 +367,7 @@ void SceneGame::Update(float elapsedTime)
 		}
 		//4レーンの敵処理
 		{
-			if (timer4 >= 150 && rand() % 150 == 0)
+			if (timer4 >= 220 && rand() % 150 == 0)
 			{
 				if (ran_flag4 == false)
 				{
@@ -681,11 +682,10 @@ void SceneGame::Render()
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
 
-
+	TextOut(HDC(), 100, 100, LPCWSTR("score"), 5);
 }
 
-//エネミーHPゲージ描画
-//エネミーHPゲージ描画
+//エネミーHPゲージ描
 void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT4X4& view, const DirectX::XMFLOAT4X4 projection)
 {
 	//ビューポート
@@ -699,9 +699,9 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 	//全ての敵の頭上にHPゲージを表示
 	EnemyManager& enemyManager = EnemyManager::Instance();
 	int bossCount = enemyManager.GetbossCount();
-	for (int i = 0; i < bossCount; ++i)
-	{
-		boss* boss = enemyManager.Getboss(i);
+	/*for (int i = 0; i < bossCount; ++i)
+	{*/
+		boss* boss = enemyManager.Getboss(0);
 
 		DirectX::XMFLOAT3 worldPosition = boss->GetPosition();
 		worldPosition.y += boss->GetHeight();
@@ -753,7 +753,7 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 			1.0f, 0.0f, 0.0f, 1.0f
 		);
 
-	}
+	
 	//
 	//
 	//

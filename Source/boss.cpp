@@ -34,6 +34,20 @@ Boss::~Boss()
 
 void Boss::Update(float elapsedTime)
 {
+    if (damage_flag)
+    {
+        if (health <= 0)
+        {
+            boss_yarare_flag = true;
+        }
+        damage_timer--;
+        if (damage_timer <= 0)
+        {
+            damage_timer = 60;
+            damage_flag = false;
+        }
+    }
+
     //速力処理更新
     UpdateVelocity(elapsedTime);
 
@@ -48,19 +62,7 @@ void Boss::Update(float elapsedTime)
     //モデル行列更新
     model->UpdateTransform(transform);
 
-    if (damage_flag)
-    {
-        if (health <= 0)
-        {
-            boss_yarare_flag = true;
-        }
-        damage_timer--;
-        if (damage_timer <= 0)
-        {
-            damage_timer = 60;
-            damage_flag = false;
-        }
-    }
+   
 
 }
 

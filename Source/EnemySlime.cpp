@@ -32,7 +32,7 @@ EnemySlime::EnemySlime()
     
 
     //モデルが大きいのでスケーリング
-    scale.x = scale.y = scale.z = 0.2f;
+    scale.x = scale.y = scale.z = 0.17f;
     angle.y = DirectX::XMConvertToRadians(180);
     //angle.y = 180.0f;
    /* position.y = 0;*/
@@ -131,7 +131,7 @@ void EnemySlime::Update(float elapsedTime)
     
   
     //モデル行列更新
-
+   
    
 
     idle_timer++;
@@ -252,7 +252,7 @@ void EnemySlime::TransitionMoveState()
     state = State::Move;
  
     //移動アニメーション再生
-    model->PlayAnimation(Anim_WalkBWD, true);
+    model->PlayAnimation(Anim_IdleNormal, true);
 }
 
 void EnemySlime::Effect_create()
@@ -263,7 +263,7 @@ void EnemySlime::Effect_create()
     int enemy_Count=enemyManager.GetEnemyCount();
   
 
-    for (int i = 0; i < enemy_Count; ++i)
+    for (int i = 0; i <= enemy_Count; ++i)
     {
         if (Effect_flag(idle_timer, idle_flag, count))
         {
@@ -271,7 +271,7 @@ void EnemySlime::Effect_create()
             {
                 if (GetType() == 0)
                 {
-                    DirectX::XMFLOAT3 p = { 0,0,90 };
+                    DirectX::XMFLOAT3 p = { 0,5,90 };
                     p.y += 2.5f;
                     kurogiri->Play(p, 8);
 
@@ -280,7 +280,7 @@ void EnemySlime::Effect_create()
                 }
                 if (GetType() == 1)
                 {
-                    DirectX::XMFLOAT3 p = { 12,0,90 };
+                    DirectX::XMFLOAT3 p = { 12,5,90 };
                     p.y += 2.5f;
                     kurogiri->Play(p, 8);
 
@@ -289,7 +289,7 @@ void EnemySlime::Effect_create()
                 }
                 if (GetType() == 2)
                 {
-                    DirectX::XMFLOAT3 p = { 24,0,90 };
+                    DirectX::XMFLOAT3 p = { 24,5,90 };
                     p.y += 2.5f;
                     kurogiri->Play(p, 8);
 
@@ -298,7 +298,7 @@ void EnemySlime::Effect_create()
                 }
                 if (GetType() == 3)
                 {
-                    DirectX::XMFLOAT3 p = { 36,0,90 };
+                    DirectX::XMFLOAT3 p = { 36,5,90 };
                     p.y += 2.5f;
                     kurogiri->Play(p, 8);
 
@@ -307,7 +307,7 @@ void EnemySlime::Effect_create()
                 }
                 if (GetType() == 4)
                 {
-                    DirectX::XMFLOAT3 p = { 48,0,90 };
+                    DirectX::XMFLOAT3 p = { 48,5,90 };
                     p.y += 2.5f;
                     kurogiri->Play(p, 8);
 
@@ -383,7 +383,7 @@ void EnemySlime::Effect_death()
                 idle_flag = true;
                 // TransitionMoveState();
             }
-        
+            count++;
 
         }
     }
@@ -404,17 +404,21 @@ bool EnemySlime::Effect_flag(int efc_timer, bool efc_flag,int count)
 //移動アニメーション更新処理
 void EnemySlime::UpdateMoveState(float elapsedTime)
 {
-    if (idle_timer > 90 && !idle_flag) {
+    if (idle_timer > 80 && !idle_flag) {
         Effect_death();
-        count++;
+       // count++;
     }
 
     //idle_timer = 0;
 
 
     ++idle_timer;
-    MoveSpeed(elapsedTime);
-
+    if (idle_timer > 120)
+    {
+        Effect_death();
+      //  count++;
+        MoveSpeed(elapsedTime);
+    }
     
 }
 

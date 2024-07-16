@@ -73,7 +73,7 @@ private:
     enum Animation
     {
         Anim_IdleNormal,
-        Anim_IdleBattle,
+       /* Anim_IdleBattle,
         Anim_Attack1,
         Anim_Attack2,
         Anim_WalkFWD,
@@ -87,7 +87,7 @@ private:
         Anim_Victory,
         Anim_GetHit,
         Anim_Dizzy,
-        Anim_Die
+        Anim_Die*/
     };
 private:
     Model* model=nullptr;
@@ -102,6 +102,7 @@ private:
     int               zako = 0;
     bool              zako_flag = false;
 
+    
  
     int  effect_timer=0;
  
