@@ -58,7 +58,7 @@ private:
 	int timer4;
 	int  ramdam0=0;
 	int  enemyType = 0;
-
+	
 private:
 	Effect* kurogiri2 = nullptr;
 };

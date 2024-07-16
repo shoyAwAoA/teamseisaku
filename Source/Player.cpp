@@ -1229,7 +1229,7 @@ bool Player::InputProjectile()
             //発射位置（プレイヤーの腰当たり）
             DirectX::XMFLOAT3 pos;
             pos.x = position.x;
-            pos.y = position.y + (height * 0.5f);
+            pos.y = position.y + (height * 0.6f);
             pos.z = position.z;
             //ターゲット（デフォルトではプレイヤーの前方)
             DirectX::XMFLOAT3 target;
