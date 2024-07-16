@@ -48,6 +48,7 @@ void SceneGame::Initialize()
 	timer4 = 0;
 	enemyType = 0;
 	owari = false;
+	Bosss = false;
 	owari_timer = 0;
 	/*EnemySlime* slime = new EnemySlime;
 	slime->reset();*/
@@ -133,6 +134,7 @@ void SceneGame::Initialize()
 	Boss* boss = new Boss;
 	boss->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
 	enemyManager.Register(boss);
+
 
 	//ゲージスプライト
 	gauge = new Sprite();
