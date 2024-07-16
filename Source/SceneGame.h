@@ -63,3 +63,6 @@ private:
 	Effect* kurogiri2 = nullptr;
 };
 
+
+
+

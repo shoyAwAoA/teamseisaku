@@ -594,6 +594,8 @@ void SceneGame::Render()
 	rc.view = camera.GetView();
 	rc.projection = camera.GetProjection();
 
+	
+
 	//// ビュー行列
 	//{
 	//	DirectX::XMFLOAT3 eye = { 0, 10, -10 };	// カメラの視点（位置）
