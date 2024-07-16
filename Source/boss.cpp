@@ -91,6 +91,7 @@ void Boss::Update(float elapsedTime)
 
     if (health <= 0)
     {
+        health = 0;
         boss_sinu_timer++;
     }
 

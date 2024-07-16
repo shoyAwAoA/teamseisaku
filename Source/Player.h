@@ -186,7 +186,9 @@ private:
 
     ProjectileManager   projectileManager;
 
+    int         effectTimer = 0;
 
+    bool        effecFlag = false;
 
     int          player_pos = 0;
 
