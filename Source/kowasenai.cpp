@@ -1,5 +1,6 @@
 #include "kowasenai.h"
 
+extern bool Bosss;
 
 //コンストラクタ
 kowasenai::kowasenai()
@@ -29,19 +30,29 @@ void kowasenai::Update(float elapsedTime)
     {
         radius = 0;
     }
-    //速力処理更新
-    UpdateVelocity(elapsedTime);
-    //無敵時間更新
-    UpdateInvincibleTimer(elapsedTime);
-    //オブジェクト行列を更新
-    UpdateTransform();
+    if (!Bosss)
+    {
+       Destoroy();
+    }
+    if (!Bosss)
+    {
+        //速力処理更新
+        UpdateVelocity(elapsedTime);
+        //無敵時間更新
+        UpdateInvincibleTimer(elapsedTime);
+        //オブジェクト行列を更新
+        UpdateTransform();
 
-    MoveSpeed(elapsedTime);
-    //モデル行列更新
-    model->UpdateTransform(transform);
+        MoveSpeed(elapsedTime);
+        //モデル行列更新
+        model->UpdateTransform(transform);
+    }
+    
 }
 void kowasenai::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
+    if (!Bosss)
+    {
     if (health > 0)
     {
         shader->Draw(dc, model);
@@ -49,6 +60,7 @@ void kowasenai::Render(ID3D11DeviceContext* dc, Shader* shader)
     else if (health <= 0)
     {
 
+    }
     }
 }
 void kowasenai::MoveSpeed(float elapsedTime)

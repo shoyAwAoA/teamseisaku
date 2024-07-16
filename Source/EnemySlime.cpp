@@ -9,6 +9,7 @@ extern Effect* hitEffect;
 
 Effect* kurogiri = nullptr;
 extern  bool player_yarare_flag;
+extern bool Bosss;
 extern  int  owari_timer;
 bool Effect0_flag;
 bool Effect1_flag;
@@ -75,76 +76,88 @@ void EnemySlime::Update(float elapsedTime)
     //    owari_timer++;
     //   /* owari = true;*/
     //}
+    if (!Bosss)
+    {
+        //ステート毎の更新処理
+        switch (state)
+        {
+        case State::Wander:
+            UpdateWanderState(elapsedTime);
+            break;
+        case State::Idle:
+            UpdateIdleState(elapsedTime);
+            break;
+        case State::Move:
+            UpdateMoveState(elapsedTime);
+            break;
+        }
+
+        if (health > 0)
+        {
+            radius = 5.0f;
+        }
+        else if (health <= 0)
+        {
+            radius = 0;
+        }
+
+        if (position.z < -140 || Bosss)
+        {
+            Destroy();
+
+        }
+
+        //if (state==State::Move&&idle_flag==false&&idle_timer>90)
+        //{
+
+        //    Effect_death(GetType());
+        //}
+      //  Effect_create();
+
+        Effect_flag(idle_timer, idle_flag, count);
+        //速力処理更新
+        UpdateVelocity(elapsedTime);
+
+        //無敵時間更新
+        UpdateInvincibleTimer(elapsedTime);
+
+        //オブジェクト行列を更新
+
+
+        //MoveSpeed(elapsedTime);
+
+
+        UpdateTransform();
+        model->UpdateAnimation(elapsedTime);
+        model->UpdateTransform(transform);
+
+
+
+        //モデル行列更新
+
+
+
+        idle_timer++;
+   }
+    if (Bosss)
+    {
+        Effect_death();
+    }
    
-    //ステート毎の更新処理
-    switch (state)
-    {
-    case State::Wander:
-        UpdateWanderState(elapsedTime);
-        break;
-    case State::Idle:
-        UpdateIdleState(elapsedTime);
-        break;
-    case State::Move:
-        UpdateMoveState(elapsedTime);
-        break;
-    }
-
-    if (health > 0)
-    {
-        radius = 5.0f;
-    }
-    else if (health <= 0)
-    {
-        radius = 0;
-    }
-
-    if (position.z<-140)
-    {
-        Destroy();
-    }
-
-    //if (state==State::Move&&idle_flag==false&&idle_timer>90)
-    //{
-
-    //    Effect_death(GetType());
-    //}
-  //  Effect_create();
-
-    Effect_flag(idle_timer, idle_flag, count);
-    //速力処理更新
-    UpdateVelocity(elapsedTime);
-
-    //無敵時間更新
-    UpdateInvincibleTimer(elapsedTime);
-
-    //オブジェクト行列を更新
-    
-
-    //MoveSpeed(elapsedTime);
-
-    
-    UpdateTransform();
-    model->UpdateAnimation(elapsedTime);
-    model->UpdateTransform(transform);
-
-    
-  
-    //モデル行列更新
-   
-   
-
-    idle_timer++;
 }
 
 
 //描画処理
 void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
+    if (!Bosss)
+    {
     if (health > 0&&state!=State::Wander)
     {
         shader->Draw(dc, model);
     }
+    }
+
 
     if (ImGui::Begin("Idle_flag", nullptr, ImGuiWindowFlags_None))
     {
@@ -342,14 +355,15 @@ void EnemySlime::Effect_death()
     {
         if (!Effect_flag(idle_timer, idle_flag, count))
         {
-            if (GetType() == 0)
+            
+            if (GetType() == 0||Bosss)
             {
                
                 kurogiri->Stop(count);
                 effect_flag=true;
                 idle_flag = true;
             }
-            if (GetType() == 1)
+            if (GetType() == 1 || Bosss)
             {
           
                 kurogiri->Stop(count);
@@ -357,7 +371,7 @@ void EnemySlime::Effect_death()
                 idle_flag = true;
                 //  TransitionMoveState();
             }
-            if (GetType() == 2)
+            if (GetType() == 2 || Bosss)
             {
             
                 kurogiri->Stop(count);
@@ -365,7 +379,7 @@ void EnemySlime::Effect_death()
                 idle_flag = true;
                 //  TransitionMoveState();
             }
-            if (GetType() == 3)
+            if (GetType() == 3 || Bosss)
             {
            
                 kurogiri->Stop(count);
@@ -373,7 +387,7 @@ void EnemySlime::Effect_death()
                 idle_flag = true;
                 //  TransitionMoveState();
             }
-            if (GetType() == 4)
+            if (GetType() == 4 || Bosss)
             {
              
                 kurogiri->Stop(count);

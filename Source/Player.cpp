@@ -15,6 +15,7 @@
 static Player* instance = nullptr;
 extern bool player_yarare_flag;
 extern int damage_timer;
+extern bool Bosss;
 
 bool damage_flag;
 
@@ -188,10 +189,13 @@ void Player::Update(float elapsedTime)
     projectileManager.Update(elapsedTime);
 
     //プレイヤーと敵との衝突処理
+    if (!Bosss)
+    {
     CollisionPlayerVsEnemies();
 
     //弾丸と敵の衝突判定
     CollisionProjectilesVsEnemies();
+    }
 
     //オブジェクト行列を更新
     UpdateTransform();
