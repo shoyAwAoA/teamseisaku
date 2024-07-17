@@ -70,7 +70,7 @@ Player::Player()
 
     effectTimer = 0;
     //ヒットエフェクト読み込み
-    hitEffect = new Effect("Data/Effect/kougeki2.efk");
+    hitEffect = new Effect("Data/Effect/kougeki.efk");
     radius = 5.0f;
     //待機ステートへ遷移
     TransitionIdleState();
@@ -1034,9 +1034,10 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                     {
                         //ヒットエフェクト再生
                         {
+                         
                             DirectX::XMFLOAT3 e = enemy->GetPosition();
                             e.y += enemy->GetHeight() * 1.2f;
-                            hitEffect->Play(e, 2);
+                            hitEffect->Play(e, 4);
                         }
 
                     }

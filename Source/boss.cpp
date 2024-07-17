@@ -31,7 +31,7 @@ Boss::Boss()
     //•A‚‚³Ý’è
     radius = 30.0f;
     height = 55.0f;
-    health = 1.0f;
+    health = 10.0f;
     Boss_Sinu = false;
     damage_timer = 60;
 
@@ -109,6 +109,7 @@ void Boss::BossSinu()
     if (Boss_Sinu&&!Bosss)
     {
         DirectX::XMFLOAT3 p = GetPosition();
+        p.y +=GetHeight()*0.7f;
         Boss_sinu->Play(p, 5);
         Boss_T = true;
         Boss_Sinu = false;
