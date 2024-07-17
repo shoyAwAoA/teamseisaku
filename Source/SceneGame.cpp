@@ -35,7 +35,7 @@ extern bool owari;
 extern bool effect_flag;
 extern bool Boss_Sinu;
 extern bool Bosss;
-
+static int aa = 0;
 int Scoree = 0;
 int timerValue = 0;
 // 初期化
@@ -80,7 +80,7 @@ void SceneGame::Initialize()
 	player = new Player();
 	player_yarare_flag = false;
 	boss_yarare_flag = false;
-
+	aa = 0;
 	kurogiri->Stopp();
 
 	//
@@ -540,7 +540,7 @@ void SceneGame::Render()
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 
-		static int aa = 0;
+		
 		if (!owari && !Bosss)
 		{
 			aa++;
