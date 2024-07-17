@@ -680,7 +680,7 @@ void SceneGame::Render()
 		player->DrawDebugGUI();
 
 
-		score->textout(dc,"score",100,100,32,32,0,0,0,1);
+		score->textout(dc,"SCORE",100,100,32,32,1,1,1,1);
 		
 	}
 	
@@ -700,7 +700,7 @@ void SceneGame::Render()
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
 
-	TextOut(HDC(), 100, 100, LPCWSTR("score"), 5);
+	//TextOut(HDC(), 100, 100, LPCWSTR("score"), 5);
 }
 
 //エネミーHPゲージ描

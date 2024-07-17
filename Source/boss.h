@@ -16,7 +16,7 @@ public:
 
     void MoveSpeed(float elapsedTime);
 
-    void BossSinu(bool);
+    void BossSinu();
 private:
     Model* model = nullptr;
   

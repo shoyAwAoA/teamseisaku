@@ -51,11 +51,8 @@ void Boss::Update(float elapsedTime)
 {
     if (damage_flag)
     {
-        if (health ==0)
+        if (health == 0)
         {
-            boss_yarare_flag = true;
-            //Boss_sinu->Play()
-
             //Boss_Sinu = true;
            // health--;
             //boss_yarare_flag = true;
@@ -69,55 +66,42 @@ void Boss::Update(float elapsedTime)
     }
     if (health == 0 && !Bosss)
     {
-
         Boss_Sinu = true;
-
         //health--;
         //boss_yarare_flag = true;
     }
-    BossSinu(Boss_Sinu);
-
+    BossSinu();
     //速力処理更新
     UpdateVelocity(elapsedTime);
-
     //無敵時間更新
     UpdateInvincibleTimer(elapsedTime);
-
     //オブジェクト行列を更新
     UpdateTransform();
-
     MoveSpeed(elapsedTime);
-
     //モデル行列更新
     model->UpdateTransform(transform);
-
     if (health <= 0)
     {
         health = 0;
         boss_sinu_timer++;
     }
-
 }
 
-void Boss::BossSinu(bool Boss_Sinu)
+void Boss::BossSinu()
 {
-    if (boss_sinu_timer > 180)
+    if (boss_sinu_timer > 620)
     {
         boss_yarare_flag = true;
-        //Boss_T = false;
+        Boss_T = false;
     }
-        
-        
-    if (Boss_Sinu)
+    if (Boss_Sinu && !Bosss)
     {
         DirectX::XMFLOAT3 p = GetPosition();
         Boss_sinu->Play(p, 5);
+        Boss_T = true;
         Boss_Sinu = false;
+        Bosss = true;
     }
-            
-    
-    
-
 }
 
 void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)

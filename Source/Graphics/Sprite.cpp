@@ -363,11 +363,15 @@ void Sprite::textout(ID3D11DeviceContext* immediate_context, std::string s, floa
 
 	float sw = static_cast<float>(textureWidth/ 16);
 	float sh = static_cast<float>(textureHeight/16);
+	//sh*(c>>4)
+	// * (c & 0x0F)
+	//float sh = static_cast<float>(textureHeight/16);
 	float carriage = 0;
 	for (const char c : s)
 	{
-		Render(immediate_context, x + carriage, y, w, h, r, g, b, a, 0,
-			sw * (c & 0x0F), sh*(c>>4), sw, sh);
+		Render(immediate_context, x + carriage, y, w, h,
+			sw * (c & 0x0F), sh * (c >> 4), sw, sh, 0,
+			r, g, b, a);
 		carriage += w;
 	}
 }
