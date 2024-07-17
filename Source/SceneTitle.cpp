@@ -12,6 +12,7 @@ void SceneTitle::Initialize()
 {
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/titole.png");
+    
     Audio& audiomanager = Audio::Instance();
     title_bgm = audiomanager.LoadAudioSource("Data/Audio/title.wav");
     sentaku_bgm = audiomanager.LoadAudioSource("Data/Audio/senntaku.wav");
@@ -27,7 +28,8 @@ void SceneTitle::Finalize()
     {
         delete sprite;
         sprite = nullptr;
-    }
+    }//スプライト終了化
+
 }
 
 //更新所l理
@@ -108,6 +110,7 @@ void SceneTitle::Render()
             0,
             1, 1, 1, 1
         );
+
 
     }
    
