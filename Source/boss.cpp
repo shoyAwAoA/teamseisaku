@@ -19,7 +19,7 @@ Boss::Boss()
 
     model = new Model("Data/Model/Boss/boss.mdl");
     
-    Boss_sinu = new Effect("Data/Effect/Boss_Sinu.efk");
+    Boss_sinu = new Effect("Data/Effect/bossBakuhatu.efk");
 
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 3.0f;
@@ -31,7 +31,7 @@ Boss::Boss()
     //幅、高さ設定
     radius = 30.0f;
     height = 55.0f;
-    health = 10.0f;
+    health = 1.0f;
     Boss_Sinu = false;
     damage_timer = 60;
 
@@ -89,7 +89,7 @@ void Boss::Update(float elapsedTime)
 
 void Boss::BossSinu()
 {
-    if (boss_sinu_timer > 620)
+    if (boss_sinu_timer > 420)
     {
         boss_yarare_flag = true;
         Boss_T = false;
