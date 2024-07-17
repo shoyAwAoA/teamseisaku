@@ -556,7 +556,12 @@ void SceneGame::Render()
 		player->DrawDebugGUI();
 
 
-		score->textout(dc,"SCORE",100,100,32,32,1,1,1,1);
+		static int a = 0;
+		a++;
+		char text[32];
+		::sprintf_s(text, "%d", a);
+
+		score->textout(dc,text,100,100,32,32,1,1,1,1);
 		
 	}
 	
