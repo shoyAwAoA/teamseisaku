@@ -36,9 +36,8 @@ extern bool owari;
 extern bool effect_flag;
 extern bool Boss_Sinu;
 extern bool Bosss;
-
-int Score = 0;
-int bb;
+static int aa = 0;
+int Scoree = 0;
 int timerValue = 0;
 static int aa = 0;
 // 初期化
@@ -54,7 +53,7 @@ void SceneGame::Initialize()
 	timer4 = 0;
 	score_timer = 0;
 
-	Score = 0;
+	Scoree = 0;
 	enemyType = 0;
 	owari = false;
 	Bosss = false;
@@ -87,7 +86,7 @@ void SceneGame::Initialize()
 	player = new Player();
 	player_yarare_flag = false;
 	boss_yarare_flag = false;
-
+	aa = 0;
 	kurogiri->Stopp();
 
 	//
@@ -547,17 +546,9 @@ void SceneGame::Render()
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 
+		static int aa = 0;
 
-		bb++;
-
-		if (bb>=150)
-		{
-			bb_count += 1;
-			bb = 0;
-		}
-
-		aa = bb_count;
-		//aa /= 60;
+		aa++;
 
 		char text[32];
 
@@ -579,7 +570,7 @@ void SceneGame::Render()
 	//ボスが死んだときにクリア画面に遷移
 	if (boss_yarare_flag)
 	{
-		Score = aa;
+		Scoree = aa;
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
 	

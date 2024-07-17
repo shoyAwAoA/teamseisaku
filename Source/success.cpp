@@ -4,7 +4,7 @@
 #include <Graphics/Graphics.h>
 #include"Audio/Audio.h"
 
-extern int Score;
+extern int Scoree;
 
 void SceneSuccess::Initialize()
 {
@@ -82,6 +82,40 @@ void SceneSuccess::Render()
        Score->textout(dc,"score",400,400,80,80,1,0,1,1);
     }
     //スコア表示
+    {
+        static int time;
+
+        time = Scoree;
+
+        char timer[36];
+
+        sprintf_s(timer, "%d", time);
+
+       Score->textout(dc,"TIME",0,280,120,120,1,0,1,1);
+
+       Score->textout(dc, timer, 750, 280, 60,60, 1, 0, 1, 1);
+     
+       if (time < 5001)
+       {
+           Score->textout(dc, "S", 900, 400, 300, 300, 1, 0, 1, 1);
+       }
+       else if (time>5000&&time < 7001)
+       {
+           Score->textout(dc, "A", 900, 400, 300, 300, 1, 0, 1, 1);
+       }
+       else if (time>7000&&time < 9001)
+       {
+           Score->textout(dc, "B", 900, 400, 300, 300, 1, 0, 1, 1);
+       }
+       else if (time>7000&&time < 11001)
+       {
+           Score->textout(dc, "C", 900, 400, 300, 300, 1, 0, 1, 1);
+       }
+       else if (time>11000&&time < 13001)
+       {
+           Score->textout(dc, "^^", 900, 400, 300, 300, 1, 0, 1, 1);
+       }
+    }
 }
 
 

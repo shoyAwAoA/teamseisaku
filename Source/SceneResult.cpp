@@ -12,7 +12,6 @@ void SceneResult::Initialize()
     sprite = new Sprite("Data/Sprite/make.png");
     Audio& audioManager = Audio::Instance();
     result_bgm = audioManager.LoadAudioSource("Data/Audio/result.wav");
-
 }
 
 void SceneResult::Finalize()
@@ -27,6 +26,14 @@ void SceneResult::Finalize()
 
 void SceneResult::Update(float elapsedTime)
 {
+    //BGM
+    {
+        if (result_bgm)
+        {
+            result_bgm->Play(true, 5);
+        }
+    }
+
     GamePad& gamePad = Input::Instance().GetGamePad();
 
     //何かボタンを押したらゲームシーンへ切り替え
@@ -42,6 +49,7 @@ void SceneResult::Update(float elapsedTime)
 
     if (gamePad.GetButton() & anyButton)
     {
+        result_bgm->Stop();
         SceneManager::Instance().ChangeScene(new SceneTitle);
     }
     if (result_bgm)

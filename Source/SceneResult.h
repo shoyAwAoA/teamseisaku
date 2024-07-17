@@ -2,7 +2,6 @@
 #include"Graphics//Sprite.h"
 #include"Scene.h"
 #include"Audio/AudioSource.h"
-
 //ローディングシーン
 class SceneResult : public Scene
 {
@@ -24,6 +23,6 @@ public:
 
 private:
     Sprite* sprite = nullptr;
-    std::unique_ptr<AudioSource> result_bgm;
+   
   
 };
