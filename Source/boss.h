@@ -1,5 +1,7 @@
 #pragma once
 #include"Enemy.h"
+#include"Audio/AudioSource.h"
+
 
 
 class Boss :public boss
@@ -25,5 +27,7 @@ private:
 protected:
     //Ž€–S‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é
     void OnDead()override;
+
+    std::unique_ptr<AudioSource> boss_baku;
     //  void OnDamaged()override;
 };

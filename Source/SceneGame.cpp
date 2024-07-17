@@ -41,7 +41,7 @@ void SceneGame::Initialize()
 {
 	srand((unsigned int)time(NULL));
 
-
+	score_timer = { 0 };
 	timer0 = 0;
 	timer1 = 0;
 	timer2 = 0;
@@ -141,6 +141,8 @@ void SceneGame::Initialize()
 	gauge = new Sprite();
 
 	score = new Sprite("Data/Font/font1.png");
+	score_timer = new Sprite("Data/Font/font1.png");
+	scoree = 0;
 	/*kurogiri->Stopp();
 	count = 0;*/
 }
@@ -205,6 +207,13 @@ void SceneGame::Update(float elapsedTime)
 		kurogiri2->Stopp();
 		owari = true;
 	}
+
+	if (Bosss)
+	{
+		game_bgm->Stop();
+	}
+
+
 
 	//DirectX::XMFLOAT3 e = enemy->GetPosition();
 	//e.y += enemy->GetHeight() * 0.5f;
@@ -419,6 +428,10 @@ void SceneGame::Update(float elapsedTime)
 	timer2++;
 	timer3++;
 	timer4++;
+
+	scoree++;
+
+
 	//{
 	//	ramdam0 = rand() % 4;
 	//	
@@ -681,6 +694,8 @@ void SceneGame::Render()
 
 
 		score->textout(dc,"SCORE",100,100,32,32,1,1,1,1);
+
+		score_timer->textout(dc, scoree, 200, 200, 32, 32, 1, 1, 1, 1);
 		
 	}
 	
@@ -697,6 +712,7 @@ void SceneGame::Render()
 	//ボスが死んだときにクリア画面に遷移
 	if (boss_yarare_flag)
 	{
+
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
 

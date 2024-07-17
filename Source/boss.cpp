@@ -2,6 +2,7 @@
 #include "boss.h"
 #include"Graphics/Graphics.h"
 #include"Effect.h"
+#include"Audio/Audio.h"
 
 extern bool damage_flag;
 extern bool boss_yarare_flag;
@@ -14,12 +15,18 @@ bool Bosss;
 
 Effect* Boss_sinu=nullptr;
 
+
+
 Boss::Boss()
 {
 
     model = new Model("Data/Model/Boss/boss.mdl");
     
     Boss_sinu = new Effect("Data/Effect/Boss_Sinu.efk");
+
+    Audio& audiomanager = Audio::Instance();
+
+    boss_baku = audiomanager.LoadAudioSource("Data/Audio/bakuha.wav");
 
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 3.0f;
@@ -31,7 +38,7 @@ Boss::Boss()
     //幅、高さ設定
     radius = 30.0f;
     height = 55.0f;
-    health = 10.0f;
+    health = 1.0f;
     Boss_Sinu = false;
     damage_timer = 60;
 
@@ -53,7 +60,7 @@ void Boss::Update(float elapsedTime)
     {
         if (health == 0)
         {
-            //Boss_Sinu = true;
+            Boss_Sinu = true;
            // health--;
             //boss_yarare_flag = true;
         }
@@ -67,6 +74,8 @@ void Boss::Update(float elapsedTime)
     if (health == 0 && !Bosss)
     {
         Boss_Sinu = true;
+
+        boss_baku->Play(false, 1);
         //health--;
         //boss_yarare_flag = true;
     }

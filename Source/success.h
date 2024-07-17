@@ -4,6 +4,7 @@
 #include"Scene.h"
 #include"SceneManager.h"
 #include"SceneTitle.h"
+#include"Audio/AudioSource.h"
 
 class SceneSuccess : public Scene
 {
@@ -25,4 +26,5 @@ public:
 
 private:
     Sprite* sprite = nullptr;
+    std::unique_ptr<AudioSource> kati_bgm;
 };

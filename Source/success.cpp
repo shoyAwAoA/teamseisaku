@@ -2,11 +2,14 @@
 #include <Input/GamePad.h>
 #include<Input/Input.h>
 #include <Graphics/Graphics.h>
+#include"Audio/Audio.h"
 
 void SceneSuccess::Initialize()
 {
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/kati.png");
+    Audio& audiomanager = Audio::Instance();
+    kati_bgm = audiomanager.LoadAudioSource("Data/Audio/kati.wav");
 }
 
 void SceneSuccess::Finalize()
@@ -33,6 +36,8 @@ void SceneSuccess::Update(float elapsedTime)
     {
         SceneManager::Instance().ChangeScene(new SceneGame);
     }*/
+
+    kati_bgm->Play(true, 1);
 
     if (gamePad.GetButton() & anyButton)
     {
