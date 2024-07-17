@@ -33,7 +33,6 @@ void kowasenai::Update(float elapsedTime)
     if (position.z < -140 || Bosss)
     {
         Destoroy();
-
     }
 
     if (!Bosss)
