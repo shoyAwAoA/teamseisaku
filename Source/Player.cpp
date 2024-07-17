@@ -26,6 +26,7 @@ bool x3_flag;
 bool x4_flag;
 
 Effect* hitEffect = nullptr;
+Effect* hitZako = nullptr;
 //インスタンス取得
 Player& Player::Instance()
 {
@@ -70,7 +71,8 @@ Player::Player()
 
     effectTimer = 0;
     //ヒットエフェクト読み込み
-    hitEffect = new Effect("Data/Effect/hai.efk");
+    hitEffect = new Effect("Data/Effect/kougeki.efk");
+    hitZako = new Effect("Data/Effect/zakoHit.efk");
     radius = 5.0f;
     //待機ステートへ遷移
     TransitionIdleState();
@@ -80,6 +82,8 @@ Player::Player()
 Player::~Player()
 {
     delete hitEffect;
+
+    delete hitZako;
 
     delete model;
 
@@ -1037,7 +1041,7 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                          
                             DirectX::XMFLOAT3 e = enemy->GetPosition();
                             e.y += enemy->GetHeight() * 1.6f;
-                            hitEffect->Play(e, 4);
+                            hitEffect->Play(e, 2);
                         }
 
                     }
@@ -1110,95 +1114,101 @@ void Player::CollisionProjectilesVsEnemies()
     //全ての弾丸と全ての敵を総当たりで衝突処理
     int projectileCount = projectileManager.GetProjectileCount();
     int bossCount = enemyManager.GetbossCount();
-
+    int slimeCount = enemyManager.GetEnemyCount();
     for (int i = 0; i < projectileCount; ++i)
     {
         Projectile* projectile = projectileManager.GetProjectile(i);
 
-        for (int j = 0; j <bossCount; ++j)
+        for (int j = 0; j < bossCount; ++j)
         {
             boss* boooss = enemyManager.Getboss(j);
-            
-            //衝突処理
-            DirectX::XMFLOAT3 outPosition;
+           
+                //衝突処理
+                DirectX::XMFLOAT3 outPosition;
 
-            if (Collision::IntersectSphereVsCylinder(
-                projectile->GetPosition(),
-                projectile->GetRadius(),
-                boooss->GetPosition(),
-                boooss->GetRadius(),
-                boooss->GetHeight(),
-                outPosition))
-            {
-                //ダメージを与える
-                if (!damage_flag)
+                if (Collision::IntersectSphereVsCylinder(
+                    projectile->GetPosition(),
+                    projectile->GetRadius(),
+                    boooss->GetPosition(),
+                    boooss->GetRadius(),
+                    boooss->GetHeight(),
+                    outPosition))
                 {
-                    if (boooss->ApplyDamage(1, 0.5f))
+                    //ダメージを与える
+                    if (!damage_flag)
                     {
-                        damage_timer = 60;
-                        damage_flag = true;
-                        if (x0_flag)
+                        if (boooss->ApplyDamage(1, 0.5f))
                         {
-                            x0_flag = false;
+                            damage_timer = 60;
+                            damage_flag = true;
+                            if (x0_flag)
+                            {
+                                x0_flag = false;
+                            }
+                            if (x1_flag)
+                            {
+                                x1_flag = false;
+                            }
+                            if (x2_flag)
+                            {
+                                x2_flag = false;
+                            }
+                            if (x3_flag)
+                            {
+                                x3_flag = false;
+                            }
+                            if (x4_flag)
+                            {
+                                x4_flag = false;
+                            }
+                            ////吹き飛ばす
+                            //{
+                            //    const float power = 20.0f;
+                            //    const DirectX::XMFLOAT3 e = boooss->GetPosition();
+                            //    const DirectX::XMFLOAT3 p = projectile->GetPosition();
+
+                            //    float vx = e.x - p.x;
+                            //    float vz = e.z - p.z;
+
+                            //    float lengthXZ = sqrtf(vx * vx + vz * vz);
+
+                            //    vx /= lengthXZ;
+                            //    vz /= lengthXZ;
+
+                            //    DirectX::XMFLOAT3 impulse;
+
+
+
+                            //    impulse.x = vx * power;
+                            //    impulse.y = power * 0.5f;
+                            //    impulse.z = vz * power;
+
+                            //    boooss->AddImpulse(impulse);
+                            //}
+                            //ヒットエフェクト再生
+
+                          /*  {
+                                DirectX::XMFLOAT3 e = boooss->GetPosition();
+                                e.y += boooss->GetHeight() * 0.5f;
+                                hitEffect->Play(e,50);
+                            }*/
+
+                            {
+                                DirectX::XMFLOAT3 pro = projectile->GetPosition();
+                                pro.y += projectile->GetPosition().y * 0.5f;
+                                hitZako->Play(pro, 1);
+                            }
+
+                            //弾丸破棄
+                            projectile->Destroy();
+
                         }
-                        if (x1_flag)
-                        {
-                            x1_flag = false;
-                        }
-                        if (x2_flag)
-                        {
-                            x2_flag = false;
-                        }
-                        if (x3_flag)
-                        {
-                            x3_flag = false;
-                        }
-                        if (x4_flag)
-                        {
-                            x4_flag = false;
-                        }
-                        ////吹き飛ばす
-                        //{
-                        //    const float power = 20.0f;
-                        //    const DirectX::XMFLOAT3 e = boooss->GetPosition();
-                        //    const DirectX::XMFLOAT3 p = projectile->GetPosition();
-
-                        //    float vx = e.x - p.x;
-                        //    float vz = e.z - p.z;
-
-                        //    float lengthXZ = sqrtf(vx * vx + vz * vz);
-
-                        //    vx /= lengthXZ;
-                        //    vz /= lengthXZ;
-
-                        //    DirectX::XMFLOAT3 impulse;
-
-
-
-                        //    impulse.x = vx * power;
-                        //    impulse.y = power * 0.5f;
-                        //    impulse.z = vz * power;
-
-                        //    boooss->AddImpulse(impulse);
-                        //}
-                        //ヒットエフェクト再生
-
-                      /*  {
-                            DirectX::XMFLOAT3 e = boooss->GetPosition();
-                            e.y += boooss->GetHeight() * 0.5f;
-                            hitEffect->Play(e,50);
-                        }*/
-
-                        //弾丸破棄
-                        projectile->Destroy();
-                        
                     }
                 }
-                
-            }
         }
     }
 }
+
 
 
 //弾丸入力処理

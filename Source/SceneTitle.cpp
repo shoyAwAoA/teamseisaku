@@ -27,7 +27,8 @@ void SceneTitle::Finalize()
     {
         delete sprite;
         sprite = nullptr;
-    }
+    }//スプライト終了化
+
 }
 
 //更新所l理
@@ -42,10 +43,10 @@ void SceneTitle::Update(float elapseTime)
 
     //何かボタンを押したらゲームシーンへ切り替え
     const GamePadButton anyButton =
-        GamePad::BTN_A
-        | GamePad::BTN_B
-        | GamePad::BTN_X
-        | GamePad::BTN_Y;
+        GamePad::BTN_B;
+       // | GamePad::BTN_RIGHT;
+  //      | GamePad::BTN_X
+    //    | GamePad::BTN_Y;
     //if (gamePad.GetButton() & anyButton)
     //{
     //    SceneManager::Instance().ChangeScene(new SceneGame);
@@ -108,6 +109,7 @@ void SceneTitle::Render()
             0,
             1, 1, 1, 1
         );
+
 
     }
    

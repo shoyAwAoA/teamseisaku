@@ -4,10 +4,13 @@
 #include <Graphics/Graphics.h>
 #include"Audio/Audio.h"
 
+extern int Score;
+
 void SceneSuccess::Initialize()
 {
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/kati.png");
+    Score = new Sprite("Data/Font/font1.png");
     Audio& audiomanager = Audio::Instance();
     kati_bgm = audiomanager.LoadAudioSource("Data/Audio/kati.wav");
 }
@@ -76,6 +79,10 @@ void SceneSuccess::Render()
             1, 1, 1, 1
         );
 
+    }
+    //スコア表示
+    {
+       sprite->textout(dc,"Score",400,400,80,80,1,0,1,1);
     }
 }
 

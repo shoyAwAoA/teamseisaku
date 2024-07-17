@@ -52,6 +52,7 @@ Boss::~Boss()
         model = nullptr;
     delete model;
     }
+  
 }
 
 void Boss::Update(float elapsedTime)
@@ -75,7 +76,7 @@ void Boss::Update(float elapsedTime)
     {
         Boss_Sinu = true;
 
-        boss_baku->Play(false, 1);
+        boss_baku->Play(false, 9);
         //health--;
         //boss_yarare_flag = true;
     }

@@ -30,10 +30,11 @@ void kowasenai::Update(float elapsedTime)
     {
         radius = 0;
     }
-    if (!Bosss)
+    if (position.z < -140 || Bosss)
     {
-       Destoroy();
+        Destoroy();
     }
+
     if (!Bosss)
     {
         //速力処理更新
@@ -47,7 +48,8 @@ void kowasenai::Update(float elapsedTime)
         //モデル行列更新
         model->UpdateTransform(transform);
     }
-    
+
+
 }
 void kowasenai::Render(ID3D11DeviceContext* dc, Shader* shader)
 {

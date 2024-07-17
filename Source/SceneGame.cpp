@@ -36,7 +36,7 @@ extern bool effect_flag;
 extern bool Boss_Sinu;
 extern bool Bosss;
 
-
+int Score = 0;
 int timerValue = 0;
 // 初期化
 void SceneGame::Initialize()
@@ -51,6 +51,7 @@ void SceneGame::Initialize()
 	timer4 = 0;
 	score_timer = 0;
 
+	Score = 0;
 	enemyType = 0;
 	owari = false;
 	Bosss = false;
@@ -137,7 +138,7 @@ void SceneGame::Initialize()
 	gauge = new Sprite();
 
 	score = new Sprite("Data/Font/font1.png");
-	timer= new Sprite("Data/Font/font1.png");
+	
 	/*kurogiri->Stopp();
 	count = 0;*/
 }
@@ -171,6 +172,11 @@ void SceneGame::Finalize()
 	{
 		delete player;
 		player = nullptr;
+	}
+	if (score != nullptr)
+	{
+		delete score;
+		score = nullptr;
 	}
 	//カメラコントローラー終了化
 	if (cameraController != nullptr)
@@ -340,9 +346,7 @@ void SceneGame::Update(float elapsedTime)
 					}
 					ran_flag2 = false;
 					timer2 = 0;
-
 				}
-
 			}
 			//3レーンの敵処理
 			{
@@ -375,9 +379,7 @@ void SceneGame::Update(float elapsedTime)
 					}
 					ran_flag3 = false;
 					timer3 = 0;
-
 				}
-
 			}
 			//4レーンの敵処理
 			{
@@ -398,25 +400,20 @@ void SceneGame::Update(float elapsedTime)
 					else if (enemyType == 2 && ran_flag4)/* if (enemyType == 2 && ran_flag0)*/
 					{
 						kowasenai* wasenai = new kowasenai;
+
 						wasenai->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
-
-
 						enemyManager.Register(wasenai);
 					}
 					else if (enemyType == 3 && ran_flag4)
 					{
 						kowasenai* wasenai = new kowasenai;
+
 						wasenai->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
-
-
 						enemyManager.Register(wasenai);
 					}
 					ran_flag4 = false;
 					timer4 = 0;
-
 				}
-
-
 			}
 		}}
 	timer0++;
@@ -438,7 +435,6 @@ void SceneGame::Update(float elapsedTime)
 	cameraController->SetTarget(target);
 	cameraController->Update(elapsedTime);
 
-
 	//ステージ更新処理
 //	stage->Update(elapsedTime);
 	StageManager::Instance().Update(elapsedTime);
@@ -449,14 +445,7 @@ void SceneGame::Update(float elapsedTime)
 	EffectManager::Instance().Update(elapsedTime);
 				//エネミーの更新処理
 				EnemyManager::Instance().Update(elapsedTime);
-	
 }
-
-
-	
-
-
-
 
 // 描画処理
 void SceneGame::Render()
@@ -481,7 +470,6 @@ void SceneGame::Render()
 	Camera& camera = Camera::Instance();
 	rc.view = camera.GetView();
 	rc.projection = camera.GetProjection();
-
 
 	//// ビュー行列
 	//{
@@ -513,10 +501,7 @@ void SceneGame::Render()
 	//	stage->Render(dc, shader);
 		StageManager::Instance().Render(dc, shader);
 		//エネミー描画
-		
 			EnemyManager::Instance().Render(dc, shader);
-		
-		
 
 		//プレイヤー描画
 		player->Render(dc, shader);
@@ -551,37 +536,38 @@ void SceneGame::Render()
 	}
 
 	// 2DデバッグGUI描画
-	{
+	
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 
+		static int aa = 0;
 
-		static int a = 0;
-		a++;
+		aa++;
+
 		char text[32];
-		::sprintf_s(text, "%d", a);
 
-		score->textout(dc,text,100,100,32,32,1,1,1,1);
-		
-	}
+		sprintf_s(text, "%d", aa);
+
+		score->textout(dc,text,300,55,45,45,1,1,1,1);	
+
+		score->textout(dc, "Timer::", 0, 50, 45, 45, 1, 1, 1, 1);
 	
 	//プレイヤーが死んだときにリザルト画面に遷移
 	//if (player_yarare_flag&&owari)
 	//{
 		if (owari)
 		{
-		SceneManager::Instance().ChangeScene(new SceneResult);
-
+			SceneManager::Instance().ChangeScene(new SceneResult);
 		}
 	
 //	}
 	//ボスが死んだときにクリア画面に遷移
 	if (boss_yarare_flag)
 	{
-
+		Score = aa;
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
-	timer++;
+	
 	//TextOut(HDC(), 100, 100, LPCWSTR("score"), 5);
 }
 
@@ -651,11 +637,7 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 			static_cast<float>(gauge->GetTextureHeight()),
 			0.0f,
 			1.0f, 0.0f, 0.0f, 1.0f
-		);
-
-		
-
-	
+		);	
 	//
 	//
 	//
