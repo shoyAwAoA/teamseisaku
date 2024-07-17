@@ -695,7 +695,7 @@ void SceneGame::Render()
 
 		score->textout(dc,"SCORE",100,100,32,32,1,1,1,1);
 
-		score_timer->textout(dc, scoree, 200, 200, 32, 32, 1, 1, 1, 1);
+
 		
 	}
 	
