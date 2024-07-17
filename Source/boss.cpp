@@ -38,7 +38,7 @@ Boss::Boss()
     //ïùÅAçÇÇ≥ê›íË
     radius = 30.0f;
     height = 55.0f;
-    health = 1.0f;
+    health = 10.0f;
     Boss_Sinu = false;
     damage_timer = 60;
 
@@ -52,6 +52,7 @@ Boss::~Boss()
         model = nullptr;
     delete model;
     }
+  
 }
 
 void Boss::Update(float elapsedTime)
