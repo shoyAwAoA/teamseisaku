@@ -70,7 +70,7 @@ Player::Player()
 
     effectTimer = 0;
     //ヒットエフェクト読み込み
-    hitEffect = new Effect("Data/Effect/kougeki.efk");
+    hitEffect = new Effect("Data/Effect/hai.efk");
     radius = 5.0f;
     //待機ステートへ遷移
     TransitionIdleState();

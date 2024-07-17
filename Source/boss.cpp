@@ -19,7 +19,7 @@ Boss::Boss()
 
     model = new Model("Data/Model/Boss/boss.mdl");
     
-    Boss_sinu = new Effect("Data/Effect/Boss1.efk");
+    Boss_sinu = new Effect("Data/Effect/Boss_Sinu.efk");
 
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 3.0f;
@@ -51,9 +51,8 @@ void Boss::Update(float elapsedTime)
 {
     if (damage_flag)
     {
-        if (health ==0)
+        if (health == 0)
         {
-
             //Boss_Sinu = true;
            // health--;
             //boss_yarare_flag = true;
@@ -67,34 +66,25 @@ void Boss::Update(float elapsedTime)
     }
     if (health == 0 && !Bosss)
     {
-
         Boss_Sinu = true;
-
         //health--;
         //boss_yarare_flag = true;
     }
     BossSinu();
-
     //速力処理更新
     UpdateVelocity(elapsedTime);
-
     //無敵時間更新
     UpdateInvincibleTimer(elapsedTime);
-
     //オブジェクト行列を更新
     UpdateTransform();
-
     MoveSpeed(elapsedTime);
-
     //モデル行列更新
     model->UpdateTransform(transform);
-
     if (health <= 0)
     {
         health = 0;
         boss_sinu_timer++;
     }
-
 }
 
 void Boss::BossSinu()
@@ -104,9 +94,7 @@ void Boss::BossSinu()
         boss_yarare_flag = true;
         Boss_T = false;
     }
-        
-        
-    if (Boss_Sinu&&!Bosss)
+    if (Boss_Sinu && !Bosss)
     {
         DirectX::XMFLOAT3 p = GetPosition();
         p.y +=GetHeight()*0.7f;
@@ -115,10 +103,6 @@ void Boss::BossSinu()
         Boss_Sinu = false;
         Bosss = true;
     }
-            
-    
-    
-
 }
 
 void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)

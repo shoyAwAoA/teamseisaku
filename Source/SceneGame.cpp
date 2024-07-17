@@ -16,6 +16,7 @@
 #include"Audio/Audio.h"
 
 
+
 bool player_yarare_flag;
 
 bool boss_yarare_flag;
@@ -27,7 +28,7 @@ bool ran_flag4;
 
 bool owari = false;
 int owari_timer = 0;
-char              score[100] = "score";
+//char              score[100] = "score";
 extern int count;
 extern Effect* kurogiri;
 ;
@@ -53,7 +54,7 @@ void SceneGame::Initialize()
 	/*EnemySlime* slime = new EnemySlime;
 	slime->reset();*/
 
-	Boss_Sinu = false;
+	//Boss_Sinu = false;
 
 	ran_flag0 = false;
 	ran_flag1 = false;
@@ -138,6 +139,8 @@ void SceneGame::Initialize()
 
 	//ゲージスプライト
 	gauge = new Sprite();
+
+	score = new Sprite("Data/Font/font1.png");
 	/*kurogiri->Stopp();
 	count = 0;*/
 }
@@ -593,6 +596,7 @@ void SceneGame::Render()
 	dc->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	dc->OMSetRenderTargets(1, &rtv, dsv);
 
+
 	// 描画処理
 	RenderContext rc;
 	rc.lightDirection = { 0.0f, -1.0f, 0.0f, 0.0f };	// ライト方向（下方向）
@@ -602,7 +606,6 @@ void SceneGame::Render()
 	rc.view = camera.GetView();
 	rc.projection = camera.GetProjection();
 
-	
 
 	//// ビュー行列
 	//{
@@ -677,7 +680,7 @@ void SceneGame::Render()
 		player->DrawDebugGUI();
 
 
-
+		score->textout(dc,"SCORE",100,100,32,32,1,1,1,1);
 		
 	}
 	
@@ -697,7 +700,7 @@ void SceneGame::Render()
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
 
-	/*TextOut(HDC(), 100, 100, LPCWSTR("score"), 5);*/
+	//TextOut(HDC(), 100, 100, LPCWSTR("score"), 5);
 }
 
 //エネミーHPゲージ描
@@ -767,6 +770,8 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 			0.0f,
 			1.0f, 0.0f, 0.0f, 1.0f
 		);
+
+		
 
 	
 	//
