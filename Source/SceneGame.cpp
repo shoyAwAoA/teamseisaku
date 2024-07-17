@@ -36,7 +36,7 @@ extern bool effect_flag;
 extern bool Boss_Sinu;
 extern bool Bosss;
 
-int Score = 0;
+int Scoree = 0;
 int timerValue = 0;
 // 初期化
 void SceneGame::Initialize()
@@ -51,7 +51,7 @@ void SceneGame::Initialize()
 	timer4 = 0;
 	score_timer = 0;
 
-	Score = 0;
+	Scoree = 0;
 	enemyType = 0;
 	owari = false;
 	Bosss = false;
@@ -541,8 +541,10 @@ void SceneGame::Render()
 		player->DrawDebugGUI();
 
 		static int aa = 0;
-
-		aa++;
+		if (!owari && !Bosss)
+		{
+			aa++;
+		}
 
 		char text[32];
 
@@ -564,7 +566,7 @@ void SceneGame::Render()
 	//ボスが死んだときにクリア画面に遷移
 	if (boss_yarare_flag)
 	{
-		Score = aa;
+		Scoree = aa;
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
 	
