@@ -11,7 +11,7 @@ int sen = 0;
 void SceneTitle::Initialize()
 {
     //スプライト初期化
-    sprite = new Sprite("Data/Sprite/titole.png");
+    sprite = new Sprite("Data/Sprite/titolee.png");
     Audio& audiomanager = Audio::Instance();
     title_bgm = audiomanager.LoadAudioSource("Data/Audio/title.wav");
     sentaku_bgm = audiomanager.LoadAudioSource("Data/Audio/senntaku.wav");
