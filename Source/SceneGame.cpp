@@ -36,7 +36,7 @@ extern bool effect_flag;
 extern bool Boss_Sinu;
 extern bool Bosss;
 
-
+int Score = 0;
 int timerValue = 0;
 // 初期化
 void SceneGame::Initialize()
@@ -51,6 +51,7 @@ void SceneGame::Initialize()
 	timer4 = 0;
 	score_timer = 0;
 
+	Score = 0;
 	enemyType = 0;
 	owari = false;
 	Bosss = false;
@@ -137,7 +138,7 @@ void SceneGame::Initialize()
 	gauge = new Sprite();
 
 	score = new Sprite("Data/Font/font1.png");
-	timer= new Sprite("Data/Font/font1.png");
+	
 	/*kurogiri->Stopp();
 	count = 0;*/
 }
@@ -171,6 +172,11 @@ void SceneGame::Finalize()
 	{
 		delete player;
 		player = nullptr;
+	}
+	if (score != nullptr)
+	{
+		delete score;
+		score = nullptr;
 	}
 	//カメラコントローラー終了化
 	if (cameraController != nullptr)
@@ -530,22 +536,22 @@ void SceneGame::Render()
 	}
 
 	// 2DデバッグGUI描画
-	{
+	
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 
-		static int a = 0;
+		static int aa = 0;
 
-		a++;
+		aa++;
 
 		char text[32];
 
-		sprintf_s(text, "%d", a);
+		sprintf_s(text, "%d", aa);
 
 		score->textout(dc,text,300,55,45,45,1,1,1,1);	
 
 		score->textout(dc, "Timer::", 0, 50, 45, 45, 1, 1, 1, 1);
-	}
+	
 	//プレイヤーが死んだときにリザルト画面に遷移
 	//if (player_yarare_flag&&owari)
 	//{
@@ -558,9 +564,10 @@ void SceneGame::Render()
 	//ボスが死んだときにクリア画面に遷移
 	if (boss_yarare_flag)
 	{
+		Score = aa;
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
-	timer++;
+	
 	//TextOut(HDC(), 100, 100, LPCWSTR("score"), 5);
 }
 

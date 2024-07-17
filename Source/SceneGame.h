@@ -71,7 +71,7 @@ private:
 	Effect* kurogiri2 = nullptr;
 
 	Sprite* score;
-	Sprite* timer;
+	
 };
 
 

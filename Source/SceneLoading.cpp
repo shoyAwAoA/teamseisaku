@@ -8,7 +8,7 @@
 void SceneLoading::Initialize()
 {
     //スプライト初期化
-    sprite = new Sprite("Data/Sprite/setume.png");
+    sprite = new Sprite("Data/Sprite/setumee.png");
 
     //スレッド開始
     thread = new std::thread(LoadingThread, this);
@@ -35,14 +35,24 @@ void SceneLoading::Finalize()
 //更新処理
 void SceneLoading::Update(float elapsedTime)
 {
+    GamePad& gamePad = Input::Instance().GetGamePad();
    /* constexpr float speed = 180;
     angle += speed * elapsedTime;*/
-
+    const GamePadButton GetGameStart =
+        GamePad::GamePad::BTN_B;;
+    
     //次のシーンの準備が完了したらシーンを切り替える
-    if (nextScene->IsReady())
+    /*if (nextScene->IsReady())
     {
         SceneManager::Instance().ChangeScene(nextScene);
         nextScene = nullptr;
+    }*/
+    if (gamePad.GetButton() & GetGameStart&& nextScene->IsReady())
+    {
+
+        {
+            SceneManager::Instance().ChangeScene(nextScene);
+        }
     }
 }
 //描画処理

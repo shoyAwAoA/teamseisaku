@@ -38,7 +38,7 @@ Boss::Boss()
     //•A‚‚³İ’è
     radius = 30.0f;
     height = 55.0f;
-    health = 10.0f;
+    health = 1.0f;
     Boss_Sinu = false;
     damage_timer = 60;
 
