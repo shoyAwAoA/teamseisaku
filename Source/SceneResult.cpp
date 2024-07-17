@@ -4,12 +4,14 @@
 
 #include"SceneManager.h"
 #include"Input/Input.h"
-
+#include"Audio/Audio.h"
 
 void SceneResult::Initialize()
 {
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/make.png");
+    Audio& audioManager = Audio::Instance();
+    result_bgm = audioManager.LoadAudioSource("Data/Audio/result.wav");
 
 }
 
@@ -41,6 +43,10 @@ void SceneResult::Update(float elapsedTime)
     if (gamePad.GetButton() & anyButton)
     {
         SceneManager::Instance().ChangeScene(new SceneTitle);
+    }
+    if (result_bgm)
+    {
+        result_bgm->Play(true, 1);
     }
 
 }

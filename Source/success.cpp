@@ -79,11 +79,9 @@ void SceneSuccess::Render()
             1, 1, 1, 1
         );
 
+       Score->textout(dc,"score",400,400,80,80,1,0,1,1);
     }
     //スコア表示
-    {
-       sprite->textout(dc,"Score",400,400,80,80,1,0,1,1);
-    }
 }
 
 

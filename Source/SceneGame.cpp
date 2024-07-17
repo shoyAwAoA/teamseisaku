@@ -26,6 +26,7 @@ bool ran_flag4;
 
 bool owari = false;
 int owari_timer = 0;
+int bb_count;
 //char              score[100] = "score";
 extern int count;
 
@@ -37,7 +38,9 @@ extern bool Boss_Sinu;
 extern bool Bosss;
 
 int Score = 0;
+int bb;
 int timerValue = 0;
+static int aa = 0;
 // 初期化
 void SceneGame::Initialize()
 {
@@ -56,6 +59,10 @@ void SceneGame::Initialize()
 	owari = false;
 	Bosss = false;
 	owari_timer = 0;
+	bb = 0;
+	bb_count = 0;
+
+	aa = 0;
 	/*EnemySlime* slime = new EnemySlime;
 	slime->reset();*/
 
@@ -540,9 +547,17 @@ void SceneGame::Render()
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 
-		static int aa = 0;
 
-		aa++;
+		bb++;
+
+		if (bb>=150)
+		{
+			bb_count += 1;
+			bb = 0;
+		}
+
+		aa = bb_count;
+		//aa /= 60;
 
 		char text[32];
 
