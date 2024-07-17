@@ -75,7 +75,7 @@ void Boss::Update(float elapsedTime)
     {
         Boss_Sinu = true;
 
-        boss_baku->Play(false, 1);
+        boss_baku->Play(false, 9);
         //health--;
         //boss_yarare_flag = true;
     }
