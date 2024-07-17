@@ -22,7 +22,7 @@ Boss::Boss()
 
     model = new Model("Data/Model/Boss/boss.mdl");
     
-    Boss_sinu = new Effect("Data/Effect/Boss_Sinu.efk");
+    Boss_sinu = new Effect("Data/Effect/bossBakuhatu.efk");
 
     Audio& audiomanager = Audio::Instance();
 
@@ -98,7 +98,7 @@ void Boss::Update(float elapsedTime)
 
 void Boss::BossSinu()
 {
-    if (boss_sinu_timer > 620)
+    if (boss_sinu_timer > 420)
     {
         boss_yarare_flag = true;
         Boss_T = false;

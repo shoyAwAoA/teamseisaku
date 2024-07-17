@@ -10,6 +10,9 @@
 #include"kowasenai.h"
 #include"Audio/AudioSource.h"
 #include<string>
+#include <chrono>
+#include <thread>
+
 
 // ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame :public Scene
@@ -54,6 +57,7 @@ private:
 	std::unique_ptr<AudioSource> game_bgm;
 
 	
+	
 	int timer0;
 	int timer1;
 	int timer2;
@@ -62,12 +66,12 @@ private:
 	int  ramdam0=0;
 	int  enemyType = 0;
 	
+	float score_timer=0;
 private:
 	Effect* kurogiri2 = nullptr;
 
 	Sprite* score;
-	Sprite* score_timer;
-	int scoree;
+	Sprite* timer;
 };
 
 

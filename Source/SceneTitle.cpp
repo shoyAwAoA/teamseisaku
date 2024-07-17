@@ -5,7 +5,8 @@
 #include"Input/Input.h"
 #include"SceneLoading.h"
 #include"Audio/Audio.h"
-
+bool sen_flag = false;
+int sen = 0;
 //‰Šú‰»
 void SceneTitle::Initialize()
 {
@@ -50,7 +51,7 @@ void SceneTitle::Update(float elapseTime)
     //    SceneManager::Instance().ChangeScene(new SceneGame);
     //}
 
-    if (gamePad.GetButton() & anyButton)
+    if (gamePad.GetButton() & anyButton&&sen>60)
     {
         sen_flag = true;
     }
@@ -64,15 +65,15 @@ void SceneTitle::Update(float elapseTime)
                 sentaku_bgm->Play(true, 8.5f);
             }
         }
-        else if (sen > 50)
+        if (sen > 50)
         {
-            SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
             sen_flag = false;
+            SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
             sen = 0;
         }
-        sen++;
     }
    
+        sen++;
     
 }
 //•`‰æˆ—

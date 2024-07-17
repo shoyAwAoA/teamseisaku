@@ -39,6 +39,8 @@ public:
 	void textout(ID3D11DeviceContext* immediate_context, std::string s,  int i, float x, float y, float w, float h, float r, float g, float b, float a);
 
 
+	
+
 private:
 	Microsoft::WRL::ComPtr<ID3D11VertexShader>			vertexShader;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader>			pixelShader;

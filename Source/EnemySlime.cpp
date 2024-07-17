@@ -46,7 +46,7 @@ EnemySlime::EnemySlime()
    
 
     //エフェクトの読み込み
-    kurogiri = new Effect("Data/Effect/kurogiri4.efk");
+    kurogiri = new Effect("Data/Effect/wa-pu.efk");
 
 
    
