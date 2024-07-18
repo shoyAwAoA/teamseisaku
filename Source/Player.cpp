@@ -573,7 +573,7 @@ void Player::TranstionMoveState()
         {
             move_Bgm->Play(true,1.5f);
         }
-        velocity.x = 7.90f;
+        velocity.x = 7.9f;
         position.x += velocity.x;
         model->PlayAnimation(Anim_Migi, false);
         player_pos += 1;
@@ -581,7 +581,7 @@ void Player::TranstionMoveState()
      if(moveHidariFlag&&!moveMigiFlag)
     {
 
-        velocity.x = -7.90f;
+        velocity.x = -7.9f;
         position.x += velocity.x;
         player_pos -= 1;
         model->PlayAnimation(Anim_Hidari, false);
