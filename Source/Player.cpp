@@ -179,29 +179,29 @@ void Player::OnLanding()
 //デバッグプリミティブ描画
 void Player::DrawDebugPrimitive()
 {
-    DebugRenderer* debugRenderer = Graphics::Instance().GetDebugRenderer();
+    //DebugRenderer* debugRenderer = Graphics::Instance().GetDebugRenderer();
 
-    //衝突判定用のデバッグ球描画
+    ////衝突判定用のデバッグ球描画
 
-    //衝突判定用のデバッグ円柱を描画
-    debugRenderer->DrawCylinder(position, radius, height, DirectX::XMFLOAT4(0, 0, 0, 1));
+    ////衝突判定用のデバッグ円柱を描画
+    //debugRenderer->DrawCylinder(position, radius, height, DirectX::XMFLOAT4(0, 0, 0, 1));
 
-    //弾丸デバッグプリミティブ描画
-    projectileManager.DrawDebugPrimitive();
+    ////弾丸デバッグプリミティブ描画
+    //projectileManager.DrawDebugPrimitive();
 
-    //攻撃衝突用の左手ノードのデバッグ球を描画
+    ////攻撃衝突用の左手ノードのデバッグ球を描画
 
-    if (attackCollisitonFlag)
-    {
-        Model::Node* leftHandBone = model->FindNode("joint6");
-        debugRenderer->DrawSphere(DirectX::XMFLOAT3(
-            leftHandBone->worldTransform._41,
-            leftHandBone->worldTransform._42,
-            leftHandBone->worldTransform._43),
-            leftHandRadius,
-            DirectX::XMFLOAT4(1, 0, 0, 1)
-        );
-    }
+    //if (attackCollisitonFlag)
+    //{
+    //    Model::Node* leftHandBone = model->FindNode("joint6");
+    //    debugRenderer->DrawSphere(DirectX::XMFLOAT3(
+    //        leftHandBone->worldTransform._41,
+    //        leftHandBone->worldTransform._42,
+    //        leftHandBone->worldTransform._43),
+    //        leftHandRadius,
+    //        DirectX::XMFLOAT4(1, 0, 0, 1)
+    //    );
+    //}
 }
 
 void Player::CollisionPlayerVsEnemies()
