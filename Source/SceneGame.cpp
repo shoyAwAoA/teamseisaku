@@ -545,7 +545,7 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 			dc,
 			screenPosition.x + gaugeWidth * 5.0f,
 			screenPosition.y - gaugeHeight * 3.0f,
-			gaugeWidth * 20,
+			gaugeWidth * 15,
 			gaugeHeight,
 			0, 0,
 			static_cast<float>(gauge->GetTextureWidth()),
