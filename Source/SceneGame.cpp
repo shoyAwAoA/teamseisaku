@@ -39,7 +39,6 @@ extern bool Bosss;
 static int aa = 0;
 int Scoree = 0;
 int timerValue = 0;
-static int aa = 0;
 // 初期化
 void SceneGame::Initialize()
 {
@@ -58,7 +57,6 @@ void SceneGame::Initialize()
 	owari = false;
 	Bosss = false;
 	owari_timer = 0;
-	bb = 0;
 	bb_count = 0;
 
 	aa = 0;
@@ -546,7 +544,7 @@ void SceneGame::Render()
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 
-		static int aa = 0;
+
 
 		aa++;
 
