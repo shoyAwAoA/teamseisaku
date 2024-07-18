@@ -73,7 +73,7 @@ Player::Player()
     effectTimer = 0;
     //ヒットエフェクト読み込み
     hitEffect = new Effect("Data/Effect/kougekii.efk");
-    hitZako = new Effect("Data/Effect/zakoHit.efk");
+    hitZako = new Effect("Data/Effect/ZakoHitt.efk");
     radius = 5.0f;
     //待機ステートへ遷移
     TransitionIdleState();
