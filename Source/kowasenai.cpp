@@ -60,14 +60,14 @@ void kowasenai::Render(ID3D11DeviceContext* dc, Shader* shader)
         else if (health <= 0)
         {
 
-        }
+        } 
     }
 }
 void kowasenai::MoveSpeed(float elapsedTime)
 {
     if (health > 0)
     {
-        velocity.z = 1.6f;
+        velocity.z = 1.2f;
         position.z -= velocity.z;
     }
 }

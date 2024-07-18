@@ -693,10 +693,8 @@ void Player::UpdateAttackState(float elapsedTime)
 
     if (attackCollisitonFlag)
     {
-        
             //左手ノードとエネミーの衝突処理
              CollisionNodeVsEnemies("joint6", leftHandRadius);
-        
     }
 }
 
@@ -742,11 +740,6 @@ void Player::UpdateDeathState(float elapsedTime)
         player_yarare_flag = true;
       
         ////ボタンを押したら復活ステートへ遷移
-        //GamePad& gamePad = Input::Instance().GetGamePad();
-        //if (gamePad.GetButtonDown() & GamePad::BTN_A)
-        //{
-        //    TransitionReviveState();
-        //}
     }
 }
 
