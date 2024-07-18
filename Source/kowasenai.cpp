@@ -70,7 +70,7 @@ void kowasenai::MoveSpeed(float elapsedTime)
 {
     if (health > 0)
     {
-        velocity.z = 0.85f;
+        velocity.z = 1.2f;
         position.z -= velocity.z;
     }
 }
