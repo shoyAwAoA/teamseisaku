@@ -123,7 +123,7 @@ void SceneSuccess::Render()
         {
             Score->textout(dc, "C", pos4, pos5, 300, 300, 1, 0, 1, 1);
         }
-        else if (time > 11000 && time < 13001)
+        else if (time > 11000 )
         {
             Score->textout(dc, "^^", pos4, pos5, 300, 300, 1, 0, 1, 1);
         }

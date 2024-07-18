@@ -605,7 +605,7 @@ bool Player::InputMove(float elapsedTime)
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
     {
-        if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT && gamePad.GetButtonDown() != GamePad::BTN_B)
+        if (gamePad.GetButtonDown() & GamePad::BTN_Y && gamePad.GetButtonDown() != GamePad::BTN_B)
         {
 
             if (state == State::Idle)
@@ -633,7 +633,7 @@ bool Player::InputMove(float elapsedTime)
     {
 
     
-        if (gamePad.GetButtonDown() & GamePad::BTN_LEFT&& gamePad.GetButtonDown() != GamePad::BTN_B)
+        if (gamePad.GetButtonDown() & GamePad::BTN_A&& gamePad.GetButtonDown() != GamePad::BTN_B)
         {
             if (state == State::Idle)
             {

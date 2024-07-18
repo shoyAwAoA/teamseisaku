@@ -185,7 +185,7 @@ void EnemySlime::MoveSpeed(float elapsedTime)
    
     if (health > 0)
     {
-        velocity.z = 1.2f;
+        velocity.z = 1.6f;
        // velocity.z = 1.7f;
         position.z -= velocity.z;
     }
