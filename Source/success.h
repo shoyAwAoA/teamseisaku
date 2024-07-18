@@ -28,6 +28,14 @@ public:
     void Render()override;
 
 private:
+    int pos0 = 0;
+    int pos1 = 0;
+    int pos2 = 0;
+    int pos3 = 0;
+    int pos4 = 0;
+    int pos5 = 0;
+    int pos6 = 0;
+    int pos7 = 0;
     Sprite* sprite = nullptr;
     Sprite* Score;
     std::unique_ptr<AudioSource> kati_bgm;

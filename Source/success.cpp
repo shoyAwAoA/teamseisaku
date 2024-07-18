@@ -13,6 +13,14 @@ void SceneSuccess::Initialize()
     Score = new Sprite("Data/Font/font1.png");
     Audio& audiomanager = Audio::Instance();
     kati_bgm = audiomanager.LoadAudioSource("Data/Audio/kati.wav");
+    pos0 = 12;
+    pos1 = 235;
+    pos2 = 738;
+    pos3 = 247;
+    pos4 = 878;
+    pos5 = 385;
+    pos6 = -8;
+    pos7 = 493;
 }
 
 void SceneSuccess::Finalize()
@@ -91,30 +99,51 @@ void SceneSuccess::Render()
 
         sprintf_s(timer, "%d", time);
 
-       Score->textout(dc,"TIME",0,280,120,120,1,0,1,1);
 
-       Score->textout(dc, timer, 750, 280, 60,60, 1, 0, 1, 1);
-     
-       if (time < 5001)
-       {
-           Score->textout(dc, "S", 900, 400, 300, 300, 1, 0, 1, 1);
-       }
-       else if (time>5000&&time < 7001)
-       {
-           Score->textout(dc, "A", 900, 400, 300, 300, 1, 0, 1, 1);
-       }
-       else if (time>7000&&time < 9001)
-       {
-           Score->textout(dc, "B", 900, 400, 300, 300, 1, 0, 1, 1);
-       }
-       else if (time>7000&&time < 11001)
-       {
-           Score->textout(dc, "C", 900, 400, 300, 300, 1, 0, 1, 1);
-       }
-       else if (time>11000&&time < 13001)
-       {
-           Score->textout(dc, "^^", 900, 400, 300, 300, 1, 0, 1, 1);
-       }
+
+        Score->textout(dc, "TIME", pos0, pos1, 120, 120, 1, 0, 1, 1);
+
+        Score->textout(dc, "SCORE", pos6, pos7, 80, 80, 1, 0, 1, 1);
+
+        Score->textout(dc, timer, pos2, pos3, 100, 100, 1, 0, 1, 1);
+
+        if (time < 5001)
+        {
+            Score->textout(dc, "S", pos4, pos5, 300, 300, 1, 0, 1, 1);
+        }
+        else if (time > 5000 && time < 7001)
+        {
+            Score->textout(dc, "A", pos4, pos5, 300, 300, 1, 0, 1, 1);
+        }
+        else if (time > 7000 && time < 9001)
+        {
+            Score->textout(dc, "B", pos4, pos5, 300, 300, 1, 0, 1, 1);
+        }
+        else if (time > 7000 && time < 11001)
+        {
+            Score->textout(dc, "C", pos4, pos5, 300, 300, 1, 0, 1, 1);
+        }
+        else if (time > 11000 && time < 13001)
+        {
+            Score->textout(dc, "^^", pos4, pos5, 300, 300, 1, 0, 1, 1);
+        }
+    }
+    if (ImGui::Begin("Boss", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        //トランスフォーム
+        ImGui::InputInt("x0", &pos0);
+        ImGui::InputInt("y0", &pos1);
+        ImGui::InputInt("x1", &pos2);
+        ImGui::InputInt("y1", &pos3);
+        ImGui::InputInt("Score.x", &pos4);
+        ImGui::InputInt("Score.y", &pos5);
+        ImGui::InputInt("Scor", &pos6);
+        ImGui::InputInt("Scor2", &pos7);
+
+
+
+
+        ImGui::End();
     }
 }
 

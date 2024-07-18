@@ -546,9 +546,11 @@ void SceneGame::Render()
 		//プレイヤーデバッグ描画
 		player->DrawDebugGUI();
 
-
-
-		aa++;
+		
+		if (!player_yarare_flag && !Bosss)
+		{
+			aa++;
+		}
 
 		char text[32];
 
