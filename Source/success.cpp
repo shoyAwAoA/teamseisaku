@@ -103,23 +103,23 @@ void SceneSuccess::Render()
 
         Score->textout(dc, timer, pos2, pos3, 130, 130, 1, 0, 1, 1);
 
-        if (time < 5001)
+        if (time < 9001)
         {
             Score->textout(dc, "S", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
-        else if (time > 5000 && time < 7001)
+        else if (time > 9000 && time < 11001)
         {
             Score->textout(dc, "A", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
-        else if (time > 7000 && time < 9001)
+        else if (time > 11000 && time < 12501)
         {
             Score->textout(dc, "B", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
-        else if (time > 7000 && time < 11001)
+        else if (time > 12501 && time < 14001)
         {
             Score->textout(dc, "C", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
-        else if (time > 11000 )
+        else if (time > 14001 )
         {
             Score->textout(dc, "^^", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
