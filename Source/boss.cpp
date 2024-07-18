@@ -19,7 +19,7 @@ Boss::Boss()
 {
     model = new Model("Data/Model/Boss/boss.mdl");
     
-    Boss_sinu = new Effect("Data/Effect/bossBakuhatu.efk");
+    Boss_sinu = new Effect("Data/Effect/bossBakuhatuu.efk");
 
     Audio& audiomanager = Audio::Instance();
 
