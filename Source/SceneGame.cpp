@@ -477,9 +477,9 @@ void SceneGame::Render()
 
 		sprintf_s(text, "%d", aa);
 
-		score->textout(dc,text,300,35,45,45,1,1,1,1);	
+		score->textout(dc,text,450,35,65,65,1,1,1,1);	
 
-		score->textout(dc, "Timer::", 0, 30, 45, 45, 1, 1, 1, 1);
+		score->textout(dc, "Timer::", 0, 30, 65, 65, 1, 1, 1, 1);
 	
 	//プレイヤーが死んだときにリザルト画面に遷移
 	//if (player_yarare_flag&&owari)
