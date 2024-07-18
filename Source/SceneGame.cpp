@@ -541,7 +541,7 @@ void SceneGame::Render()
 		player->DrawDebugGUI();
 
 		
-		if (!owari && !Bosss)
+		if (!player_yarare_flag && !Bosss)
 		{
 			aa++;
 		}

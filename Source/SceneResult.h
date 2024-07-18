@@ -22,6 +22,8 @@ public:
     void Render()override;
 
 private:
+ 
+
     Sprite* sprite = nullptr;
    
     std::unique_ptr<AudioSource> result_bgm;

@@ -13,6 +13,7 @@ void SceneResult::Initialize()
     sprite = new Sprite("Data/Sprite/make.png");
     Audio& audioManager = Audio::Instance();
     result_bgm = audioManager.LoadAudioSource("Data/Audio/result.wav");
+ 
 }
 
 void SceneResult::Finalize()
@@ -88,4 +89,6 @@ void SceneResult::Render()
         );
 
     }
+    
+
 }
