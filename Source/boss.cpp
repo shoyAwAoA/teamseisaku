@@ -15,11 +15,8 @@ bool Bosss;
 
 Effect* Boss_sinu=nullptr;
 
-
-
 Boss::Boss()
 {
-
     model = new Model("Data/Model/Boss/boss.mdl");
     
     Boss_sinu = new Effect("Data/Effect/bossBakuhatu.efk");
@@ -62,8 +59,6 @@ void Boss::Update(float elapsedTime)
         if (health == 0)
         {
             Boss_Sinu = true;
-           // health--;
-            //boss_yarare_flag = true;
         }
         damage_timer--;
         if (damage_timer <= 0)
@@ -77,8 +72,6 @@ void Boss::Update(float elapsedTime)
         Boss_Sinu = true;
 
         boss_baku->Play(false, 9);
-        //health--;
-        //boss_yarare_flag = true;
     }
     BossSinu();
     //速力処理更新
@@ -120,24 +113,19 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
     if (damage_timer >> 3 & 0x02)//点滅
     {
         shader->Draw(dc, model);
-
     }
-
-
     ImGui::SetNextWindowPos(ImVec2(10, 100), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
 
     if (ImGui::Begin("Boss", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
     {
         //トランスフォーム
-
         ImGui::InputInt("Health", &health);
         ImGui::InputInt("sinu_timer", &boss_sinu_timer);
 
         if (damage_flag)
         {
             ImGui::Checkbox(u8"damage_flag", &damage_flag);
-
         }
         else
         {
@@ -151,9 +139,7 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
         {
             ImGui::Checkbox(u8"boss_Sinu", &Boss_Sinu);
         }
-        
     }
-  
         ImGui::End();
 }
 

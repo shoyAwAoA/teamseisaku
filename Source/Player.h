@@ -197,7 +197,8 @@ private:
     std::unique_ptr<AudioSource> move_Bgm;
     std::unique_ptr<AudioSource> attack_Bgm;
     std::unique_ptr<AudioSource> betyo_bgm;
-
+    std::unique_ptr<AudioSource> zakosi;
+   
 
 };
 

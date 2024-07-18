@@ -4,11 +4,8 @@
 ProjectileStraight::ProjectileStraight(ProjectileManager* manager)
     :Projectile(manager)//基底クラスのコンストラクタを呼び出す
 {
-//    model = new Model("Data/Model/SpikeBall/SpikeBall.mdl");
     model = new Model("Data/Model/Sword/Sword.mdl");
-   // model = new Model("Data/Model/Sword/uotami.mb");
     //表示サイズを調整
-//      scale.x = scale.y = scale.z = 0.5f;
     scale.x = scale.y = scale.z = 3.0f;
 }
 

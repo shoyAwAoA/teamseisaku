@@ -20,37 +20,15 @@ void Projectile::DrawDebugPrimitive()
 //行列更新処理
 void Projectile::UpdateTransform ()
 {
-    /*transform._11 = scale.x;
-    transform._12 = 0.0f;
-    transform._13 = 0.0f;
-    transform._14 = 0.0f;
-    transform._21 = 0.0f;
-    transform._22 = scale.y;
-    transform._23 = 0.0f;
-    transform._24 = 0.0f;
-    transform._31 = 0.0f;
-    transform._32 = 0.0f;      
-    transform._33 = scale.z;
-    transform._34 = 0.0f;
-    transform._41 = position.x;
-    transform._42 = position.y;
-    transform._43 = position.z;
-    transform._44 = 1.0f;*/
-
     DirectX::XMVECTOR Front, Up, Right;
 
     //前ベクトルを算出
      Front=DirectX::XMLoadFloat3(&direction);
      DirectX::XMVector3Normalize(Front);
-    //DirectX::XMVectorSet(Front);
 
     //仮の上ベクトルを算出
      Up = DirectX::XMVectorSet(0.001f, 1, 0, 0);
      Up = DirectX::XMVector3Normalize(Up);
-//    Up=DirectX::XMLoadFloat3(&direction);
-    
-
-
 
     //右ベクトルを算出
      Right = DirectX::XMVector3Cross(Up, Front);

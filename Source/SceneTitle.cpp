@@ -44,14 +44,7 @@ void SceneTitle::Update(float elapseTime)
     //何かボタンを押したらゲームシーンへ切り替え
     const GamePadButton anyButton =
         GamePad::BTN_B;
-       // | GamePad::BTN_RIGHT;
-  //      | GamePad::BTN_X
-    //    | GamePad::BTN_Y;
-    //if (gamePad.GetButton() & anyButton)
-    //{
-    //    SceneManager::Instance().ChangeScene(new SceneGame);
-    //}
-
+    
     if (gamePad.GetButton() & anyButton&&sen>60)
     {
         sen_flag = true;
@@ -73,9 +66,7 @@ void SceneTitle::Update(float elapseTime)
             sen = 0;
         }
     }
-   
         sen++;
-    
 }
 //描画処理
 void SceneTitle::Render()
@@ -109,10 +100,7 @@ void SceneTitle::Render()
             0,
             1, 1, 1, 1
         );
-
-
     }
-   
 }
 
 

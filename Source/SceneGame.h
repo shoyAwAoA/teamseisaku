@@ -70,7 +70,7 @@ private:
 	float score_timer=0;
 private:
 	Effect* kurogiri2 = nullptr;
-
+	std::unique_ptr<AudioSource> jiki_Dead;
 	Sprite* score;
 
 	

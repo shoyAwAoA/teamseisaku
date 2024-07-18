@@ -43,10 +43,6 @@ void SceneSuccess::Update(float elapsedTime)
         | GamePad::BTN_B
         | GamePad::BTN_X
         | GamePad::BTN_Y;
-    /*if (gamePad.GetButton() & anyButton)
-    {
-        SceneManager::Instance().ChangeScene(new SceneGame);
-    }*/
 
     kati_bgm->Play(true, 1);
 

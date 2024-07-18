@@ -56,14 +56,14 @@ void kowasenai::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
     if (!Bosss)
     {
-    if (health > 0)
-    {
-        shader->Draw(dc, model);
-    }
-    else if (health <= 0)
-    {
+        if (health > 0)
+        {
+            shader->Draw(dc, model);
+        }
+        else if (health <= 0)
+        {
 
-    }
+        }
     }
 }
 void kowasenai::MoveSpeed(float elapsedTime)

@@ -31,25 +31,17 @@ EnemySlime::EnemySlime()
     idle_flag = true;
     effect_flag = true;
     
-
     //モデルが大きいのでスケーリング
     scale.x = scale.y = scale.z = 0.17f;
     angle.y = DirectX::XMConvertToRadians(180);
-    //angle.y = 180.0f;
-   /* position.y = 0;*/
-    //TransitionIdleState();
+   
     TransitionWanderState();
-
-   /* kurogiri->Stopp();*/
 
     zakosi_bgm = audioManager.LoadAudioSource("Data/Audio/zakosi.wav");
     warp_bgm = audioManager.LoadAudioSource("Data/Audio/warp.wav");
    
-
     //エフェクトの読み込み
     kurogiri = new Effect("Data/Effect/wa-pu.efk");
-
-
    
     //幅、高さ設定
     radius = 5.0f;
@@ -71,12 +63,6 @@ EnemySlime::~EnemySlime()
 //更新処理
 void EnemySlime::Update(float elapsedTime)
 {
-    //if (player_yarare_flag)
-    //{
-    //    //Effect_death();
-    //    owari_timer++;
-    //   /* owari = true;*/
-    //}
     if (!Bosss)
     {
         //ステート毎の更新処理
@@ -105,16 +91,7 @@ void EnemySlime::Update(float elapsedTime)
         if (position.z < -140 || Bosss)
         {
             Destroy();
-
         }
-
-        //if (state==State::Move&&idle_flag==false&&idle_timer>90)
-        //{
-
-        //    Effect_death(GetType());
-        //}
-      //  Effect_create();
-
         Effect_flag(idle_timer, idle_flag, count);
         //速力処理更新
         UpdateVelocity(elapsedTime);
@@ -124,19 +101,11 @@ void EnemySlime::Update(float elapsedTime)
 
         //オブジェクト行列を更新
 
-
-        //MoveSpeed(elapsedTime);
-
-
         UpdateTransform();
         model->UpdateAnimation(elapsedTime);
         model->UpdateTransform(transform);
 
-
-
         //モデル行列更新
-
-
 
         idle_timer++;
    }
@@ -144,7 +113,6 @@ void EnemySlime::Update(float elapsedTime)
     {
         Effect_death();
     }
-   
 }
 
 
@@ -153,12 +121,11 @@ void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
     if (!Bosss)
     {
-    if (health > 0&&state!=State::Wander)
-    {
-        shader->Draw(dc, model);
+        if (health > 0 && state != State::Wander)
+        {
+            shader->Draw(dc, model);
+        }
     }
-    }
-
 
     if (ImGui::Begin("Idle_flag", nullptr, ImGuiWindowFlags_None))
     {
@@ -173,16 +140,12 @@ void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
         }
         ImGui::InputInt("Idle_Timer", &idle_timer);
         ImGui::InputInt("count", &count);
-     
-      
     }
     ImGui::End();
-
 }
 
 void EnemySlime::MoveSpeed(float elapsedTime)
 {
-   
     if (health > 0)
     {
         velocity.z = 1.6f;
@@ -195,21 +158,15 @@ void EnemySlime::MoveSpeed(float elapsedTime)
 void EnemySlime::TransitionWanderState()
 {
     state = State::Wander;
-   // model->PlayAnimation(Anim_WalkFWD, true);
 }
 //エフェクトステート更新処理
 void EnemySlime::UpdateWanderState(float elapsedTime)
 {
-    
     if (effect_timer <= 90)
     {
-
-        // if (GetType() == 0)
         if (effect_flag)
         {
-
             Effect_create();
-
         }
     }
     if (effect_timer > 90)
@@ -231,32 +188,10 @@ void EnemySlime::TransitionIdleState()
 //待機アニメーション更新処理
 void EnemySlime::UpdateIdleState(float elapsedTime)
 {
-
-   // if (idle_timer <= 90)
-   // {
-   //        
-   //    // if (GetType() == 0)
-   //     if(idle_flag)
-   //     {
-   //       
-   //             Effect_create();
-   //      
-   //     }
-   // }
-   // 
-   //// else if(idle_timer>90)
-    //else if(!idle_flag&&idle_timer>90)
-   
-     
         if (idle_timer > 120&&!idle_flag) { 
-           
             TransitionMoveState();
             idle_timer = 0;
         }
-       
-       //idle_timer = 0;
-    
-    
     ++idle_timer;
 }
 
@@ -282,7 +217,7 @@ void EnemySlime::Effect_create()
         {
             if (owari_timer==0)
             {
-                warp_bgm->Play(false, 1);
+                warp_bgm->Play(false, 4);
                 if (GetType() == 0)
                 {
                     DirectX::XMFLOAT3 p = { 0,5,90 };
@@ -337,12 +272,7 @@ void EnemySlime::Effect_create()
 
 void EnemySlime::reset()
 {
-    //count = 0;
-   /* idle_flag = true;
-    idle_timer = 0;*/
-   // count = 0;
- /*    kurogiri->Stopp();
-    kurogiri->Stopp();*/
+ 
 }
 
 
@@ -357,45 +287,35 @@ void EnemySlime::Effect_death()
     {
         if (!Effect_flag(idle_timer, idle_flag, count))
         {
-            
             if (GetType() == 0||Bosss)
             {
-               
                 kurogiri->Stop(count);
                 effect_flag=true;
                 idle_flag = true;
             }
             if (GetType() == 1 || Bosss)
             {
-          
                 kurogiri->Stop(count);
                 effect_flag = true;
                 idle_flag = true;
-                //  TransitionMoveState();
             }
             if (GetType() == 2 || Bosss)
             {
-            
                 kurogiri->Stop(count);
                 effect_flag = true;
                 idle_flag = true;
-                //  TransitionMoveState();
             }
             if (GetType() == 3 || Bosss)
             {
-           
                 kurogiri->Stop(count);
                 effect_flag = true;
                 idle_flag = true;
-                //  TransitionMoveState();
             }
             if (GetType() == 4 || Bosss)
             {
-             
                 kurogiri->Stop(count);
                 effect_flag = true;
                 idle_flag = true;
-                // TransitionMoveState();
             }
             count++;
 
@@ -420,58 +340,14 @@ void EnemySlime::UpdateMoveState(float elapsedTime)
 {
     if (idle_timer > 80 && !idle_flag) {
         Effect_death();
-       // count++;
     }
-
-    //idle_timer = 0;
-
 
     ++idle_timer;
     if (idle_timer > 120)
     {
-        //Effect_death();
-      //  count++;
         MoveSpeed(elapsedTime);
     }
-    
 }
-
-//void EnemySlime::DrawDebugGUI()
-//{
-//    ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
-//    ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
-//
-////    if (ImGui::Begin("EnemySlime", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
-////    {
-////        //トランスフォーム
-////
-////        if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
-////        {
-////
-////            //位置
-////            ImGui::InputFloat3("Position", &position.x);
-////            //回転
-////            DirectX::XMFLOAT3 a;
-////            a.x = DirectX::XMConvertToDegrees(angle.x);
-////            a.y = DirectX::XMConvertToDegrees(angle.y);
-////            a.z = DirectX::XMConvertToDegrees(angle.z);
-////
-////            ImGui::InputFloat3("Angle", &a.x);
-////
-////            angle.x = DirectX::XMConvertToRadians(a.x);
-////            angle.y = DirectX::XMConvertToRadians(a.y);
-////            angle.z = DirectX::XMConvertToRadians(a.z);
-////
-////            //スケール
-////            ImGui::InputFloat3("Scale", &scale.x);
-////
-////            //HP
-////            //ImGui::InputFloat("health", &health);
-////        }
-////    }
-////    ImGui::End();
-////
-////}
 
 //死亡した時に呼ばれる
 void EnemySlime::OnDead()
@@ -493,12 +369,5 @@ void EnemySlime::OnDead()
         }
         zako++;
     }
-    /*if (zakosi_bgm)
-    {
-    }*/
    Destroy();
 }
-
-//void EnemySlime::OnDamaged()
-//{
-//}
