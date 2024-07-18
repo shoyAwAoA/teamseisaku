@@ -537,14 +537,14 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 		DirectX::XMFLOAT2 screenPosition;
 		DirectX::XMStoreFloat2(&screenPosition, ScreenPosition);
 		//ƒQ[ƒW‚Ì’·‚³
-		const float gaugeWidth = 50.0f;
+		const float gaugeWidth = 25.0f;
 		const float gaugeHeight = 40.0f;
 		float healthRate = boss->GetHealth() / static_cast<float> (boss->GetMaxHealth());
 		float maxHealthRate = static_cast<float>(boss->GetMaxHealth());
 		//ƒQ[ƒW•`‰æ
 		gauge->Render(
 			dc,
-			screenPosition.x + gaugeWidth * 2.5f,
+			screenPosition.x + gaugeWidth * 5.0f,
 			screenPosition.y - gaugeHeight * 3.0f,
 			gaugeWidth * 10,
 			gaugeHeight,
@@ -556,7 +556,7 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 		);
 		gauge->Render(
 			dc,
-			screenPosition.x + gaugeWidth * 2.5f,
+			screenPosition.x + gaugeWidth * 5.0f,
 			screenPosition.y - gaugeHeight * 3.0f,
 			gaugeWidth * healthRate,
 			gaugeHeight,

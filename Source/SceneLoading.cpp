@@ -12,6 +12,8 @@ void SceneLoading::Initialize()
 
     //スレッド開始
     thread = new std::thread(LoadingThread, this);
+
+    idle_timer = 0;
 }
 
 //終了化
@@ -42,13 +44,14 @@ void SceneLoading::Update(float elapsedTime)
     
     //次のシーンの準備が完了したらシーンを切り替える
   
-    if (gamePad.GetButton() & GetGameStart)
+    if (gamePad.GetButton() & GetGameStart&&idle_timer>29)
     {
-
         {
+            idle_timer = 0;
             SceneManager::Instance().ChangeScene(nextScene);
         }
     }
+    idle_timer++;
 }
 //描画処理
 void SceneLoading::Render()

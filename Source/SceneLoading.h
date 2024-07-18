@@ -33,4 +33,5 @@ private:
     float   angle = 0.0f;
     Scene* nextScene = nullptr;
     std::thread* thread = nullptr;
+    int idle_timer = 0;
 };
