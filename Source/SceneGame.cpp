@@ -39,6 +39,8 @@ extern bool Bosss;
 static int aa = 0;
 int Scoree = 0;
 int timerValue = 0;
+
+int game_timre;
 // ‰Šú‰»
 void SceneGame::Initialize()
 {
@@ -51,6 +53,7 @@ void SceneGame::Initialize()
 	timer3 = 0;
 	timer4 = 0;
 	score_timer = 0;
+	game_timre = 0;
 
 	Scoree = 0;
 	enemyType = 0;
@@ -415,11 +418,18 @@ void SceneGame::Update(float elapsedTime)
 				}
 			}
 		}}
-	timer0++;
+		if (game_timre >= 80)
+		{
+			timer0++;
+			timer3++;
+		}
+		if (game_timre >= 180)
+		{
+			timer2++;
+			timer4++;
+		}
 	timer1++;
-	timer2++;
-	timer3++;
-	timer4++;
+	game_timre++;
 	//{
 	//	ramdam0 = rand() % 4;
 	//	

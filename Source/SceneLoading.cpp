@@ -47,7 +47,8 @@ void SceneLoading::Update(float elapsedTime)
         SceneManager::Instance().ChangeScene(nextScene);
         nextScene = nullptr;
     }*/
-    if (gamePad.GetButton() & GetGameStart&& nextScene->IsReady())
+//    && nextScene->IsReady()
+    if (gamePad.GetButton() & GetGameStart)
     {
 
         {
