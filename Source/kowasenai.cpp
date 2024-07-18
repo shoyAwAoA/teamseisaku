@@ -11,7 +11,6 @@ kowasenai::kowasenai()
 
     radius = 5.0f;
     height = 5.0f;
-
 }
 kowasenai::~kowasenai()
 {
@@ -49,8 +48,6 @@ void kowasenai::Update(float elapsedTime)
         //モデル行列更新
         model->UpdateTransform(transform);
     }
-
-
 }
 void kowasenai::Render(ID3D11DeviceContext* dc, Shader* shader)
 {

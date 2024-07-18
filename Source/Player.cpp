@@ -580,14 +580,12 @@ void Player::TranstionMoveState()
         model->PlayAnimation(Anim_Migi, false);
         player_pos += 1;
     }
-     if(moveHidariFlag&&!moveMigiFlag)
+    if (moveHidariFlag && !moveMigiFlag)
     {
-
         velocity.x = -7.9f;
         position.x += velocity.x;
         player_pos -= 1;
         model->PlayAnimation(Anim_Hidari, false);
-
     }
 }
 
