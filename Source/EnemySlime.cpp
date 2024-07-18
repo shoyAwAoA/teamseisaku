@@ -127,21 +127,21 @@ void EnemySlime::Render(ID3D11DeviceContext* dc, Shader* shader)
         }
     }
 
-    if (ImGui::Begin("Idle_flag", nullptr, ImGuiWindowFlags_None))
-    {
+    //if (ImGui::Begin("Idle_flag", nullptr, ImGuiWindowFlags_None))
+    //{
 
-        if (idle_flag)
-        {
-            ImGui::Checkbox(u8"Idle_flag", &idle_flag);
-        }
-        else
-        {
-            ImGui::Checkbox(u8"Idle_flag", &idle_flag);
-        }
-        ImGui::InputInt("Idle_Timer", &idle_timer);
-        ImGui::InputInt("count", &count);
-    }
-    ImGui::End();
+    //    if (idle_flag)
+    //    {
+    //        ImGui::Checkbox(u8"Idle_flag", &idle_flag);
+    //    }
+    //    else
+    //    {
+    //        ImGui::Checkbox(u8"Idle_flag", &idle_flag);
+    //    }
+    //    ImGui::InputInt("Idle_Timer", &idle_timer);
+    //    ImGui::InputInt("count", &count);
+    //}
+    //ImGui::End();
 }
 
 void EnemySlime::MoveSpeed(float elapsedTime)

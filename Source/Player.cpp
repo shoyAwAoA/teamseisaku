@@ -303,7 +303,7 @@ void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
     //弾丸描画処理
     projectileManager.Render(dc, shader);
 
-    if (ImGui::Begin("parameter", nullptr, ImGuiWindowFlags_None))
+   /* if (ImGui::Begin("parameter", nullptr, ImGuiWindowFlags_None))
     {
         if (moveMigiFlag)
         {
@@ -330,7 +330,7 @@ void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
             ImGui::Checkbox(u8"Interval_flag", &interval_flag);
         }
     }
-    ImGui::End();
+    ImGui::End();*/
 }
 
 void Player::DrawDebugGUI()
@@ -338,33 +338,33 @@ void Player::DrawDebugGUI()
     ImGui::SetNextWindowPos(ImVec2(10, 100), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
 
-    if (ImGui::Begin("Player", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
-    {
-        //トランスフォーム
-     
-        if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
-        {
+    //if (ImGui::Begin("Player", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
+    //{
+    //    //トランスフォーム
+    // 
+    //    if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+    //    {
 
-            //位置
-            ImGui::InputFloat3("Position", &position.x);
-            //回転
-            DirectX::XMFLOAT3 a;
-            a.x = DirectX::XMConvertToDegrees(angle.x);
-            a.y = DirectX::XMConvertToDegrees(angle.y);
-            a.z = DirectX::XMConvertToDegrees(angle.z);
+    //        //位置
+    //        ImGui::InputFloat3("Position", &position.x);
+    //        //回転
+    //        DirectX::XMFLOAT3 a;
+    //        a.x = DirectX::XMConvertToDegrees(angle.x);
+    //        a.y = DirectX::XMConvertToDegrees(angle.y);
+    //        a.z = DirectX::XMConvertToDegrees(angle.z);
 
-            ImGui::InputFloat3("Angle", &a.x);
-            angle.x = DirectX::XMConvertToRadians(a.x);
-            angle.y = DirectX::XMConvertToRadians(a.y);
-            angle.z = DirectX::XMConvertToRadians(a.z);
+    //        ImGui::InputFloat3("Angle", &a.x);
+    //        angle.x = DirectX::XMConvertToRadians(a.x);
+    //        angle.y = DirectX::XMConvertToRadians(a.y);
+    //        angle.z = DirectX::XMConvertToRadians(a.z);
 
-            //スケール
-            ImGui::InputFloat3("Scale", &scale.x);
+    //        //スケール
+    //        ImGui::InputFloat3("Scale", &scale.x);
 
-            ImGui::InputInt("Health", &health);
-        }
-    }
-    ImGui::End();
+    //        ImGui::InputInt("Health", &health);
+    //    }
+    //}
+    //ImGui::End();
 }
 void Player::OnDead()
 {

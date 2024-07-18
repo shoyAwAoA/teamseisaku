@@ -480,6 +480,8 @@ void SceneGame::Render()
 		score->textout(dc,text,450,35,65,65,1,1,1,1);	
 
 		score->textout(dc, "Timer::", 0, 30, 65, 65, 1, 1, 1, 1);
+
+	
 	
 	//プレイヤーが死んだときにリザルト画面に遷移
 	//if (player_yarare_flag&&owari)
@@ -535,16 +537,17 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 		//スクリーン座標
 		DirectX::XMFLOAT2 screenPosition;
 		DirectX::XMStoreFloat2(&screenPosition, ScreenPosition);
+		score->textout(dc, "BOSS_HP", 1250.0f, 75.0f, 40, 40, 1, 0, 0, 1);
 		//ゲージの長さ
-		const float gaugeWidth = 25.0f;
-		const float gaugeHeight = 40.0f;
+		const float gaugeWidth = 35.0f;
+		const float gaugeHeight = 90.0f;
 		float healthRate = boss->GetHealth() / static_cast<float> (boss->GetMaxHealth());
 		float maxHealthRate = static_cast<float>(boss->GetMaxHealth());
 		//ゲージ描画
 		gauge->Render(
 			dc,
-			screenPosition.x + gaugeWidth * 5.0f,
-			screenPosition.y - gaugeHeight * 3.0f,
+			screenPosition.x + gaugeWidth * 8.0f,
+			screenPosition.y - gaugeHeight * 2.5f,
 			gaugeWidth * 15,
 			gaugeHeight,
 			0, 0,
@@ -555,8 +558,8 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 		);
 		gauge->Render(
 			dc,
-			screenPosition.x + gaugeWidth * 5.0f,
-			screenPosition.y - gaugeHeight * 3.0f,
+			screenPosition.x + gaugeWidth * 8.0f,
+			screenPosition.y - gaugeHeight * 2.5f,
 			gaugeWidth * healthRate,
 			gaugeHeight,
 			0, 0,

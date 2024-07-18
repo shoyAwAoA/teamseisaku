@@ -117,30 +117,30 @@ void Boss::Render(ID3D11DeviceContext* dc, Shader* shader)
     ImGui::SetNextWindowPos(ImVec2(10, 100), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiCond_FirstUseEver);
 
-    if (ImGui::Begin("Boss", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
-    {
-        //トランスフォーム
-        ImGui::InputInt("Health", &health);
-        ImGui::InputInt("sinu_timer", &boss_sinu_timer);
+    //if (ImGui::Begin("Boss", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
+    //{
+    //    //トランスフォーム
+    //    ImGui::InputInt("Health", &health);
+    //    ImGui::InputInt("sinu_timer", &boss_sinu_timer);
 
-        if (damage_flag)
-        {
-            ImGui::Checkbox(u8"damage_flag", &damage_flag);
-        }
-        else
-        {
-            ImGui::Checkbox(u8"damage_flag", &damage_flag);
-        }
-        if (Boss_Sinu)
-        {
-            ImGui::Checkbox(u8"boss_Sinu", &Boss_Sinu);
-        }
-        else
-        {
-            ImGui::Checkbox(u8"boss_Sinu", &Boss_Sinu);
-        }
-    }
-        ImGui::End();
+    //    if (damage_flag)
+    //    {
+    //        ImGui::Checkbox(u8"damage_flag", &damage_flag);
+    //    }
+    //    else
+    //    {
+    //        ImGui::Checkbox(u8"damage_flag", &damage_flag);
+    //    }
+    //    if (Boss_Sinu)
+    //    {
+    //        ImGui::Checkbox(u8"boss_Sinu", &Boss_Sinu);
+    //    }
+    //    else
+    //    {
+    //        ImGui::Checkbox(u8"boss_Sinu", &Boss_Sinu);
+    //    }
+    //}
+    //    ImGui::End();
 }
 
 void Boss::MoveSpeed(float elapsedTime)

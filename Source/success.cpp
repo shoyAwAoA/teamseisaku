@@ -124,23 +124,23 @@ void SceneSuccess::Render()
             Score->textout(dc, "^^", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
     }
-    if (ImGui::Begin("Boss", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
-    {
-        //トランスフォーム
-        ImGui::InputInt("x0", &pos0);
-        ImGui::InputInt("y0", &pos1);
-        ImGui::InputInt("x1", &pos2);
-        ImGui::InputInt("y1", &pos3);
-        ImGui::InputInt("Score.x", &pos4);
-        ImGui::InputInt("Score.y", &pos5);
-        ImGui::InputInt("Scor", &pos6);
-        ImGui::InputInt("Scor2", &pos7);
+    //if (ImGui::Begin("Boss", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
+    //{
+    //    //トランスフォーム
+    //    ImGui::InputInt("x0", &pos0);
+    //    ImGui::InputInt("y0", &pos1);
+    //    ImGui::InputInt("x1", &pos2);
+    //    ImGui::InputInt("y1", &pos3);
+    //    ImGui::InputInt("Score.x", &pos4);
+    //    ImGui::InputInt("Score.y", &pos5);
+    //    ImGui::InputInt("Scor", &pos6);
+    //    ImGui::InputInt("Scor2", &pos7);
 
 
 
 
-        ImGui::End();
-    }
+    //    ImGui::End();
+    //}
 }
 
 
