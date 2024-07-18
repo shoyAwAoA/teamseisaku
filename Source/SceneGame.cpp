@@ -233,7 +233,7 @@ void SceneGame::Update(float elapsedTime)
 	{
 		if (!owari && !Bosss)
 		{
-			if (timer0 >= 250 && rand() % 150 == 0)
+			if (timer0 >= 240 && rand() % 150 == 0)
 			{
 				if (ran_flag0 == false)
 				{
@@ -256,27 +256,20 @@ void SceneGame::Update(float elapsedTime)
 				}
 				else if (enemyType == 2 && ran_flag0)/* if (enemyType == 2 && ran_flag0)*/
 				{
-					EnemySlime* slime = new EnemySlime;
-					slime->SetType(0);
-
-					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-					enemyManager.Register(slime);
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+					enemyManager.Register(wasenai);
 
 
 
-					//kowasenai* wasenai = new kowasenai;
-					////wasenai->SetType(0);
-					//wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-					//enemyManager.Register(wasenai);
+					
 				}
 				else if (enemyType == 3 && ran_flag0)
 				{
-
-					EnemySlime* slime = new EnemySlime;
-					slime->SetType(0);
-
-					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-					enemyManager.Register(slime);
+					kowasenai* wasenai = new kowasenai;
+					wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
+			
+					enemyManager.Register(wasenai);
 
 
 					//	kowasenai* wasenai = new kowasenai;
@@ -291,7 +284,7 @@ void SceneGame::Update(float elapsedTime)
 
 			//1レーンの敵処理
 			{
-				if (timer1 >= 220 && rand() % 150 == 0)
+				if (timer1 >= 280 && rand() % 150 == 0)
 				{
 					if (ran_flag1 == false)
 					{
@@ -324,7 +317,7 @@ void SceneGame::Update(float elapsedTime)
 			}
 			//2レーンの敵処理
 			{
-				if (timer2 >= 200 && rand() % 150 == 0)
+				if (timer2 >= 230 && rand() % 150 == 0)
 				{
 					if (ran_flag2 == false)
 					{
@@ -356,7 +349,7 @@ void SceneGame::Update(float elapsedTime)
 			}
 			//3レーンの敵処理
 			{
-				if (timer3 >= 210 && rand() % 150 == 0)
+				if (timer3 >= 280 && rand() % 150 == 0)
 				{
 					if (ran_flag3 == false)
 					{
@@ -389,7 +382,7 @@ void SceneGame::Update(float elapsedTime)
 			}
 			//4レーンの敵処理
 			{
-				if (timer4 >= 220 && rand() % 150 == 0)
+				if (timer4 >= 250 && rand() % 150 == 0)
 				{
 					if (ran_flag4 == false)
 					{
@@ -556,9 +549,9 @@ void SceneGame::Render()
 
 		sprintf_s(text, "%d", aa);
 
-		score->textout(dc,text,300,55,45,45,1,1,1,1);	
+		score->textout(dc,text,300,35,45,45,1,1,1,1);	
 
-		score->textout(dc, "Timer::", 0, 50, 45, 45, 1, 1, 1, 1);
+		score->textout(dc, "Timer::", 0, 30, 45, 45, 1, 1, 1, 1);
 	
 	//プレイヤーが死んだときにリザルト画面に遷移
 	//if (player_yarare_flag&&owari)
