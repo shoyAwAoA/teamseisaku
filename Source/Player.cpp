@@ -57,10 +57,9 @@ Player::Player()
     x4_flag = false;
 
     interval_flag = true;
-   // model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
+   
     model = new Model("Data/Model/pkpk/jiki.mdl");
-    
-   // model->PlayAnimation(0);
+ 
     //モデルが大きいでスケーリング
     scale.x = scale.y = scale.z = 4.0f;
 
@@ -88,80 +87,12 @@ Player::~Player()
     delete hitZako;
 
     delete model;
-
 }
 
 //更新処理
 void Player::Update(float elapsedTime)
 {
-    ////進行ベクトル取得
-    //DirectX::XMFLOAT3 moveVec=GetMoveVec();
-    //
-    ////移動処理
-    //float moveSpeed = this->moveSpeed * elapsedTime;
-    //position.x += moveVec.x*moveSpeed;
-    //position.z += moveVec.z*moveSpeed;
-
-    ////入力情報を取得
-    //GamePad& gamePad = Input::Instance().GetGamePad();
-    //float ax = gamePad.GetAxisLX();
-    //float ay = gamePad.GetAxisLY();
-
-    ////移動操作
-    //float moveSpeed = 5.0f * elapsedTime;//１秒間に５移動する速度
-    //{
-    //    //左スティックの入力情報をもとにXZ平面への移動処理
-    //   position.x += ax * moveSpeed;
-    //   position.z += ay * moveSpeed;
-    //    
-    //}
-
-    ////回転操作
-    //float rotateSppeed = DirectX::XMConvertToRadians(360) * elapsedTime;
-   
-    //if (gamePad.GetButton() & GamePad::BTN_A)
-    //{
-    //    //X軸回転操作
-    //    angle.z += rotateSppeed;
-    //}
-    //if (gamePad.GetButton() & GamePad::BTN_B)
-    //{
-    //    //Y軸回転操作
-    //    angle.y += rotateSppeed;
-    //}
-
-    //if (gamePad.GetButton() & GamePad::BTN_X)
-    //{
-    //    //Z軸回転操作
-    //    angle.x += rotateSppeed;
-    //}
-
-    ////Bボタン押下でワンショットアニメーション再生
-    //GamePad& gamePad = Input::Instance().GetGamePad();
-    //if (gamePad.GetButtonDown() & GamePad::BTN_B)
-    //{
-    //    model->PlayAnimation(Anim_Running, false);
-    //}
-    ////ワンショットアニメーション再生が終わったらループアニメーション再生
-    //if (!model->IsPlayAimation())
-    //{
-    //    model->PlayAnimation(2, true);
-    //}
-    ////移動入力処理
-    //InputMove(elapsedTime);
-
     position.y = 0;
-
-    //if (interval != 10)
-    //{
-    //    interval_flag = false;
-    //    interval++;
-    //}
-    //else if(interval==10)
-    //{
-    //    interval = 10;
-    //    interval_flag = true;
-    //}
 
     //ステート毎の処理
     switch (state)
@@ -221,13 +152,11 @@ void Player::Update(float elapsedTime)
     {
         angle.y += 0.035f;
     }
-
    
     ////ジャンプ入力処理
-    //InputJump();
-
+  
     ////弾丸入力処理
-    //InputProjectile();
+   
 }
 //着地した時に呼ばれる
 void Player::OnLanding()
@@ -238,7 +167,6 @@ void Player::OnLanding()
     if (velocity.y < gravity*5.0f)
     {
         state = State::Land;
-    //   TransitionLandState();
     }
     //ダメージ、死亡ステート時は着地した時にステート遷移しないようにする
     if (state != State::Damage && state != State::Death)
@@ -254,7 +182,6 @@ void Player::DrawDebugPrimitive()
     DebugRenderer* debugRenderer = Graphics::Instance().GetDebugRenderer();
 
     //衝突判定用のデバッグ球描画
-  //  debugRenderer->DrawSphere(position, radius, DirectX::XMFLOAT4(0, 0, 0, 1));
 
     //衝突判定用のデバッグ円柱を描画
     debugRenderer->DrawCylinder(position, radius, height, DirectX::XMFLOAT4(0, 0, 0, 1));
@@ -263,14 +190,7 @@ void Player::DrawDebugPrimitive()
     projectileManager.DrawDebugPrimitive();
 
     //攻撃衝突用の左手ノードのデバッグ球を描画
- /*   Model::Node* leftHandBone = model->FindNode("mixamorig:LeftHand");
-    debugRenderer->DrawSphere(DirectX::XMFLOAT3(
-        leftHandBone->worldTransform._41,
-        leftHandBone->worldTransform._42,
-        leftHandBone->worldTransform._43),
-        leftHandRadius,
-        DirectX::XMFLOAT4(1, 0, 0, 1)
-    );*/
+
     if (attackCollisitonFlag)
     {
         Model::Node* leftHandBone = model->FindNode("joint6");
@@ -284,7 +204,6 @@ void Player::DrawDebugPrimitive()
     }
 }
 
-
 void Player::CollisionPlayerVsEnemies()
 {
     EnemyManager& enemyManager = EnemyManager::Instance();
@@ -296,18 +215,6 @@ void Player::CollisionPlayerVsEnemies()
         Enemy* enemy = enemyManager.GetEnemy(i);
         //衝突処理
         DirectX::XMFLOAT3 outPosition;
-        //    if (Collision::IntersectSphereVeSphere(
-        //        GetPosition(),
-        //        GetRadius(),
-        //        enemy->GetPosition(),
-        //        enemy->GetRadius(),
-        //        outPosition))
-        //    {
-        //        //押し出し後の位置設定
-        //        enemy->SetPosition(outPosition);
-        //    }
-        //}
-     
 
         if (Collision::IntersectCylinderVsCylinder(
             GetPosition(),
@@ -338,26 +245,12 @@ void Player::CollisionPlayerVsEnemies()
                 DirectX::XMFLOAT3 impulse;
 
                 impulse.x = 0;// vx * power;
-                impulse.y = power*20.0f ;
-                impulse.z = (vz * power)*0.75f;
+                impulse.y = power * 20.0f;
+                impulse.z = (vz * power) * 0.75f;
 
                 AddImpulse(impulse);
             };
-            //health--;
-            //押し出し後の位置設定
-//            enemy->SetPosition(outPosition);
-            //if (enemy->GetPosition().x - 1 <= GetPosition().x && enemy->GetPosition().x + 1 >= GetPosition().x)
-            //{
-            //    if (enemy->GetPosition().y + 1 == GetPosition().y)
-            //    {
-            //        if(enemy->GetPosition().z-1<=GetPosition().z&&enemy->GetPosition().z+1>=GetPosition().z)
-            //        { 
-            //            Jump(jumpSpeed);
-            //        }
-            //    }
-            //}
         }
-
     }
 
     EnemyManager& notenemyManager = EnemyManager::Instance();
@@ -370,17 +263,7 @@ void Player::CollisionPlayerVsEnemies()
         notEnemy* notenemy = enemyManager.GetnotEnemy(i);
         //衝突処理
         DirectX::XMFLOAT3 outPosition;
-        //    if (Collision::IntersectSphereVeSphere(
-        //        GetPosition(),
-        //        GetRadius(),
-        //        enemy->GetPosition(),
-        //        enemy->GetRadius(),
-        //        outPosition))
-        //    {
-        //        //押し出し後の位置設定
-        //        enemy->SetPosition(outPosition);
-        //    }
-        //}
+       
         if (Collision::IntersectCylinderVsCylinder(
             GetPosition(),
             GetRadius(),
@@ -394,42 +277,8 @@ void Player::CollisionPlayerVsEnemies()
             //ダメージを与える
             if (ApplyDamage(1, 0.5f))
             {
-                ////吹っ飛ばす
-                //const float power = 15.0f;
-                //const DirectX::XMFLOAT3 p = GetPosition();
-                //const DirectX::XMFLOAT3 e = notenemy->GetPosition();
-
-                //float vx = p.x - e.x;
-                //float vz = p.z - e.z;
-
-                //float lengthXZ = sqrtf((vx * vx) + (vz * vz));
-
-                //vx /= lengthXZ;
-                //vz /= lengthXZ;
-
-                //DirectX::XMFLOAT3 impulse;
-
-                //impulse.x = 0;// vx * power;
-                //impulse.y = power * 20.0f;
-                //impulse.z = (vz * power) * 0.75f;
-
-                //AddImpulse(impulse);
             };
-            //health--;
-            //押し出し後の位置設定
-//            enemy->SetPosition(outPosition);
-            //if (enemy->GetPosition().x - 1 <= GetPosition().x && enemy->GetPosition().x + 1 >= GetPosition().x)
-            //{
-            //    if (enemy->GetPosition().y + 1 == GetPosition().y)
-            //    {
-            //        if(enemy->GetPosition().z-1<=GetPosition().z&&enemy->GetPosition().z+1>=GetPosition().z)
-            //        { 
-            //            Jump(jumpSpeed);
-            //        }
-            //    }
-            //}
         }
-
     }
 }
 
@@ -443,27 +292,8 @@ void Player::UpdateInvincibleTimer(float elapsedTime)
 
 void Player::OnDamaged()
 {
-    //ダメージステートへ遷移
-    
+    //ダメージステートへ遷
 }
-
-
-
-
-////移動入力処理
-//void Player::InputMove(float elapsedTime)
-//{
-//
-//    //進行ベクトル所得
-//    DirectX::XMFLOAT3 moveVec = GetMoveVec();
-//
-//    //移動処理
-//    //Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
-//    Move(moveVec.x, moveVec.z, moveSpeed);
-//
-//    //旋回処理
-//    Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
-//}
 
 //描画処理
 void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
@@ -475,7 +305,6 @@ void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
 
     if (ImGui::Begin("parameter", nullptr, ImGuiWindowFlags_None))
     {
-       
         if (moveMigiFlag)
         {
             ImGui::Checkbox(u8"MIGI", &moveMigiFlag);
@@ -525,7 +354,6 @@ void Player::DrawDebugGUI()
             a.z = DirectX::XMConvertToDegrees(angle.z);
 
             ImGui::InputFloat3("Angle", &a.x);
-
             angle.x = DirectX::XMConvertToRadians(a.x);
             angle.y = DirectX::XMConvertToRadians(a.y);
             angle.z = DirectX::XMConvertToRadians(a.z);
@@ -534,13 +362,9 @@ void Player::DrawDebugGUI()
             ImGui::InputFloat3("Scale", &scale.x);
 
             ImGui::InputInt("Health", &health);
-
-
         }
     }
     ImGui::End();
-
-  
 }
 void Player::OnDead()
 {
@@ -593,8 +417,6 @@ DirectX::XMFLOAT3 Player::GetMoveVec() const
     //進行ベクトルを計算する
     DirectX::XMFLOAT3 vec;
     vec.x = (ax*cameraRightX)+(ay*cameraFrontX);
-  //  vec.x = (ax*cameraRightX)+(ay*cameraFrontX);
-    //vec.z = (ax * cameraRightZ )+ (ay * cameraFrontZ);
     vec.z = (0);
     //Y軸方向には移動しない
     vec.y = 0.0f;
@@ -617,24 +439,19 @@ bool Player::InputMove(float elapsedTime)
                     {
                         if (move_Bgm)
                         {
-                            move_Bgm->Play(false,1.5f);
+                            move_Bgm->Play(false, 1.5f);
                         }
-
                         moveMigiFlag = true;
-                        // interval = 0;
                         interval_flag = false;
                         return true;
                     }
                 }
             }
-
         }
     }
 
     {
-
-    
-        if (gamePad.GetButtonDown() & GamePad::BTN_LEFT&& gamePad.GetButtonDown() != GamePad::BTN_B)
+        if (gamePad.GetButtonDown() & GamePad::BTN_LEFT && gamePad.GetButtonDown() != GamePad::BTN_B)
         {
             if (state == State::Idle)
             {
@@ -642,58 +459,26 @@ bool Player::InputMove(float elapsedTime)
                 {
                     if (position.x >= 10 && player_pos > -3)
                     {
-
                         if (move_Bgm)
                         {
-                            move_Bgm->Play(false,1.5f);
+                            move_Bgm->Play(false, 1.5f);
                         }
-
                         moveHidariFlag = true;
                         //interval = 0;
                         interval_flag = false;
                         return true;
                     }
                 }
-
             }
-
-
         }}
     return false;
 }
     
 
  //   //進行ベクトル所得
- //   DirectX::XMFLOAT3 moveVec = GetMoveVec();
-
- //   //移動処理
- //   Move(elapsedTime, moveVec.x, moveVec.z, moveSpeed);
- //   //Move(moveVec.x, moveVec.z, moveSpeed);
-
- //   //旋回処理
- ////xx   Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
-
- //   //進行ベクトルがゼロベクトルではない場合は入力された
- //   return moveVec.x != 0|| moveVec.y != 0|| moveVec.z != 0;
-
 
 bool Player::InputJump()
 {
-    //    GamePad& gamePad = Input::Instance().GetGamePad();
-    //if (gamePad.GetButtonDown() & GamePad::BTN_A)
-    //{
-    //    //ジャンプ回数制限
-    //    if (jumpCount < jumpLimit)
-    //    {
-    //        ++jumpCount;
-    //        //ジャンプ
-    //        Jump(jumpSpeed);
-
-    //        //ジャンプ入力した
-    //        return true;
-    //    }
-    //}
-
     return false;
 }
 
@@ -772,8 +557,6 @@ void Player::UpdateIdleState(float elapsedTime)
         TransitionAttackState();
     }
     //ジャンプ入力処理
-//    InputJump();
-
     //弾丸入力処理
     InputProjectile();
 }
@@ -810,10 +593,7 @@ void Player::TranstionMoveState()
 void Player::UpdateMoveState(float elapsedTime)
 {
     //移動入力処理
-    /*if (!InputMove(elapsedTime))
-    {
-        TransitionIdleState();
-    }*/
+    
     if (!model->IsPlayAimation())
     {
         if (move_Bgm)
@@ -834,13 +614,7 @@ void Player::UpdateMoveState(float elapsedTime)
         TransitionJumpState();
     }
     //攻撃入力処理
-   /* if (InputAttack())
-    {
-        TransitionAttackState();
-    }*/
     ////ジャンプ入力処理
-    //InputJump();
-
     //弾丸入力処理
     InputProjectile();
 

@@ -203,7 +203,7 @@ void SceneGame::Update(float elapsedTime)
 	{
 		if (!owari && !Bosss)
 		{
-			if (timer0 >= 240 && rand() % 150 == 0)
+			if (timer0 >= 230 && rand() % 150 == 0)
 			{
 				if (ran_flag0 == false)
 				{
@@ -238,7 +238,7 @@ void SceneGame::Update(float elapsedTime)
 
 			//1ƒŒ[ƒ“‚Ì“Gˆ—
 			{
-				if (timer1 >= 280 && rand() % 150 == 0)
+				if (timer1 >= 230 && rand() % 150 == 0)
 				{
 					if (ran_flag1 == false)
 					{
@@ -302,7 +302,7 @@ void SceneGame::Update(float elapsedTime)
 			}
 			//3ƒŒ[ƒ“‚Ì“Gˆ—
 			{
-				if (timer3 >= 280 && rand() % 150 == 0)
+				if (timer3 >= 230 && rand() % 150 == 0)
 				{
 					if (ran_flag3 == false)
 					{
@@ -335,7 +335,7 @@ void SceneGame::Update(float elapsedTime)
 			}
 			//4ƒŒ[ƒ“‚Ì“Gˆ—
 			{
-				if (timer4 >= 250 && rand() % 150 == 0)
+				if (timer4 >= 230 && rand() % 150 == 0)
 				{
 					if (ran_flag4 == false)
 					{
@@ -368,12 +368,12 @@ void SceneGame::Update(float elapsedTime)
 				}
 			}
 		}}
-		if (game_timre >= 80)
+		if (game_timre >= 150)
 		{
 			timer0++;
 			timer3++;
 		}
-		if (game_timre >= 180)
+		if (game_timre >= 300)
 		{
 			timer2++;
 			timer4++;

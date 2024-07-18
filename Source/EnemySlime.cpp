@@ -148,7 +148,7 @@ void EnemySlime::MoveSpeed(float elapsedTime)
 {
     if (health > 0)
     {
-        velocity.z = 0.85f;
+        velocity.z = 1.6f;
         position.z -= velocity.z;
     }
 }
@@ -216,7 +216,7 @@ void EnemySlime::Effect_create()
         {
             if (owari_timer==0)
             {
-                warp_bgm->Play(false, 1);
+                warp_bgm->Play(false, 4);
                 if (GetType() == 0)
                 {
                     DirectX::XMFLOAT3 p = { 0,5,90 };
