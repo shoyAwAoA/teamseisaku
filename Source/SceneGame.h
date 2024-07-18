@@ -56,6 +56,7 @@ private:
 	
 	std::unique_ptr<AudioSource> game_bgm;
 
+
 	
 	
 	int timer0;
@@ -71,6 +72,7 @@ private:
 	Effect* kurogiri2 = nullptr;
 
 	Sprite* score;
+
 	
 };
 

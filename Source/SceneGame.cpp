@@ -74,8 +74,10 @@ void SceneGame::Initialize()
 	
 	Audio& audioManager = Audio::Instance();
 	game_bgm=audioManager.LoadAudioSource("Data/Audio/bgm_game.wav");
+
 	
 	kurogiri2 = new Effect("Data/Effect/kurogiri2.efk");
+
 	//ステージの初期化
 	//stage = new Stage();
 	StageManager& stageManager = StageManager::Instance();

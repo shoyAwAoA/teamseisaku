@@ -116,6 +116,7 @@ protected:
     void OnDead()override;
   //  void OnDamaged()override;
     std::unique_ptr<AudioSource> zakosi_bgm;
+    std::unique_ptr<AudioSource> warp_bgm;
    
 
 
