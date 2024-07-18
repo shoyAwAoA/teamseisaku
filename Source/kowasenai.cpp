@@ -6,7 +6,7 @@ extern bool Bosss;
 kowasenai::kowasenai()
 {
     model = new Model("Data/Model/kowasenai/shougai.mdl");
-    scale.x = scale.y = scale.z = 3.0f;
+    scale.x = scale.y = scale.z = 2.3f;
     angle.y = DirectX::XMConvertToRadians(180);
 
     radius = 5.0f;

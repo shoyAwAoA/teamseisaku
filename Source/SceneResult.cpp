@@ -5,14 +5,22 @@
 #include"SceneManager.h"
 #include"Input/Input.h"
 #include"Audio/Audio.h"
+#include"Effect.h"
+
+Effect* Yuki=nullptr;
+
+int yuki_timer = 0;
+bool yuki_flag = false;
 
 void SceneResult::Initialize()
 {
     //スプライト初期化
-    sprite = new Sprite("Data/Sprite/make.png");
+    sprite = new Sprite("Data/Sprite/makee.png");
     Audio& audioManager = Audio::Instance();
     result_bgm = audioManager.LoadAudioSource("Data/Audio/result.wav");
- 
+    Yuki = new Effect("Data/Effect/yuki.efk");
+    yuki_timer = 0;
+    yuki_flag = true;
 }
 
 void SceneResult::Finalize()
@@ -23,10 +31,14 @@ void SceneResult::Finalize()
         delete sprite;
         sprite = nullptr;
     }
+
 }
 
 void SceneResult::Update(float elapsedTime)
 {
+   
+
+   
     //BGM
     {
         if (result_bgm)
@@ -34,7 +46,6 @@ void SceneResult::Update(float elapsedTime)
             result_bgm->Play(true, 5);
         }
     }
-
     GamePad& gamePad = Input::Instance().GetGamePad();
 
     //何かボタンを押したらゲームシーンへ切り替え
@@ -57,7 +68,7 @@ void SceneResult::Update(float elapsedTime)
     {
         result_bgm->Play(true, 1);
     }
-
+    Render();
 }
 
 void SceneResult::Render()
@@ -92,6 +103,7 @@ void SceneResult::Render()
         );
 
     }
-    
+   
+
 
 }
