@@ -43,6 +43,7 @@ Player::Player()
 
     move_Bgm = audioManager.LoadAudioSource("Data/Audio/idou.wav");
     attack_Bgm = audioManager.LoadAudioSource("Data/Audio/kougeki.wav");
+    betyo_bgm = audioManager.LoadAudioSource("Data/Audio/betyo.wav");
     instance = this;
     damage_flag = false;
     deathFlag = false;
@@ -1198,6 +1199,8 @@ void Player::CollisionProjectilesVsEnemies()
                                 pro.y += projectile->GetPosition().y * 0.5f;
                                 hitZako->Play(pro, 1);
                             }
+
+                            betyo_bgm->Play(false, 1);
 
                             //’eŠÛ”jŠü
                             projectile->Destroy();

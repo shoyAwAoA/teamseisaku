@@ -43,6 +43,7 @@ EnemySlime::EnemySlime()
    /* kurogiri->Stopp();*/
 
     zakosi_bgm = audioManager.LoadAudioSource("Data/Audio/zakosi.wav");
+    warp_bgm = audioManager.LoadAudioSource("Data/Audio/warp.wav");
    
 
     //エフェクトの読み込み
@@ -281,6 +282,7 @@ void EnemySlime::Effect_create()
         {
             if (owari_timer==0)
             {
+                warp_bgm->Play(false, 1);
                 if (GetType() == 0)
                 {
                     DirectX::XMFLOAT3 p = { 0,5,90 };
