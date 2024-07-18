@@ -45,7 +45,6 @@ int game_timre;
 void SceneGame::Initialize()
 {
 	srand((unsigned int)time(NULL));
-
 	score_timer = { 0 };
 	timer0 = 0;
 	timer1 = 0;
@@ -203,7 +202,7 @@ void SceneGame::Update(float elapsedTime)
 	{
 		if (!owari && !Bosss)
 		{
-			if (timer0 >= 230 && rand() % 150 == 0)
+			if (timer0 >= 280 && rand() % 150 == 0)
 			{
 				if (ran_flag0 == false)
 				{
@@ -238,7 +237,7 @@ void SceneGame::Update(float elapsedTime)
 
 			//1ƒŒ[ƒ“‚Ì“Gˆ—
 			{
-				if (timer1 >= 230 && rand() % 150 == 0)
+				if (timer1 >= 280 && rand() % 150 == 0)
 				{
 					if (ran_flag1 == false)
 					{
@@ -270,7 +269,7 @@ void SceneGame::Update(float elapsedTime)
 			}
 			//2ƒŒ[ƒ“‚Ì“Gˆ—
 			{
-				if (timer2 >= 230 && rand() % 150 == 0)
+				if (timer2 >= 280 && rand() % 150 == 0)
 				{
 					if (ran_flag2 == false)
 					{
@@ -302,7 +301,7 @@ void SceneGame::Update(float elapsedTime)
 			}
 			//3ƒŒ[ƒ“‚Ì“Gˆ—
 			{
-				if (timer3 >= 230 && rand() % 150 == 0)
+				if (timer3 >= 280 && rand() % 150 == 0)
 				{
 					if (ran_flag3 == false)
 					{
@@ -335,7 +334,7 @@ void SceneGame::Update(float elapsedTime)
 			}
 			//4ƒŒ[ƒ“‚Ì“Gˆ—
 			{
-				if (timer4 >= 230 && rand() % 150 == 0)
+				if (timer4 >= 280 && rand() % 150 == 0)
 				{
 					if (ran_flag4 == false)
 					{
@@ -546,7 +545,7 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 			dc,
 			screenPosition.x + gaugeWidth * 5.0f,
 			screenPosition.y - gaugeHeight * 3.0f,
-			gaugeWidth * 10,
+			gaugeWidth * 20,
 			gaugeHeight,
 			0, 0,
 			static_cast<float>(gauge->GetTextureWidth()),
