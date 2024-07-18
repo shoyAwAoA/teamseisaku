@@ -31,14 +31,10 @@ void SceneResult::Finalize()
         delete sprite;
         sprite = nullptr;
     }
-
 }
 
 void SceneResult::Update(float elapsedTime)
 {
-   
-
-   
     //BGM
     {
         if (result_bgm)
@@ -54,10 +50,6 @@ void SceneResult::Update(float elapsedTime)
         | GamePad::BTN_B
         | GamePad::BTN_X
         | GamePad::BTN_Y;
-    /*if (gamePad.GetButton() & anyButton)
-    {
-        SceneManager::Instance().ChangeScene(new SceneGame);
-    }*/
 
     if (gamePad.GetButton() & anyButton)
     {
@@ -101,9 +93,5 @@ void SceneResult::Render()
             0,
             1, 1, 1, 1
         );
-
     }
-   
-
-
 }

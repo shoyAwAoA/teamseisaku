@@ -44,6 +44,7 @@ Player::Player()
     move_Bgm = audioManager.LoadAudioSource("Data/Audio/idou.wav");
     attack_Bgm = audioManager.LoadAudioSource("Data/Audio/kougeki.wav");
     betyo_bgm = audioManager.LoadAudioSource("Data/Audio/betyo.wav");
+    zakosi = audioManager.LoadAudioSource("Data/Audio/zakosi.wav");
     instance = this;
     damage_flag = false;
     deathFlag = false;
@@ -960,10 +961,12 @@ void Player::TransitionDeathState()
 //死亡ステート更新処理
 void Player::UpdateDeathState(float elapsedTime)
 {
+   
     if(!model->IsPlayAimation())
     {
         
         player_yarare_flag = true;
+      
         ////ボタンを押したら復活ステートへ遷移
         //GamePad& gamePad = Input::Instance().GetGamePad();
         //if (gamePad.GetButtonDown() & GamePad::BTN_A)
@@ -1005,6 +1008,10 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                 enemy->GetHeight(),
                 outPosition))
             {
+                if (zakosi)
+                {
+                    zakosi->Play(false, 15);
+                }
 
                 //ダメージを与える
                 if (enemy->ApplyDamage(5, 0.5f))
@@ -1039,7 +1046,7 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
                     {
                         //ヒットエフェクト再生
                         {
-                         
+
                             DirectX::XMFLOAT3 e = enemy->GetPosition();
                             e.y += enemy->GetHeight() * 1.6f;
                             hitEffect->Play(e, 2);
@@ -1047,21 +1054,6 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
 
                     }
                 }
-
-                //notEnemy* notenemy = enemyManager.GetnotEnemy(i);
-
-         ////衝突処理
-         //DirectX::XMFLOAT3 outPosition2;
-         //if (Collision::IntersectSphereVsCylinder(
-         //    GetPosition(),
-         //    GetRadius(),
-         //    notenemy->GetPosition(),
-         //    notenemy->GetRadius(),
-         //    notenemy->GetHeight(),
-         //    outPosition2))
-         //{
-         //    ApplyDamage(1, 0.5f);
-         //}
             }
 
 
@@ -1071,13 +1063,7 @@ void Player::CollisionNodeVsEnemies(const char* nodeName, float nodeRadius)
 
 void Player::TransitionReviveState()
 {
-    //state = State::Revive;
-
-    ////体力回復
-    //health = maxHealth;
-
-    ////復活アニメーション再生
-    //model->PlayAnimation(Anim_Revive, false);
+    
 }
 
 void Player::UpdateReviceState(float elapsedTime)
@@ -1088,24 +1074,6 @@ void Player::UpdateReviceState(float elapsedTime)
         TransitionIdleState();
     }
 }
-
-
-
-
-////ジャンプ入力処理
-//void Player::InputJump()
-//{
-//    GamePad& gamePad = Input::Instance().GetGamePad();
-//    if (gamePad.GetButtonDown() & GamePad::BTN_A)
-//    {
-//        if (jumpCount < jumpLimit)
-//        {
-//            ++jumpCount;
-//            Jump(jumpSpeed);
-//        }
-//
-//    }
-//}
 
 //弾丸と敵の衝突処理
 void Player::CollisionProjectilesVsEnemies()
@@ -1162,38 +1130,7 @@ void Player::CollisionProjectilesVsEnemies()
                             {
                                 x4_flag = false;
                             }
-                            ////吹き飛ばす
-                            //{
-                            //    const float power = 20.0f;
-                            //    const DirectX::XMFLOAT3 e = boooss->GetPosition();
-                            //    const DirectX::XMFLOAT3 p = projectile->GetPosition();
-
-                            //    float vx = e.x - p.x;
-                            //    float vz = e.z - p.z;
-
-                            //    float lengthXZ = sqrtf(vx * vx + vz * vz);
-
-                            //    vx /= lengthXZ;
-                            //    vz /= lengthXZ;
-
-                            //    DirectX::XMFLOAT3 impulse;
-
-
-
-                            //    impulse.x = vx * power;
-                            //    impulse.y = power * 0.5f;
-                            //    impulse.z = vz * power;
-
-                            //    boooss->AddImpulse(impulse);
-                            //}
-                            //ヒットエフェクト再生
-
-                          /*  {
-                                DirectX::XMFLOAT3 e = boooss->GetPosition();
-                                e.y += boooss->GetHeight() * 0.5f;
-                                hitEffect->Play(e,50);
-                            }*/
-
+                        
                             {
                                 DirectX::XMFLOAT3 pro = projectile->GetPosition();
                                 pro.y += projectile->GetPosition().y * 0.5f;
@@ -1219,30 +1156,6 @@ bool Player::InputProjectile()
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
 
-    ////直進弾丸発射
-    //if (gamePad.GetButtonDown() & GamePad::BTN_X)
-    //{
-    //    //前方向
-    //    DirectX::XMFLOAT3 dir;
-    //   // dir.x = GetPosition().x;//sin(angle.y);
-    //   // dir.z = GetPosition().z;//cos(angle.y);
-    //    dir.x = sin(angle.y);//sin(angle.y);
-    //    dir.y = 0.0f;
-    //    dir.z = cos(angle.y);//cos(angle.y);
-
-    //    //発射位置（プレイヤーの腰当たり）
-    //    DirectX::XMFLOAT3 pos;
-    //    pos.x = position.x;
-    //    pos.y = position.y+height *0.5f;
-    //    pos.z = position.z;
-
-    //    //発射
-    //    ProjectileStraight* projectile = new ProjectileStraight(&projectileManager);
-    //    projectile->Launch(dir, pos);
-    //    return true;
-    //    
-    // //   projectileManager.Register(projectile);　弾丸クラスのコンストラクタをで呼び出すようになったので削除
-    //}
     //追尾弾丸処理
   //  if (gamePad.GetButtonDown() & GamePad::BTN_Y)
     if (bossFlag)
@@ -1282,12 +1195,9 @@ bool Player::InputProjectile()
                 if (d < dist)
                 {
                     dist = d;
-                    /*target = enemy->GetPosition();
-                    target.y += enemy->GetHeight() + 0.5f;*/
                     target.x = booss->GetPosition().x;
                     target.y += booss->GetHealth();
                     target.z = booss->GetPosition().z;
-                    //target = BossPosition;
                 }
             }
             //発射

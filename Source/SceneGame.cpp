@@ -63,11 +63,7 @@ void SceneGame::Initialize()
 	bb_count = 0;
 
 	aa = 0;
-	/*EnemySlime* slime = new EnemySlime;
-	slime->reset();*/
-
-	//Boss_Sinu = false;
-
+	
 	ran_flag0 = false;
 	ran_flag1 = false;
 	ran_flag2 = false;
@@ -77,7 +73,7 @@ void SceneGame::Initialize()
 	
 	Audio& audioManager = Audio::Instance();
 	game_bgm=audioManager.LoadAudioSource("Data/Audio/bgm_game.wav");
-
+	jiki_Dead = audioManager.LoadAudioSource("Data/Audio/jikiSibou.wav");
 	
 	kurogiri2 = new Effect("Data/Effect/kurogiri2.efk");
 
@@ -91,20 +87,6 @@ void SceneGame::Initialize()
 	boss_yarare_flag = false;
 	aa = 0;
 	kurogiri->Stopp();
-
-	//
-	//StageMoveFloor* stageMoveFloor = new StageMoveFloor();
-	//stageMoveFloor->SetStartPoint(DirectX::XMFLOAT3(0, 1, 3));
-	//stageMoveFloor->SetGoalPoint(DirectX::XMFLOAT3(10, 2, 3));
-	//stageMoveFloor->SetTorque(DirectX::XMFLOAT3(0, 1.0f, 0));
-	//stageManager.Register(stageMoveFloor);
-
-	//エネミー初期化	
- //    EnemyManager& enemyManager = EnemyManager::Instance();
-	///*enemyslime = new EnemySlime();
-	//enemyslime->SetPosition(DirectX::XMFLOAT3(0, 0, 5));
-	//enemyManager.Register(enemyslime);*/
-	
 
 	//カメラ初期設定
 	Graphics& graphics = Graphics::Instance();
@@ -125,18 +107,7 @@ void SceneGame::Initialize()
 	cameraController = new CameraController();
 
 	EnemyManager& enemyManager = EnemyManager::Instance();
-	//for (int i = 0; i < 5; ++i)
-	//{
-	//	
-	//		EnemySlime* slime = new EnemySlime();
-	//		slime->SetPosition(DirectX::XMFLOAT3(i * 12.0f, 0, 90));
-	//		enemyManager.Register(slime);
-
-	//		kowasenai* wasenai = new kowasenai();
-	//		wasenai->SetPosition(DirectX::XMFLOAT3(12.0f, 0, 150));
-	//		enemyManager.Register(wasenai);
-
-	//}z
+	
 	
 	Boss* boss = new Boss;
 	boss->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
@@ -165,17 +136,7 @@ void SceneGame::Finalize()
 
 	//エネミー終了化
 	EnemyManager::Instance().Clear();
-	/*if (enemyslime != nullptr)
-	{
-		delete enemyslime;
-		enemyslime = nullptr;*/
-//	}
-	//ステージ終了化
-	/*if (stage != nullptr)
-	{
-		delete stage;
-		stage = nullptr;
-	}*/
+	
 	//プレイヤー終了化
 	if (player != nullptr)
 	{
@@ -213,7 +174,7 @@ void SceneGame::Update(float elapsedTime)
 		kurogiri2->Stopp();
 		owari_timer++;
 	}
-	if (owari_timer > 120)
+	if (owari_timer > 160)
 	{
 		kurogiri2->Stopp();
 		owari = true;
@@ -224,7 +185,13 @@ void SceneGame::Update(float elapsedTime)
 		game_bgm->Stop();
 	}
 
-
+	if (player->GetHealth() <= 0)
+	{
+		if (jiki_Dead)
+		{
+			jiki_Dead->Play(true, 5);
+		}
+	}
 
 	//DirectX::XMFLOAT3 e = enemy->GetPosition();
 	//e.y += enemy->GetHeight() * 0.5f;
@@ -248,41 +215,25 @@ void SceneGame::Update(float elapsedTime)
 				}
 				if (enemyType == 1 && ran_flag0)
 				{
-
 					EnemySlime* slime = new EnemySlime;
 					slime->SetType(0);
-
 					slime->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
 					enemyManager.Register(slime);
-
-
 				}
-				else if (enemyType == 2 && ran_flag0)/* if (enemyType == 2 && ran_flag0)*/
+				else if (enemyType == 2 && ran_flag0)
 				{
 					kowasenai* wasenai = new kowasenai;
 					wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
 					enemyManager.Register(wasenai);
-
-
-
-					
 				}
 				else if (enemyType == 3 && ran_flag0)
 				{
 					kowasenai* wasenai = new kowasenai;
 					wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-			
 					enemyManager.Register(wasenai);
-
-
-					//	kowasenai* wasenai = new kowasenai;
-					////	wasenai->SetType(0);
-					//	wasenai->SetPosition(DirectX::XMFLOAT3(0, 0, 90));
-					//	enemyManager.Register(wasenai);
 				}
 				ran_flag0 = false;
 				timer0 = 0;
-
 			}
 
 			//1レーンの敵処理
@@ -301,7 +252,7 @@ void SceneGame::Update(float elapsedTime)
 						slime->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
 						enemyManager.Register(slime);
 					}
-					else if (enemyType == 2 && ran_flag1)/* if (enemyType == 2 && ran_flag0)*/
+					else if (enemyType == 2 && ran_flag1)
 					{
 						kowasenai* wasenai = new kowasenai;
 						wasenai->SetPosition(DirectX::XMFLOAT3(12, 0, 90));
@@ -315,7 +266,6 @@ void SceneGame::Update(float elapsedTime)
 					}
 					ran_flag1 = false;
 					timer1 = 0;
-
 				}
 			}
 			//2レーンの敵処理
@@ -334,7 +284,7 @@ void SceneGame::Update(float elapsedTime)
 						slime->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
 						enemyManager.Register(slime);
 					}
-					else if (enemyType == 2 && ran_flag2)/* if (enemyType == 2 && ran_flag0)*/
+					else if (enemyType == 2 && ran_flag2)
 					{
 						kowasenai* wasenai = new kowasenai;
 						wasenai->SetPosition(DirectX::XMFLOAT3(24, 0, 90));
@@ -367,7 +317,7 @@ void SceneGame::Update(float elapsedTime)
 
 						enemyManager.Register(slime);
 					}
-					else if (enemyType == 2 && ran_flag3)/* if (enemyType == 2 && ran_flag0)*/
+					else if (enemyType == 2 && ran_flag3)
 					{
 						kowasenai* wasenai = new kowasenai;
 						wasenai->SetPosition(DirectX::XMFLOAT3(36, 0, 90));
@@ -399,7 +349,7 @@ void SceneGame::Update(float elapsedTime)
 						slime->SetPosition(DirectX::XMFLOAT3(48, 0, 90));
 						enemyManager.Register(slime);
 					}
-					else if (enemyType == 2 && ran_flag4)/* if (enemyType == 2 && ran_flag0)*/
+					else if (enemyType == 2 && ran_flag4)
 					{
 						kowasenai* wasenai = new kowasenai;
 
@@ -430,14 +380,7 @@ void SceneGame::Update(float elapsedTime)
 		}
 	timer1++;
 	game_timre++;
-	//{
-	//	ramdam0 = rand() % 4;
-	//	
-	//	if (timer0 >= 500 && rand() % 240 == 0)
-	//	{
-
-	//		EnemyManager& enemyManager = EnemyManager::Instance();
-
+	
 	//カメラコントローラ更新処理
 	DirectX::XMFLOAT3 target = player->GetPosition();
 	target.y += 0.5f;
@@ -445,15 +388,15 @@ void SceneGame::Update(float elapsedTime)
 	cameraController->Update(elapsedTime);
 
 	//ステージ更新処理
-//	stage->Update(elapsedTime);
+
 	StageManager::Instance().Update(elapsedTime);
 	//プレイヤー更新処理
 	player->Update(elapsedTime);
 	
 	//エフェクト更新処理
 	EffectManager::Instance().Update(elapsedTime);
-				//エネミーの更新処理
-				EnemyManager::Instance().Update(elapsedTime);
+	//エネミーの更新処理
+	EnemyManager::Instance().Update(elapsedTime);
 }
 
 // 描画処理
@@ -470,7 +413,6 @@ void SceneGame::Render()
 	dc->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	dc->OMSetRenderTargets(1, &rtv, dsv);
 
-
 	// 描画処理
 	RenderContext rc;
 	rc.lightDirection = { 0.0f, -1.0f, 0.0f, 0.0f };	// ライト方向（下方向）
@@ -480,37 +422,14 @@ void SceneGame::Render()
 	rc.view = camera.GetView();
 	rc.projection = camera.GetProjection();
 
-	//// ビュー行列
-	//{
-	//	DirectX::XMFLOAT3 eye = { 0, 10, -10 };	// カメラの視点（位置）
-	//	DirectX::XMFLOAT3 focus = { 0, 0, 0 };	// カメラの注視点（ターゲット）
-	//	DirectX::XMFLOAT3 up = { 0, 1, 0 };		// カメラの上方向
-
-	//	DirectX::XMVECTOR Eye = DirectX::XMLoadFloat3(&eye);
-	//	DirectX::XMVECTOR Focus = DirectX::XMLoadFloat3(&focus);
-	//	DirectX::XMbVECTOR Up = DirectX::XMLoadFloat3(&up);
-	//	DirectX::XMMATRIX View = DirectX::XMMatrixLookAtLH(Eye, Focus, Up);
-	//	DirectX::XMStoreFloat4x4(&rc.view, View);
-	//}
-	//// プロジェクション行列
-	//{
-	//	float fovY = DirectX::XMConvertToRadians(45);	// 視野角
-	//	float aspectRatio = graphics.GetScreenWidth() / graphics.GetScreenHeight();	// 画面縦横比率
-	//	float nearZ = 0.1f;	// カメラが映し出すの最近距離
-	//	float farZ = 1000.0f;	// カメラが映し出すの最遠距離
-	//	DirectX::XMMATRIX Projection = DirectX::XMMatrixPerspectiveFovLH(fovY, aspectRatio, nearZ, farZ);
-	//	DirectX::XMStoreFloat4x4(&rc.projection, Projection);
-	//}
-
 	// 3Dモデル描画
 	{
 		Shader* shader = graphics.GetShader();
 		shader->Begin(dc, rc);
 		//ステージ描画
-	//	stage->Render(dc, shader);
 		StageManager::Instance().Render(dc, shader);
 		//エネミー描画
-			EnemyManager::Instance().Render(dc, shader);
+		EnemyManager::Instance().Render(dc, shader);
 
 		//プレイヤー描画
 		player->Render(dc, shader);
@@ -568,6 +487,7 @@ void SceneGame::Render()
 	//{
 		if (owari)
 		{
+			jiki_Dead->Stop();
 			SceneManager::Instance().ChangeScene(new SceneResult);
 		}
 	
@@ -578,8 +498,6 @@ void SceneGame::Render()
 		Scoree = aa;
 		SceneManager::Instance().ChangeScene(new SceneSuccess);
 	}
-	
-	//TextOut(HDC(), 100, 100, LPCWSTR("score"), 5);
 }
 
 //エネミーHPゲージ描
@@ -596,8 +514,7 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 	//全ての敵の頭上にHPゲージを表示
 	EnemyManager& enemyManager = EnemyManager::Instance();
 	int bossCount = enemyManager.GetbossCount();
-	/*for (int i = 0; i < bossCount; ++i)
-	{*/
+
 		boss* boss = enemyManager.Getboss(0);
 
 		DirectX::XMFLOAT3 worldPosition = boss->GetPosition();
@@ -649,61 +566,4 @@ void SceneGame::RenderEnemyGauge(ID3D11DeviceContext* dc, const DirectX::XMFLOAT
 			0.0f,
 			1.0f, 0.0f, 0.0f, 1.0f
 		);	
-	//
-	//
-	//
-	//	////エネミーの配置処理
-	//	//Mouse& mouse = Input::Instance().GetMouse();
-	//	//if (mouse.GetButtonDown() & Mouse::BTN_LEFT)
-	//	//{
-	//	//	//マウスカーソル座標を取得
-	//	//	DirectX::XMFLOAT3 screenPosition;
-	//	//	screenPosition.x = static_cast<float>(mouse.GetPositionX());
-	//	//	screenPosition.y = static_cast<float>(mouse.GetPositionY());
-	//	//	DirectX::XMVECTOR ScreenPosition, WorldPosition;
-	//	//	//レイの始点を算出
-	//	//	screenPosition.z = 0.0f;
-	//	//	ScreenPosition = DirectX::XMLoadFloat3(&screenPosition);
-	//	//	WorldPosition = DirectX::XMVector3Unproject(
-	//	//		ScreenPosition,
-	//	//		viewport.TopLeftX,
-	//	//		viewport.TopLeftY,
-	//	//		viewport.Width,
-	//	//		viewport.Height,
-	//	//		viewport.MinDepth,
-	//	//		viewport.MaxDepth,
-	//	//		Projection,
-	//	//		View,
-	//	//		World
-	//	//	);
-	//	//	DirectX::XMFLOAT3 rayStart;
-	//	//	DirectX::XMStoreFloat3(&rayStart, WorldPosition);
-	//	//	//レイの終点を算出
-	//	//	screenPosition.z = 1.0f;
-	//	//	ScreenPosition = DirectX::XMLoadFloat3(&screenPosition);
-	//	//	WorldPosition = DirectX::XMVector3Unproject(
-	//	//		ScreenPosition,
-	//	//		viewport.TopLeftX,
-	//	//		viewport.TopLeftY,
-	//	//		viewport.Width,
-	//	//		viewport.Height,
-	//	//		viewport.MinDepth,
-	//	//		viewport.MaxDepth,
-	//	//		Projection,
-	//	//		View,
-	//	//		World
-	//	//	);
-	//	//	DirectX::XMFLOAT3 rayEnd;
-	//	//	DirectX::XMStoreFloat3(&rayEnd, WorldPosition);
-	//	//	//レイキャスト
-	//	//	HitResult hit;
-	//	//	if (StageManager::Instance().RayCast(rayStart, rayEnd, hit))
-	//	//	{
-	//	//		//敵を配置
-	//	//		EnemySlime* slime = new EnemySlime();
-	//	//		slime->SetPosition(hit.position);
-	//	//		EnemyManager::Instance().Register(slime);
-	//	//	}
-	//	//}
-	//}
 }

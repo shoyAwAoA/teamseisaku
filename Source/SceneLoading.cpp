@@ -36,18 +36,12 @@ void SceneLoading::Finalize()
 void SceneLoading::Update(float elapsedTime)
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
-   /* constexpr float speed = 180;
-    angle += speed * elapsedTime;*/
+   
     const GamePadButton GetGameStart =
         GamePad::GamePad::BTN_B;;
     
     //次のシーンの準備が完了したらシーンを切り替える
-    /*if (nextScene->IsReady())
-    {
-        SceneManager::Instance().ChangeScene(nextScene);
-        nextScene = nullptr;
-    }*/
-//    && nextScene->IsReady()
+  
     if (gamePad.GetButton() & GetGameStart)
     {
 
