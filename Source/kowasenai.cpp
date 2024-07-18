@@ -5,8 +5,9 @@ extern bool Bosss;
 //コンストラクタ
 kowasenai::kowasenai()
 {
-    model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
-    scale.x = scale.y = scale.z = 0.1f;
+    model = new Model("Data/Model/kowasenai/shougai.mdl");
+    scale.x = scale.y = scale.z = 3.0f;
+    angle.y = DirectX::XMConvertToRadians(180);
 
     radius = 5.0f;
     height = 5.0f;

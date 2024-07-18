@@ -26,6 +26,7 @@ bool ran_flag4;
 
 bool owari = false;
 int owari_timer = 0;
+int bb_count;
 //char              score[100] = "score";
 extern int count;
 
@@ -56,6 +57,9 @@ void SceneGame::Initialize()
 	owari = false;
 	Bosss = false;
 	owari_timer = 0;
+	bb_count = 0;
+
+	aa = 0;
 	/*EnemySlime* slime = new EnemySlime;
 	slime->reset();*/
 

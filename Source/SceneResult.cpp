@@ -6,7 +6,6 @@
 #include"Input/Input.h"
 #include"Audio/Audio.h"
 
-
 void SceneResult::Initialize()
 {
     //スプライト初期化
@@ -53,6 +52,10 @@ void SceneResult::Update(float elapsedTime)
     {
         result_bgm->Stop();
         SceneManager::Instance().ChangeScene(new SceneTitle);
+    }
+    if (result_bgm)
+    {
+        result_bgm->Play(true, 1);
     }
 
 }
