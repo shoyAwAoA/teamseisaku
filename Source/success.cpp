@@ -13,14 +13,14 @@ void SceneSuccess::Initialize()
     Score = new Sprite("Data/Font/font1.png");
     Audio& audiomanager = Audio::Instance();
     kati_bgm = audiomanager.LoadAudioSource("Data/Audio/kati.wav");
-    pos0 = 12;
+    pos0 = 73;
     pos1 = 235;
-    pos2 = 738;
-    pos3 = 247;
-    pos4 = 878;
-    pos5 = 385;
-    pos6 = -8;
-    pos7 = 493;
+    pos2 =75;
+    pos3 = 439;
+    pos4 = 1422;
+    pos5 = 425;
+    pos6 = 1393;
+    pos7 = 875;
 }
 
 void SceneSuccess::Finalize()
@@ -97,31 +97,31 @@ void SceneSuccess::Render()
 
 
 
-        Score->textout(dc, "TIME", pos0, pos1, 120, 120, 1, 0, 1, 1);
+        Score->textout(dc, "TIME", pos0, pos1, 170, 170, 1, 0, 1, 1);
 
-        Score->textout(dc, "SCORE", pos6, pos7, 80, 80, 1, 0, 1, 1);
+        Score->textout(dc, "SCORE", pos6, pos7, 100, 100, 1, 0, 1, 1);
 
-        Score->textout(dc, timer, pos2, pos3, 100, 100, 1, 0, 1, 1);
+        Score->textout(dc, timer, pos2, pos3, 130, 130, 1, 0, 1, 1);
 
         if (time < 5001)
         {
-            Score->textout(dc, "S", pos4, pos5, 300, 300, 1, 0, 1, 1);
+            Score->textout(dc, "S", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
         else if (time > 5000 && time < 7001)
         {
-            Score->textout(dc, "A", pos4, pos5, 300, 300, 1, 0, 1, 1);
+            Score->textout(dc, "A", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
         else if (time > 7000 && time < 9001)
         {
-            Score->textout(dc, "B", pos4, pos5, 300, 300, 1, 0, 1, 1);
+            Score->textout(dc, "B", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
         else if (time > 7000 && time < 11001)
         {
-            Score->textout(dc, "C", pos4, pos5, 300, 300, 1, 0, 1, 1);
+            Score->textout(dc, "C", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
         else if (time > 11000 )
         {
-            Score->textout(dc, "^^", pos4, pos5, 300, 300, 1, 0, 1, 1);
+            Score->textout(dc, "^^", pos4, pos5, 450, 450, 1, 0, 1, 1);
         }
     }
     if (ImGui::Begin("Boss", nullptr, ImGuiTreeNodeFlags_DefaultOpen))
